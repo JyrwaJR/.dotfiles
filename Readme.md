@@ -8,8 +8,8 @@ Ensure your dotfiles are organized as follows:
 
 ```
 ~\.dotfiles\
-  ├── wezterm\
-  │   └── wezterm.lua
+  ├── .wezterm\
+  │   └── .wezterm.lua
   └── bash\
       └── .bashrc
 ```
@@ -30,7 +30,7 @@ To create symbolic links, follow these steps:
 1. **Create the Symlink:**
 
    ```cmd
-   mklink "C:\Users\<YourUsername>\wezterm.lua" "C:\Users\<YourUsername>\.dotfiles\wezterm\wezterm.lua"
+   mklink "C:\Users\<YourUsername>\.wezterm.lua" "C:\Users\<YourUsername>\.dotfiles\.wezterm\wezterm.lua"
    ```
 
 **For `.bashrc`:**
@@ -50,7 +50,7 @@ To ensure that the symlinks were created successfully:
 2. **Use Command Prompt or PowerShell:**
 
    ```powershell
-   Get-Item "C:\Users\<YourUsername>\wezterm.lua"
+   Get-Item "C:\Users\<YourUsername>\.wezterm.lua"
    Get-Item "C:\Users\<YourUsername>\.bashrc"
    ```
 
