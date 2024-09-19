@@ -1,58 +1,57 @@
-# Update Your Configuration Files
+# Dotfiles Symlink Setup
 
-### **For Bash Configuration:**
+This document provides instructions for creating symbolic links for `wezterm.lua` and `.bashrc` on Windows. This setup centralizes configuration management by linking these files from a `~/.dotfiles` directory.
 
-1. **Modify `.bashrc` to Source External File:**
+### Directory Structure
 
-   Open your `.bashrc` file in a text editor:
+Ensure your dotfiles are organized as follows:
 
-   ```bash
-   nano ~/.bashrc
+```
+~\.dotfiles\
+  ├── wezterm\
+  │   └── wezterm.lua
+  └── bash\
+      └── .bashrc
+```
+
+### Creating Symlinks
+
+To create symbolic links, follow these steps:
+
+#### **1. Open Command Prompt or PowerShell as Administrator**
+
+- Search for `cmd` or `powershell` in the Start menu.
+- Right-click and choose "Run as administrator."
+
+#### **2. Create Symlinks**
+
+**For `wezterm.lua`:**
+
+1. **Create the Symlink:**
+
+   ```cmd
+   mklink "C:\Users\<YourUsername>\wezterm.lua" "C:\Users\<YourUsername>\.dotfiles\wezterm\wezterm.lua"
    ```
 
-   Add the following lines to source the external Bash aliases and functions:
+**For `.bashrc`:**
 
-   ```bash
-   # Source external bash aliases and functions from .dotfiles
-   if [ -f "$HOME/.dotfiles/.bash_aliases" ]; then
-     source "$HOME/.dotfiles/.bash_aliases"
-   fi
+1. **Create the Symlink:**
+
+   ```cmd
+   mklink "C:\Users\<YourUsername>\.bashrc" "C:\Users\<YourUsername>\.dotfiles\bash\.bashrc"
    ```
 
-2. **Apply Changes:**
+### Verifying Symlinks
 
-   Reload your `.bashrc` to apply the changes:
+To ensure that the symlinks were created successfully:
 
-   ```bash
-   source ~/.bashrc
+1. **Use File Explorer**: Navigate to the symlinked files and verify that they point to the correct locations.
+
+2. **Use Command Prompt or PowerShell:**
+
+   ```powershell
+   Get-Item "C:\Users\<YourUsername>\wezterm.lua"
+   Get-Item "C:\Users\<YourUsername>\.bashrc"
    ```
 
----
-
-### **For WezTerm Configuration:**
-
-1. **Modify WezTerm Configuration File to Source External File:**
-
-   Open your main WezTerm configuration file (`~/.wezterm.lua`) in a text editor:
-
-   ```bash
-   nano ~/.wezterm.lua
-   ```
-
-   Add the following code to load the external WezTerm configuration:
-
-   ```lua
-   -- Pull in the wezterm API
-   local wezterm = require("wezterm")
-
-   -- Load the external config from the absolute path
-   return dofile("C:/Users/shuke/.dotfiles/.wezterm.lua")
-   ```
-
-2. **Apply Changes:**
-
-   Restart WezTerm to apply the new configuration.
-
----
-
-This section assumes you have already created the external configuration files as specified. Let me know if you need any more details!
+   The output should show that these items are symbolic links pointing to your dotfiles directory.
