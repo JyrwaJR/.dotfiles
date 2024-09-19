@@ -1,6 +1,4 @@
----
-
-## Step 3: Update Your Configuration Files
+# Update Your Configuration Files
 
 ### **For Bash Configuration:**
 
