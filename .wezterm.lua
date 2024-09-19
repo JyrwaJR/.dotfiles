@@ -4,7 +4,6 @@ config.colors = {
 	foreground = "#CBE0F0",
 	background = "#011423",
 	cursor_bg = "#47FF9C",
-	split = "#47FF9C",
 	cursor_border = "#47FF9C",
 	cursor_fg = "#011423",
 	selection_bg = "#033259",
@@ -17,10 +16,10 @@ config.font_size = 14
 config.enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 1
+config.window_background_opacity = 0.75
 config.hide_mouse_cursor_when_typing = true
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
-
+config.macos_window_background_blur = 10
 config.keys = {
 	{
 		key = "H",
