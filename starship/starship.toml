@@ -1,0 +1,122 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$fill\
+$python\
+$lua\
+$nodejs\
+$golang\
+$haskell\
+$rust\
+$ruby\
+$aws\
+$docker_context\
+$jobs\
+$cmd_duration\
+$line_break\
+$character"""
+
+add_newline = true
+palette = "custom_palette"
+
+[battery]
+format = "[$symbol$percentage]($style) "
+[[battery.display]]
+threshold = 50
+style = "bold green"
+[[battery.display]]
+threshold = 100
+style = "white"
+
+[directory]
+style = 'bold fg:custom_blue'
+format = '[$path ]($style)'
+truncation_length = 3
+truncation_symbol = '~/'
+truncate_to_repo =false 
+
+[git_branch]
+style = 'fg:green'
+symbol = ' '
+format = '[on](white) [$symbol$branch ]($style)'
+
+[git_status]
+style = 'fg:red'
+format = '([$all_status$ahead_behind]($style))'
+
+[fill]
+symbol = ' '
+
+[python]
+style = 'teal'
+symbol = ' '
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+pyenv_version_name = true
+pyenv_prefix = ''
+
+[lua]
+style = 'blue'
+format = '[$symbol($version )]($style)'
+symbol = ' '
+
+[nodejs]
+style = 'green'
+symbol = ' '
+
+[golang]
+style = 'blue'
+symbol = ' '
+
+[haskell]
+style = 'blue'
+symbol = ' '
+
+[rust]
+style = 'orange'
+symbol = ' '
+
+[ruby]
+style = 'blue'
+symbol = ' '
+
+[package]
+symbol = '󰏗 '
+
+[aws]
+symbol = ' '
+style = 'yellow'
+format = '[$symbol($profile )(\[$duration\] )]($style)'
+
+[docker_context]
+symbol = ' '
+style = 'fg:#06969A'
+format = '[$symbol]($style) $path'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+detect_extensions = ['Dockerfile']
+
+[jobs]
+symbol = ' '
+style = 'red'
+number_threshold = 1
+format = '[$symbol]($style)'
+
+[cmd_duration]
+min_time = 500
+style = 'fg:custom_foreground'
+format = '[$duration]($style)'
+
+# Custom Palette
+[palettes.custom_palette]
+custom_dark_blue = '#214969'      # Matches the first color from the ansi array
+custom_blue = '#0FC5ED'           # From the ansi array
+custom_red = '#E52E2E'            # From the ansi array
+custom_green = '#44FFB1'          # From the ansi array
+custom_teal = '#24EAF7'           # Custom teal color
+custom_orange = '#BE5046'         # You can map the cursor color or adjust
+custom_yellow = '#FFE073'         # From the ansi array
+custom_purple = '#A277FF'         # From the brights array
+custom_gray = '#828997'           # Custom gray
+custom_foreground = '#CBE0F0'     # Foreground color from config
+custom_background = '#011423'     # Background color from config
+custom_cursor = '#47FF9C'         # Cursor color
