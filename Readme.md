@@ -1,5 +1,3 @@
-Here's the simplified README section focusing only on **Step 3** for both Bash and WezTerm configurations:
-
 ---
 
 ## Step 3: Update Your Configuration Files
