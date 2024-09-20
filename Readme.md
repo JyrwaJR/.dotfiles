@@ -62,6 +62,8 @@ This requires the commands git, make (GNU make), and gawk (GNU awk)†3. In the 
 
 # TRIAL without installation
 
-git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-make -C ble.sh
-source ble.sh/out/ble.sh
+```bash
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
+    make -C ble.sh
+    source ble.sh/out/ble.sh
+```
