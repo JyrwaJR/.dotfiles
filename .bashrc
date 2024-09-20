@@ -10,7 +10,8 @@ alias ls="eza --icons=always -1 --group-directories-first --git-ignore --sort=na
 # Initialize Zoxide (a smarter cd command)
 eval "$(zoxide init bash)"
 alias cd="z"
-
+# Add tab completion for 'z'
+bind 'TAB:menu-complete'
 # Ensure Neovim uses the correct configuration
 export XDG_CONFIG_HOME="$HOME/.dotfiles"
 
