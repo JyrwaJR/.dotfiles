@@ -55,15 +55,3 @@ To ensure that the symlinks were created successfully:
    ```
 
    The output should show that these items are symbolic links pointing to your dotfiles directory.
-
-# Auto Complete For Bash
-
-This requires the commands git, make (GNU make), and gawk (GNU awk)†3. In the following, please replace make with gmake if your system provides GNU make as gmake (such as in BSD).
-
-# TRIAL without installation
-
-```bash
-    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
-    make -C ble.sh
-    source ble.sh/out/ble.sh
-```
