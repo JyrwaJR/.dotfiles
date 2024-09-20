@@ -10,13 +10,6 @@ config.colors = {
 	selection_fg = "#CBE0F0",
 	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
 	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
-	-- Add or update this part to change autocomplete popup colors
-	popup_menu = {
-		background = "#011423", -- Background color of the autocomplete
-		foreground = "#CBE0F0", -- Text color of the autocomplete
-		selected_bg = "#033259", -- Background color of the selected item
-		selected_fg = "#CBE0F0", -- Text color of the selected item
-	},
 }
 config.font_size = 14
 config.enable_tab_bar = false
