@@ -30,7 +30,7 @@ To create symbolic links, follow these steps:
 1. **Create the Symlink:**
 
    ```cmd
-   mklink "C:\Users\<YourUsername>\.wezterm.lua" "C:\Users\<YourUsername>\.dotfiles\.wezterm\wezterm.lua"
+   mklink "C:\Users\<YourUsername>\.wezterm.lua" "C:\Users\<YourUsername>\.dotfiles\.wezterm.lua"
    ```
 
 **For `.bashrc`:**
@@ -38,7 +38,7 @@ To create symbolic links, follow these steps:
 1. **Create the Symlink:**
 
    ```cmd
-   mklink "C:\Users\<YourUsername>\.bashrc" "C:\Users\<YourUsername>\.dotfiles\bash\.bashrc"
+   mklink "C:\Users\<YourUsername>\.bashrc" "C:\Users\<YourUsername>\.dotfiles\.bashrc"
    ```
 
 ### Verifying Symlinks
