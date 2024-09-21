@@ -29,4 +29,3 @@ fzf_nvim() {
 
 alias fdn="fzf_nvim"
 
-source ~/.local/share/blesh/ble.sh
