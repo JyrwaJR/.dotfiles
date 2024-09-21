@@ -6,12 +6,10 @@ This document provides instructions for creating symbolic links for `wezterm.lua
 
 Ensure your dotfiles are organized as follows:
 
-```
+```bash
 ~\.dotfiles\
-  ├── .wezterm\
-  │   └── .wezterm.lua
-  └── bash\
-      └── .bashrc
+  ├── .wezterm.lua
+  └── .bashrc
 ```
 
 ### Creating Symlinks
