@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Notes/1727067579-FWTB.md",
+                "file": "Projects/MERN-Stack/1727091136-BBJO.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Notes/1727067579-FWTB.md",
+                "file": "Projects/MERN-Stack/1727091136-BBJO.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Notes/1727067579-FWTB.md",
+                "file": "Projects/MERN-Stack/1727091136-BBJO.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Notes/1727067579-FWTB.md"
+                "file": "Projects/MERN-Stack/1727091136-BBJO.md"
               }
             }
           }
@@ -148,11 +148,16 @@
   },
   "active": "041445a980155a97",
   "lastOpenFiles": [
+    "Projects/MERN-Stack/1727091136-BBJO.md~",
+    "dailies/2024-09-18.md",
+    "Projects/MERN-Stack/1727091136-BBJO.md",
+    "Projects/MERN-Stack/Mern.md",
+    "Projects/MERN-Stack",
+    "Projects",
     "dailies/2024-09-18.md~",
+    "Notes/1727067579-FWTB.md",
     "Notes/1727067579-FWTB.md~",
     "Notes/Test.md",
-    "Notes/1727067579-FWTB.md",
-    "dailies/2024-09-18.md",
     "dailies"
   ]
 }

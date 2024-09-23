@@ -27,10 +27,6 @@ return {
       ui = {
         mini = true,
       },
-      -- The directory in which the daily notes will be stored
-      daily_notes = {
-        folder = "dailies",
-      },
     })
   end,
 }
