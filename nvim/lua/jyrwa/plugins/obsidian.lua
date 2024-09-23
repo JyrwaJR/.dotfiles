@@ -21,7 +21,7 @@ return {
       workspaces = {
         {
           name = "Notes",
-          path = "/Users/shuke/.dotfiles/Obsidian/Notes",
+          path = "~/Users/shuke/.dotfiles/Obsidian/Notes",
         },
       },
       ui = {
