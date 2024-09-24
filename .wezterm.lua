@@ -13,10 +13,11 @@ config.colors = {
 }
 
 config.font = wezterm.font("Recursive Mn Csl St")
+config.font_size = 14
 config.enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.75
+config.window_background_opacity = 0.8
 config.hide_mouse_cursor_when_typing = true
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
 config.macos_window_background_blur = 10
