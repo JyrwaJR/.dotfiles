@@ -21,6 +21,7 @@ config.window_background_opacity = 0.8
 config.hide_mouse_cursor_when_typing = true
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
 config.macos_window_background_blur = 10
+config.default_cursor_style = "SteadyBlock" -- SteadyBlock, BlinkingBlock, SteadyUnderline, BlinkingUnderline, SteadyBar, and BlinkingBar
 config.keys = {
 	{
 		key = "H",
@@ -34,7 +35,7 @@ config.keys = {
 	},
 	{
 		key = "|",
-		mods = "CTRL|SHIFT|ALT",
+		mods = "CTRL|SHIFT",
 		action = wezterm.action.SplitPane({
 			direction = "Right",
 			size = { Percent = 50 },
