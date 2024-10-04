@@ -21,7 +21,12 @@ config.window_background_opacity = 0.8
 config.hide_mouse_cursor_when_typing = true
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
 config.macos_window_background_blur = 10
-config.default_cursor_style = "SteadyBlock" -- SteadyBlock, BlinkingBlock, SteadyUnderline, BlinkingUnderline, SteadyBar, and BlinkingBar
+config.window_close_confirmation = "NeverPrompt"
+config.front_end = "OpenGL"
+config.detect_password_input = true
+config.check_for_updates = true
+config.check_for_updates_interval_seconds = 86400
+config.automatically_reload_config = true
 config.keys = {
 	{
 		key = "H",
