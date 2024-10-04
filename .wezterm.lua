@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
+
 config.colors = {
 	foreground = "#CBE0F0",
 	background = "#011423",
@@ -17,24 +18,17 @@ config.font_size = 14
 config.enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.65
 config.hide_mouse_cursor_when_typing = true
 config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
 config.macos_window_background_blur = 10
 config.window_close_confirmation = "NeverPrompt"
-config.front_end = "OpenGL"
+-- config.front_end = "OpenGL"
 config.detect_password_input = true
-config.check_for_updates = true
-config.check_for_updates_interval_seconds = 86400
-config.automatically_reload_config = true
+
 config.keys = {
 	{
-		key = "H",
-		mods = "CTRL|SHIFT|ALT",
-		action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
-	},
-	{
-		key = "V",
+		key = "|",
 		mods = "CTRL|SHIFT|ALT",
 		action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
 	},
@@ -53,24 +47,26 @@ config.keys = {
 			SpawnCommandInNewTab = { args = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" } },
 		}),
 	},
+	-- Key bindings for pane navigation like nvim
 	{
-		key = "C",
+		key = "H",
 		mods = "CTRL|SHIFT",
-		action = wezterm.action({
-			SpawnCommandInNewTab = { args = { "C:\\Windows\\System32\\cmd.exe" } },
-		}),
+		action = wezterm.action.ActivatePaneDirection("Left"),
 	},
 	{
-		key = "P",
+		key = "J",
 		mods = "CTRL|SHIFT",
-		action = wezterm.action({
-			SpawnCommandInNewTab = { args = { "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" } },
-		}),
+		action = wezterm.action.ActivatePaneDirection("Down"),
 	},
 	{
-		key = "]",
-		mods = "CMD|SHIFT",
-		action = wezterm.action.ToggleAlwaysOnTop,
+		key = "K",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.ActivatePaneDirection("Up"),
+	},
+	{
+		key = "L",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.ActivatePaneDirection("Right"),
 	},
 }
 
