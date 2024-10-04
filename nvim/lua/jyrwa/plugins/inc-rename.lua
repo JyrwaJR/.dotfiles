@@ -15,10 +15,5 @@ return {
       -- The type of the external input buffer to use (the only supported value is currently "dressing")
       input_buffer_type = nil,
     })
-
-    -- Keymap to start incremental renaming with the current word under the cursor
-    vim.keymap.set("n", "<leader>rn", function()
-      return ":IncRename " .. vim.fn.expand("<cword>")
-    end, { expr = true, noremap = true, silent = true })
   end,
 }
