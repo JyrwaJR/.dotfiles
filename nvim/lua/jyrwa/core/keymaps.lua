@@ -33,13 +33,16 @@ keymap.set("n", "<leader>fgC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzz
 keymap.set("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", { desc = "Fuzzy find commit" })
 keymap.set("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
 keymap.set("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
+-- Obsidian
+keymap.set("n", "<leader>of", "<cmd>Telescope obsidian find_notes<cr>", { desc = "Find Obsidian notes" })
+keymap.set("n", "<leader>ol", "<cmd>Telescope obsidian backlinks<cr>", { desc = "View backlinks for current note" })
+keymap.set("n", "<leader>os", "<cmd>Telescope obsidian search<cr>", { desc = "Search notes content" })
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
 keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
 keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" }) -- save workspace session for current working directory
--- INC Rename
-keymap.set("n", "<leader>rn", "<cmd>IncRename<CR>", { desc = "Inc Rename" })
-
+-- -- INC Rename
+-- keymap.set("n", "<leader>rn", "<cmd>IncRename<CR>", { desc = "Inc Rename" })
 -- LazyGit
 keymap.set("n", "<leader>lg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
 -- Nvim Tree
@@ -61,4 +64,14 @@ keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Toggl
 keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle Todos in Trouble" })
 -- Vim Maximizer
 keymap.set("n", "<leader>sm", "<cmd>MaximizerToggle<cr>", { desc = "Toggle Maximizer" })
--- lsp
+
+-- Obsidian
+keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })
+keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "Open New Note" })
+keymap.set("n", "<leader>osw", "<cmd>ObsidianWorkspace<cr>", { desc = "Open Switch Workspace" })
+keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backlinks from current note" })
+keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
+keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
+keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
+-- Symbols Outline
+keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Symbols Outline" })
