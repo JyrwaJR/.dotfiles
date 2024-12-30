@@ -21,10 +21,12 @@ return {
       {
         name = "personal",
         path = "~/obsidian-note/",
+        templates = "~/obsidian-note/templates",
       },
       {
         name = "work",
         path = "~/obsidian-note/Work/",
+        templates = "~/obsidian-note/templates",
       },
     },
   },
