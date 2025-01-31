@@ -24,8 +24,6 @@ return {
       ensure_installed = {
         "javascript",
         "typescript",
-        "jsx",
-        "tsx",
         "yaml",
         "html",
         "css",
