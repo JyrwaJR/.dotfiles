@@ -8,6 +8,7 @@ return {
   config = function()
     require("lspsaga").setup({
       lightbulb = { enable = false },
+      breadcrumbs = { enable = false },
     })
   end,
 }
