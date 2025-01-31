@@ -20,13 +20,8 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = "~/obsidian-note/",
-        templates = "~/obsidian-note/templates",
-      },
-      {
-        name = "work",
-        path = "~/obsidian-note/Work/",
-        templates = "~/obsidian-note/templates",
+        path = vim.fn.expand("G:/My Drive/obsidian-note"), -- Replace with absolute Windows path
+        templates = vim.fn.expand("G:/My Drive/obsidian-note"), -- Replace with correct path for templates
       },
     },
   },
