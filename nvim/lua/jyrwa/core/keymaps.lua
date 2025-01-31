@@ -26,7 +26,7 @@ keymap.set("n", "<leader>cn", "<cmd>NoiceDismiss<CR>", { desc = "Close all notif
 keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
 keymap.set("n", "<leader>fo", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
 keymap.set("n", "<leader>fs", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-keymap.set("n", "<leader>fb", "<cmd>Telescope files_browser<cr>", { desc = "File Browser" })
+keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { desc = "File Browser" })
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find noice" })
@@ -76,3 +76,12 @@ keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create not
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
 -- Symbols Outline
 keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Symbols Outline" })
+---LSP Saga
+keymap.set("n", "<leader>lc", "<cmd>Lspsaga code_action<cr>", { desc = "Code Action" })
+keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", { desc = "Outline" })
+keymap.set("n", "<leader>lr", "<cmd>Lspsaga rename<cr>", { desc = "Rename Symbol" })
+keymap.set("n", "<leader>ld", "<cmd>Lspsaga goto_definition<cr>", { desc = "Go to Definition" })
+keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", { desc = "LSP Finder" })
+keymap.set("n", "<leader>lp", "<cmd>Lspsaga preview_definition<cr>", { desc = "Preview Definition" })
+keymap.set("n", "<leader>ls", "<cmd>Lspsaga signature_help<cr>", { desc = "Signature Help" })
+keymap.set("n", "<leader>lw", "<cmd>Lspsaga show_workspace_diagnostics<cr>", { desc = "Workspace Diagnostics" })
