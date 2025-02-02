@@ -24,6 +24,7 @@ return {
     })
 
     telescope.setup({
+      extensions_list = { "fzf", "noice", "lazygit", "file_browser", "todo-comments" },
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
