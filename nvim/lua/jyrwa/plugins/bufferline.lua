@@ -4,7 +4,7 @@ return {
   version = "*",
   opts = {
     options = {
-      mode = "tabs",
+      mode = "tabs", -- set to "tabs" to only show tabpages instead
     },
   },
 }

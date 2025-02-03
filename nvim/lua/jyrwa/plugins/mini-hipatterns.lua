@@ -1,5 +1,9 @@
 return {
   "echasnovski/mini.hipatterns",
   event = "BufReadPre",
-  opts = {},
+  opts = {
+    highlight = {
+      pattern = [[\k\+]],
+    },
+  },
 }
