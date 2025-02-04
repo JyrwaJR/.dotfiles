@@ -10,7 +10,7 @@ return {
 
     nvimtree.setup({
       view = {
-        width = 40,
+        width = 30,
         relativenumber = true,
       },
       -- change folder arrow icons
@@ -33,7 +33,7 @@ return {
       actions = {
         open_file = {
           window_picker = {
-            enable = false,
+            enable = true,
           },
         },
       },
