@@ -29,3 +29,10 @@ fzf_nvim() {
 
 alias fdn="fzf_nvim"
 
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+else
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+fi

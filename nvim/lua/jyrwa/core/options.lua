@@ -36,9 +36,13 @@ opt.splitbelow = true -- split horizontal window to the bottom
 opt.swapfile = false
 
 -- Get 8 line bewlow and above the coursor
-opt.scrolloff = 10
+opt.scrolloff = 15
 
--- Set the shell to use Git Bash
-vim.opt.shell = "C:\\Program Files\\Git\\bin\\bash.exe" -- Use the correct path
-vim.opt.shellcmdflag = "-c" -- Use the standard flag for bash commands
-vim.opt.conceallevel = 2
+-- Set the shell to use Git Bash (correctly handling spaces)
+opt.shell = '"C:\\Program Files\\Git\\bin\\bash.exe"' -- Properly quoted path
+opt.shellcmdflag = "-c" -- Standard flag for executing bash commands
+opt.shellquote = '"' -- Ensure commands are properly quoted
+opt.shellxquote = "" -- Prevent extra escaping issues
+
+-- Additional settings
+opt.conceallevel = 2

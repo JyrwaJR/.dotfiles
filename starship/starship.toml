@@ -1,3 +1,5 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
 $directory\
 $git_branch\
@@ -18,7 +20,13 @@ $line_break\
 $character"""
 
 add_newline = true
-palette = "custom_palette"
+palette = "catppuccin_mocha"
+
+[character]
+# Note the use of Catppuccin color 'peach'
+success_symbol = "[[󰄛](green) ❯](peach)"
+error_symbol = "[[󰄛](red) ❯](peach)"
+vimcmd_symbol = "[󰄛 ❮](subtext1)" # For use with zsh-vi-mode
 
 [battery]
 format = "[$symbol$percentage]($style) "
@@ -30,14 +38,14 @@ threshold = 100
 style = "white"
 
 [directory]
-style = 'bold fg:custom_blue'
+style = 'bold lavender'
 format = '[$path ]($style)'
-truncation_length = 3
+truncation_length = 4
 truncation_symbol = '~/'
 truncate_to_repo =true 
 
 [git_branch]
-style = 'fg:green'
+style = 'bold mauve'
 symbol = ' '
 format = '[on](white) [$symbol$branch ]($style)'
 
@@ -61,7 +69,7 @@ format = '[$symbol($version )]($style)'
 symbol = ' '
 
 [nodejs]
-style = 'green'
+style = 'bold green'
 symbol = ' '
 
 [golang]
@@ -107,16 +115,44 @@ style = 'fg:custom_foreground'
 format = '[$duration]($style)'
 
 # Custom Palette
-[palettes.custom_palette]
-custom_dark_blue = '#214969'      # Matches the first color from the ansi array
-custom_blue = '#0FC5ED'           # From the ansi array
-custom_red = '#E52E2E'            # From the ansi array
-custom_green = '#44FFB1'          # From the ansi array
-custom_teal = '#24EAF7'           # Custom teal color
-custom_orange = '#BE5046'         # You can map the cursor color or adjust
-custom_yellow = '#FFE073'         # From the ansi array
-custom_purple = '#A277FF'         # From the brights array
-custom_gray = '#828997'           # Custom gray
-custom_foreground = '#CBE0F0'     # Foreground color from config
-custom_background = '#011423'     # Background color from config
-custom_cursor = '#47FF9C'         # Cursor color
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+
+# [palettes.custom_palette]
+# custom_dark_blue = '#214969'      # Matches the first color from the ansi array
+# custom_blue = '#0FC5ED'           # From the ansi array
+# custom_red = '#E52E2E'            # From the ansi array
+# custom_green = '#44FFB1'          # From the ansi array
+# custom_teal = '#24EAF7'           # Custom teal color
+# custom_orange = '#BE5046'         # You can map the cursor color or adjust
+# custom_yellow = '#FFE073'         # From the ansi array
+# custom_purple = '#A277FF'         # From the brights array
+# custom_gray = '#828997'           # Custom gray
+# custom_foreground = '#CBE0F0'     # Foreground color from config
+# custom_background = '#011423'     # Background color from config
+# custom_cursor = '#47FF9C'         # Cursor color

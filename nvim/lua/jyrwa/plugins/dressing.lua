@@ -14,7 +14,7 @@ return {
         trim_prompt = true,
 
         -- Can be 'left', 'right', or 'center'
-        title_pos = "left",
+        title_pos = "right",
 
         -- When true, input will start in insert mode.
         start_in_insert = true,
