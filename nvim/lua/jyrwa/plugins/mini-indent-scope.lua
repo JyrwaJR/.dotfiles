@@ -1,11 +1,11 @@
 return {
   {
     "echasnovski/mini.indentscope",
-    version = false,
+    version = "*",
     event = "BufEnter",
     opts = {
-      symbol = "╎",
-      options = { try_as_border = true },
+      -- symbol = "|",
+      options = { try_as_border = true, border = "both" },
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {

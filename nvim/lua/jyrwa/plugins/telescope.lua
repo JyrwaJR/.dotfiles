@@ -28,6 +28,11 @@ return {
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
+        layout_strategy = "vertical",
+        layout_config = {
+          horizontal = { width = 0.9 },
+          vertical = { width = 0.9 },
+        },
         path_shorten = 2,
         path_display = {
           "filename_first",
@@ -41,6 +46,10 @@ return {
           },
           n = {
             ["q"] = actions.close,
+            ["J"] = actions.move_selection_next,
+            ["K"] = actions.move_selection_previous,
+            ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+            ["<C-t>"] = trouble_telescope.open,
           },
         },
       },
