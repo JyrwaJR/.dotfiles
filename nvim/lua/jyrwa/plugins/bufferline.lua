@@ -5,6 +5,11 @@ return {
   opts = {
     options = {
       mode = "tabs", -- set to "tabs" to only show tabpages instead
+      hover = {
+        enabled = true,
+        delay = 200,
+        reveal = { "close" },
+      },
     },
   },
 }
