@@ -43,10 +43,6 @@ keymap.set("n", "<leader>fgC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzz
 keymap.set("n", "<leader>fgc", "<cmd>Telescope git_commits<cr>", { desc = "Fuzzy find commit" })
 keymap.set("n", "<leader>fgs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
 keymap.set("n", "<leader>fgb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
--- Obsidian
-keymap.set("n", "<leader>of", "<cmd>Telescope obsidian find_notes<cr>", { desc = "Find Obsidian notes" })
-keymap.set("n", "<leader>ol", "<cmd>Telescope obsidian backlinks<cr>", { desc = "View backlinks for current note" })
-keymap.set("n", "<leader>os", "<cmd>Telescope obsidian search<cr>", { desc = "Search notes content" })
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
 keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
@@ -76,6 +72,9 @@ keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle T
 keymap.set("n", "<leader>sm", "<cmd>MaximizerToggle<cr>", { desc = "Toggle Maximizer" })
 
 -- Obsidian
+keymap.set("n", "<leader>of", "<cmd>Telescope obsidian find_notes<cr>", { desc = "Find Obsidian notes" })
+keymap.set("n", "<leader>ol", "<cmd>Telescope obsidian backlinks<cr>", { desc = "View backlinks for current note" })
+keymap.set("n", "<leader>os", "<cmd>Telescope obsidian search<cr>", { desc = "Search notes content" })
 keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })
 keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "Open New Note" })
 keymap.set("n", "<leader>osw", "<cmd>ObsidianWorkspace<cr>", { desc = "Open Switch Workspace" })
