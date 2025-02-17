@@ -5,12 +5,6 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   config = function()
-    -- Set ts-context-commentstring global settings BEFORE loading Comment.nvim
-    -- vim.g.ts_context_commentstring = {
-    --   enable = true,
-    --   enable_autocmd = false, -- Disable auto-update if issues occur
-    -- }
-
     -- Import Comment.nvim safely
     local comment = require("Comment")
     local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
