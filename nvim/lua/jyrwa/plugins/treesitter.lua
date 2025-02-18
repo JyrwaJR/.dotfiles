@@ -38,6 +38,8 @@ return {
         "dockerfile",
         "gitignore",
         "query",
+        "http",
+        "json",
         "vimdoc",
         "c",
       },

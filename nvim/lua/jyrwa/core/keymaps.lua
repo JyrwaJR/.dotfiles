@@ -6,8 +6,9 @@ keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 keymap.set("n", "dd", '"_dd', { noremap = true, desc = "Delete line" })
-
 keymap.set("n", "p", '"_pp', { noremap = true, desc = "paste line" })
+-- save file
+keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = false, desc = "Save file" })
 --
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
