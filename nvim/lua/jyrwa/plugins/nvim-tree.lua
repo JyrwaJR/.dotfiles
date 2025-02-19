@@ -34,7 +34,7 @@ return {
         custom = { ".DS_Store", "node_modules" },
       },
       git = {
-        ignore = true,
+        ignore = false,
       },
     })
   end,
