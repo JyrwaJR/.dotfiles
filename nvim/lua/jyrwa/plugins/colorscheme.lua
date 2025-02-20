@@ -11,7 +11,7 @@ return {
       },
       transparent_background = true, -- Modern transparent background
       show_end_of_buffer = false, -- Hide ~ at the end of the buffer
-      term_colors = true,
+      term_colors = true, -- Use terminal colors
       dim_inactive = {
         enabled = true, -- Helps focus on active window
         shade = "dark",
@@ -22,9 +22,9 @@ return {
       no_underline = true,
 
       styles = {
-        comments = { "italic" }, -- Keep comments slightly italic for readability
+        comments = { "italic", "bold" }, -- Keep comments slightly italic for readability
         conditionals = { "bold", "italic" }, -- Make conditionals more prominent
-        loops = { "bold" },
+        loops = { "bold", "italic" },
         functions = { "bold", "italic" },
         keywords = { "bold" }, -- Enhance keywords for clarity
         strings = { "italic", "bold" },
@@ -33,7 +33,9 @@ return {
         booleans = { "bold" },
         properties = {},
         types = { "bold" },
-        operators = {},
+        operators = {
+          "bold",
+        },
       },
 
       -- Override specific colors for a more vibrant experience
@@ -47,7 +49,7 @@ return {
 
       -- Custom highlights for better visibility
       custom_highlights = {
-        Comment = { fg = "#8aadf4", style = { "italic" } }, -- Light blue comments
+        --   Comment = { fg = "#8aadf4", style = { "italic" } }, -- Light blue comments
         Function = { fg = "#f5e0dc", style = { "bold" } },
         Keyword = { fg = "#cba6f7", style = { "bold" } },
         String = { fg = "#a6e3a1" },

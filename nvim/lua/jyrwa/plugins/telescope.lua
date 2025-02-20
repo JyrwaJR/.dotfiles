@@ -7,6 +7,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
+    "debugloop/telescope-undo.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -24,7 +25,7 @@ return {
     })
 
     telescope.setup({
-      extensions_list = { "fzf", "noice", "lazygit", "file_browser", "todo-comments" },
+      extensions_list = { "fzf", "noice", "undo", "lazygit", "file_browser", "todo-comments" },
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
@@ -60,5 +61,6 @@ return {
     telescope.load_extension("lazygit")
     telescope.load_extension("file_browser")
     telescope.load_extension("todo-comments")
+    telescope.load_extension("undo")
   end,
 }
