@@ -52,6 +52,7 @@ keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find n
 keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find noice" })
 
 -- Telescope Git
+keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
 keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Fuzzy find commit" })
