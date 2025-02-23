@@ -55,7 +55,6 @@ keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find no
 keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
-keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Fuzzy find commit" })
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
 keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
 keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
@@ -66,6 +65,10 @@ keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for
 keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" }) -- save workspace session for current working directory
 -- LazyGit
 keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
+keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
+keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
+keymap.set("n", "<leader>gf", "<cmd>LazyGitFilterCurrentFile<cr>", { desc = "Filter lazy git for current file" })
+keymap.set("n", "<leader>gF", "<cmd>LazyGitFilter<cr>", { desc = "Filter lazy git" })
 -- Nvim Tree
 keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
 keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
