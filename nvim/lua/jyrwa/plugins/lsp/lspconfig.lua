@@ -87,14 +87,14 @@ return {
           capabilities = capabilities,
         })
       end,
-      ["tsserver"] = function()
+      ["ts_ls"] = function()
         -- configure tsserver for JavaScript, TypeScript, and React (JSX/TSX) support
-        lspconfig.tsserver.setup({
+        lspconfig.ts_ls.setup({
           capabilities = capabilities,
           filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" }, -- Enable for React and TS/JS
           root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"), -- Ensure Next.js and Node.js
           on_attach = function(client, bufnr)
-            -- Disable tsserver formatting, since we'll rely on another formatter like null-ls or prettier
+            -- Disable ts_ls formatting, since we'll rely on another formatter like null-ls or prettier
             client.server_capabilities.documentFormattingProvider = false
 
             -- Set up auto-notify for Next.js hot reloading
