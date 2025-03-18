@@ -7,8 +7,8 @@ keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 keymap.set("n", "dd", '"_dd', { noremap = true, desc = "Delete line" })
 keymap.set("n", "p", '"_pp', { noremap = true, desc = "paste line" })
--- save file
-keymap.set("n", "<leader>w", ":w<CR>", { noremap = true, silent = false, desc = "Save file" })
+-- write file
+keymap.set("n", "<leader>w", ":wa<CR>", { noremap = true, silent = false, desc = "Save file" })
 --
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
@@ -50,7 +50,7 @@ keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find s
 keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find noice" })
 keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find noice" })
-
+keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find noice" })
 -- Telescope Git
 keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })

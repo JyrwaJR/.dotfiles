@@ -13,9 +13,9 @@ return {
       show_end_of_buffer = false, -- Hide ~ at the end of the buffer
       term_colors = true, -- Use terminal colors
       dim_inactive = {
-        enabled = true, -- Helps focus on active window
+        enabled = false, -- Helps focus on active window
         shade = "dark",
-        percentage = 0.3,
+        percentage = 0.15,
       },
       no_italic = true, -- Disable italics for better readability
       no_bold = true, -- Allow bold for key elements

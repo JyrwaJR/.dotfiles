@@ -121,7 +121,7 @@ gui:
   showPanelJumps: true
 
   # Deprecated: use nerdFontsVersion instead
-  showIcons: false
+  showIcons: true
 
   # Nerd fonts version to use.
   # One of: '2' | '3' | empty string (default)
