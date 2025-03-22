@@ -121,7 +121,7 @@ gui:
   showPanelJumps: true
 
   # Deprecated: use nerdFontsVersion instead
-  showIcons: true
+  showIcons: false
 
   # Nerd fonts version to use.
   # One of: '2' | '3' | empty string (default)
@@ -157,7 +157,7 @@ gui:
 
   # Default size for focused window. Can be changed from within Lazygit with '+' and '_' (but this won't change the default).
   # One of: 'normal' (default) | 'half' | 'full'
-  screenMode: normal
+  screenMode: "default"
 
   # Window border style.
   # One of 'rounded' (default) | 'single' | 'double' | 'hidden'
