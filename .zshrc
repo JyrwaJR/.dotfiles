@@ -32,16 +32,8 @@ if command -v zoxide &> /dev/null; then
   # Enable autocompletion for `z` command
   compdef _zoxide z  # This sets up autocompletion for 'z'
   
-  # Override `cd` with `z`
-  function cd() {
-    # If no arguments, use `z` to change to a recent directory
-    if [[ -z "$1" ]]; then
-      command z "$@"
-    else
-      # Otherwise, use the normal `cd` command
-      command cd "$@"
-    fi
-  }
+  # Alias `cd` to `z` to completely replace it
+  alias cd='z'
 fi
 
 # Set eza as the default 'ls' command with options for icons and sorting
