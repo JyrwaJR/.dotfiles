@@ -34,6 +34,7 @@ return {
           horizontal = { width = 0.9 },
           vertical = { width = 0.9 },
         },
+        file_ignore_patterns = { ".git/", "node_modules" },
         path_shorten = 2,
         path_display = {
           "filename_first",

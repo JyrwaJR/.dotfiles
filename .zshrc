@@ -1,3 +1,7 @@
+# Enable autocompletion
+autoload -U compinit
+compinit
+
 # Add Homebrew paths for M1 (Apple Silicon) and Intel Macs
 export PATH="/opt/homebrew/bin:$PATH"   # For Apple Silicon (M1/M2)
 export PATH="/usr/local/bin:$PATH"       # For Intel Macs
@@ -14,18 +18,43 @@ if which brew > /dev/null; then
   export PATH="$(brew --prefix)/bin:$PATH"
 fi
 
-# Initialize Starship prompt (Add this if you haven't already)
+# Initialize Starship prompt
 if command -v starship &> /dev/null; then
-  eval "$(starship init zsh)"  # or zsh, fish, depending on your shell
+  eval "$(starship init zsh)"
 fi
 
 # Optionally, you can set Fira Code Nerd Font as a fallback (just in case)
 export TERM="xterm-256color"  # Ensures proper color rendering
 
-# Initialize zoxide
+# Initialize zoxide (smarter 'cd' command) with autocompletion
 if command -v zoxide &> /dev/null; then
-  eval "$(zoxide init zsh)"  # Or bash, fish, depending on your shell
+  eval "$(zoxide init zsh)"
+  # Enable autocompletion for `z` command
+  compdef _zoxide z  # This sets up autocompletion for 'z'
+  
+  # Override `cd` with `z`
+  function cd() {
+    # If no arguments, use `z` to change to a recent directory
+    if [[ -z "$1" ]]; then
+      command z "$@"
+    else
+      # Otherwise, use the normal `cd` command
+      command cd "$@"
+    fi
+  }
 fi
 
-# Set eza as the default 'ls' command (Optional)
-alias ls="eza --color=auto"  # You can customize eza's options if needed
+# Set eza as the default 'ls' command with options for icons and sorting
+alias ls="eza --icons=always -1 --group-directories-first --git-ignore --sort=name"
+
+# Set up Neovim to use the correct configuration (if necessary)
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+else
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+fi
+
+# Ensure correct tab completion for 'z' (Zoxide)
+bindkey '^I' menu-complete  # Similar to 'bind' in bash, zsh uses 'bindkey'
