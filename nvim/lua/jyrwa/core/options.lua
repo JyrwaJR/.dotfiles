@@ -41,7 +41,6 @@ opt.swapfile = false
 opt.scrolloff = 15
 
 -- Set the shell to use Git Bash (correctly handling spaces)
-opt.shell = '"C:\\Program Files\\Git\\bin\\bash.exe"' -- Properly quoted path
 opt.shellcmdflag = "-c" -- Standard flag for executing bash commands
 opt.shellquote = '"' -- Ensure commands are properly quoted
 opt.shellxquote = "" -- Prevent extra escaping issues
