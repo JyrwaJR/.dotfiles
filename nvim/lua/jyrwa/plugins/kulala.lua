@@ -17,9 +17,9 @@ return {
       winbar = false,
       kulala_keymaps = true,
       -- Display mode, possible values: "split", "float"
-      display_mode = "split",
+      display_mode = "float",
       -- q to close the float (only used when display_mode is set to "float")
-      q_to_close_float = false,
+      q_to_close_float = true,
     })
   end,
 }

@@ -30,20 +30,18 @@ opt.backspace = { "indent", "eol", "start" } -- allow backspace on indent, end o
 -- clipboard
 opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 
+-- spell check
+opt.spelllang = "en_us"
+opt.spell = true
 -- split windows
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
--- turn off swapfile
+-- turn off swap file
 opt.swapfile = false
 
--- Get 8 line bewlow and above the coursor
-opt.scrolloff = 15
-
--- Set the shell to use Git Bash (correctly handling spaces)
-opt.shellcmdflag = "-c" -- Standard flag for executing bash commands
-opt.shellquote = '"' -- Ensure commands are properly quoted
-opt.shellxquote = "" -- Prevent extra escaping issues
+-- Get 8 line below and above the cursor
+opt.scrolloff = 8
 
 -- Additional settings
 opt.conceallevel = 2
