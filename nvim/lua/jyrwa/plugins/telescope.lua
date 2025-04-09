@@ -29,16 +29,14 @@ return {
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
-        layout_strategy = "vertical",
+        layout_strategy = "horizontal", -- Horizontal or vertical
         layout_config = {
           horizontal = { width = 0.9 },
           vertical = { width = 0.9 },
         },
         file_ignore_patterns = { ".git/", "node_modules" },
         path_shorten = 2,
-        path_display = {
-          "filename_first",
-        },
+        path_display = { "filename_first" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
