@@ -1,28 +1,38 @@
 return {
   "epwalsh/obsidian.nvim",
-  version = "*", -- recommended, use latest release instead of latest commit
+  version = "*",
   lazy = false,
-  ft = "obsidian",
-  -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  -- event = {
-  --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-  --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-  --   -- refer to `:h file-pattern` for more examples
-  --   "BufReadPre path/to/my-vault/*.md",
-  --   "BufNewFile path/to/my-vault/*.md",
-  -- },
-  dependencies = {
-    -- Required.
-    "nvim-lua/plenary.nvim",
-    -- see below for full list of optional dependencies 👇
-  },
+  ft = "markdown",
+  dependencies = { "nvim-lua/plenary.nvim" },
   opts = {
     workspaces = {
       {
         name = "personal",
-        path = "~/obsidian-note",
-        templates = "~/obsidian-note/Templates",
+        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Personal"),
+        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Templates"),
+        standalone = true,
+      },
+      {
+        name = "work",
+        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Work"),
+        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Templates"),
       },
     },
+    -- Enable cross-workspace search and completion
+    detect_cwd = false,
+    completion = {
+      nvim_cmp = true,
+      min_chars = 2,
+      new_notes_location = "current_dir",
+      prepend_note_id = true,
+      prepend_note_path = false,
+      use_path_only = false,
+    },
+    -- Enable searching across all workspaces
+    finder = "telescope.nvim",
+    open_notes_in = "current",
+    sort_by = "modified",
+    sort_reversed = true,
+    open_app_foreground = false,
   },
 }
