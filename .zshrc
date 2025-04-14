@@ -1,52 +1,63 @@
-# Enable autocompletion
-autoload -U compinit
-compinit
+### 🧭 PATH Configuration ###
 
-# Add Homebrew paths for M1 (Apple Silicon) and Intel Macs
-export PATH="/opt/homebrew/bin:$PATH"   # For Apple Silicon (M1/M2)
-export PATH="/usr/local/bin:$PATH"       # For Intel Macs
+# Apple Silicon (M1/M2) Homebrew
+export PATH="/opt/homebrew/bin:$PATH"
 
-# Add lazygit path from dotfiles (adjust if the path is different)
+# Intel Mac Homebrew
+export PATH="/usr/local/bin:$PATH"
+
+# Add custom binary paths
 export PATH="$HOME/.dotfiles/lazygit:$PATH"
+export PATH="$HOME/.console-ninja/.bin:$PATH"
 
-# Starship configuration
+### 🧠 Environment Setup ###
+
+# Starship prompt config location
 export XDG_CONFIG_HOME="$HOME/.dotfiles"
 export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
 
-# If Homebrew is installed, add its binary path to $PATH
-if which brew > /dev/null; then
-  export PATH="$(brew --prefix)/bin:$PATH"
-fi
+# Set terminal type for full color support
+export TERM="xterm-256color"
 
-# Initialize Starship prompt
-if command -v starship &> /dev/null; then
-  eval "$(starship init zsh)"
-fi
+### ⚙️ Initialize Zoxide First ###
+# (so its completions are ready before compinit)
 
-# Optionally, you can set Fira Code Nerd Font as a fallback (just in case)
-export TERM="xterm-256color"  # Ensures proper color rendering
-
-# Initialize zoxide (smarter 'cd' command) with autocompletion
 if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
-  # Enable autocompletion for `z` command
-  compdef _zoxide z  # This sets up autocompletion for 'z'
-  
-  # Alias `cd` to `z` to completely replace it
+  # optional: alias cd to z
   alias cd='z'
 fi
 
-# Set eza as the default 'ls' command with options for icons and sorting
-alias ls="eza --icons=always -1 --group-directories-first --git-ignore --sort=name"
+### 🚀 Autocompletion Setup ###
 
-# Set up Neovim to use the correct configuration (if necessary)
+# Enable completion system
+autoload -U compinit
+compinit
+
+# Tab-completion key binding (optional)
+bindkey '^I' complete-word  # Default tab behavior
+
+### 📝 Editor Configuration ###
+
+# Use remote nvim if available (e.g. in Obsidian context)
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+  export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+  export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 else
-    export VISUAL="nvim"
-    export EDITOR="nvim"
+  export VISUAL="nvim"
+  export EDITOR="nvim"
 fi
 
-# Ensure correct tab completion for 'z' (Zoxide)
-bindkey '^I' menu-complete  # Similar to 'bind' in bash, zsh uses 'bindkey'
+### ✨ Aliases ###
+
+# Better ls with icons and sorting using eza
+alias ls="eza --icons=always -1 --group-directories-first --git-ignore --sort=name"
+
+### 🌟 Starship Prompt ###
+
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
+# Auto load zsh-autosuggestions and zsh-syntax-highlighting
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
