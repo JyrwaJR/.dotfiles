@@ -5,6 +5,9 @@ return {
     { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, lazy = true },
   },
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+  opts = {
+    default = true,
+  },
   init = function()
     -- Enable Nerd Fonts for better UI icons
     vim.g.db_ui_use_nerd_fonts = 1

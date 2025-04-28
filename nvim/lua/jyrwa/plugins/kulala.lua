@@ -15,6 +15,7 @@ return {
   config = function()
     require("kulala").setup({
       winbar = false,
+      global_keymaps = true,
       kulala_keymaps = true,
       -- Display mode, possible values: "split", "float"
       display_mode = "float",

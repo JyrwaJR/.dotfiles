@@ -8,14 +8,14 @@ return {
     workspaces = {
       {
         name = "personal",
-        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Personal"),
-        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Templates"),
+        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note"),
+        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Templates"),
         standalone = true,
       },
       {
         name = "work",
-        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Work"),
-        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian-note/Templates"),
+        path = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/work-vault"),
+        template = vim.fn.expand("~/Library/Mobile Documents/iCloud~md~obsidian/Documents/Templates"),
       },
     },
     -- Enable cross-workspace search and completion

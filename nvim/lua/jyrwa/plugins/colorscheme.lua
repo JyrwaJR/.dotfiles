@@ -4,7 +4,7 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = "macchiato", -- latte, frappe, macchiato, mocha
+      flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = {
         light = "macchiato",
         dark = "macchiato",
@@ -13,13 +13,13 @@ return {
       show_end_of_buffer = false, -- Hide ~ at the end of the buffer
       term_colors = true, -- Use terminal colors
       dim_inactive = {
-        enabled = true, -- Helps focus on active window
+        enabled = false, -- Helps focus on active window
         shade = "dark",
         percentage = 0.15,
       },
       no_italic = true, -- Disable italics for better readability
-      no_bold = false, -- Allow bold for key elements
-      no_underline = false,
+      no_bold = true, -- Allow bold for key elements
+      no_underline = true,
 
       styles = {
         comments = { "italic", "bold" }, -- Keep comments slightly italic for readability
