@@ -47,12 +47,12 @@ return {
 
       -- Custom highlights for better visibility
       custom_highlights = {
-        --   Comment = { fg = "#8aadf4", style = { "italic" } }, -- Light blue comments
+        Comment = { fg = "#8aadf4", style = { "italic", "bold" } }, -- Light blue comments
         Function = { fg = "#f5e0dc", style = { "bold" } },
         Keyword = { fg = "#cba6f7", style = { "bold" } },
         String = { fg = "#a6e3a1" },
         Variable = { fg = "#fab387", style = { "italic" } },
-        Type = { fg = "#f9e2af", style = { "bold" } },
+        Type = { fg = "#f9e2af", style = { "bold", "italic" } },
       },
 
       integrations = {

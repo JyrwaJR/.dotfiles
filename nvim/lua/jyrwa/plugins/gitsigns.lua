@@ -1,15 +1,19 @@
 return {
   "lewis6991/gitsigns.nvim",
   event = { "BufReadPre", "BufNewFile" },
+
   opts = {
     current_line_blame = true, -- 👈 show blame info inline by default
     current_line_blame_opts = {
-      delay = 300,
-      virt_text_pos = "eol", -- "eol" | "overlay"
+      delay = 0,
+      virt_text_pos = "eol", -- "eol" | "overlay" -- position the virtual text
+      virt_text_focusable = true,
       virt_text = true,
-      virt_text_win_col = 0,
+      virt_text_win_col = nil,
+      current_line_blame_formatter_opts = {
+        relative_time = true,
+      },
     },
-    current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
     signs = {
       add = { text = "┃" },
       change = { text = "┃" },
@@ -18,6 +22,7 @@ return {
       changedelete = { text = "~" },
       untracked = { text = "┆" },
     },
+
     signs_staged = {
       add = { text = "┃" },
       change = { text = "┃" },
