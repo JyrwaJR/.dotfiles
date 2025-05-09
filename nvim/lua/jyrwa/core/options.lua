@@ -11,13 +11,13 @@ opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
 opt.wrap = false -- wrap lines
 -- search settings
-opt.title = true -- set the title of window to the value of the titlestring
+opt.title = false -- set the title of window to the value of the titlestring
 opt.hlsearch = true -- highlight all matches
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
-opt.cursorline = true
+opt.cursorline = false
 opt.inccommand = "split"
-opt.breakindent = true
+opt.breakindent = true -- enable break indent
 -- turn on termguicolors for tokyonight colorscheme to work
 -- (have to use iterm2 or any other true color terminal)
 opt.termguicolors = true
@@ -38,10 +38,11 @@ opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swap file
-opt.swapfile = false
-
+opt.swapfile = false -- turn off swap file
 -- Get 8 line below and above the cursor
-opt.scrolloff = 8
+opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor
 
 -- Additional settings
-opt.conceallevel = 2
+opt.conceallevel = 0 -- so that `` is visible in markdown files
+
+opt.laststatus = 0 -- disable statusline

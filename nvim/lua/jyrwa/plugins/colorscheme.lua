@@ -57,6 +57,7 @@ return {
 
       integrations = {
         cmp = true,
+        illuminate = true,
         gitsigns = true,
         nvimtree = true,
         treesitter = true,
@@ -65,7 +66,7 @@ return {
         leap = true,
         mini = {
           enabled = false,
-          indentscope_color = "",
+          indentscope_color = "#181825",
         },
       },
     })
