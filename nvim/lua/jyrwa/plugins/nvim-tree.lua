@@ -10,16 +10,15 @@ return {
 
     nvimtree.setup({
       view = {
-        width = 25,
-        relativenumber = true,
+        width = 30,
+        relativenumber = false,
       },
       -- change folder arrow icons
       renderer = {
-        indent_markers = {
-          enable = true,
-        },
+        indent_markers = { enable = false },
       },
       -- disable window_picker for
+      --
       -- explorer to work well with
       -- window splits
       actions = {
@@ -27,11 +26,17 @@ return {
           quit_on_open = true, -- quit neovim when opening a file
           window_picker = {
             enable = true,
+            picker = "default",
+            chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+            exclude = {
+              filetype = { "notify", "packer", "qf", "diff" },
+              buftype = { "terminal", "help" },
+            },
           },
         },
       },
       filters = {
-        custom = { ".DS_Store", "node_modules" },
+        custom = { ".DS_Store" },
       },
       git = {
         ignore = false,

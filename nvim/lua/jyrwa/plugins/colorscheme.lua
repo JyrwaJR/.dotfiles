@@ -7,15 +7,16 @@ return {
       flavour = "mocha", -- latte, frappe, macchiato, mocha
       background = {
         light = "macchiato",
-        dark = "macchiato",
+        dark = "mocha",
       },
+      float = { border = "rounded", transparent = true, solid = true },
       transparent_background = true, -- Modern transparent background
-      show_end_of_buffer = false, -- Hide ~ at the end of the buffer
+      show_end_of_buffer = true, -- Hide ~ at the end of the buffer
       term_colors = true, -- Use terminal colors
       dim_inactive = {
         enabled = false, -- Helps focus on active window
         shade = "dark",
-        percentage = 0.15,
+        percentage = 0.10,
       },
       no_italic = true, -- Disable italics for better readability
       no_bold = true, -- Allow bold for key elements
@@ -64,10 +65,7 @@ return {
         notify = true,
         noice = true,
         leap = true,
-        mini = {
-          enabled = false,
-          indentscope_color = "#181825",
-        },
+        mini = { enabled = false, indentscope_color = "#181825" },
       },
     })
 

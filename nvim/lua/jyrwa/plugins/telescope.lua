@@ -29,14 +29,14 @@ return {
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
-        layout_strategy = "horizontal", -- Horizontal or vertical
+        layout_strategy = "virtical", -- Horizontal or vertical
         layout_config = {
           horizontal = { width = 0.9 },
           vertical = { width = 0.9 },
         },
         file_ignore_patterns = { ".git/", "node_modules" },
         path_shorten = 2,
-        path_display = { "filename_first" },
+        path_display = { "filename_first", "truncate" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -48,6 +48,10 @@ return {
             ["q"] = actions.close,
             ["J"] = actions.move_selection_next,
             ["K"] = actions.move_selection_previous,
+            ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
+            ["<C-t>"] = trouble_telescope.open,
+          },
+          v = {
             ["<C-q>"] = actions.send_selected_to_qflist + custom_actions.open_trouble_qflist,
             ["<C-t>"] = trouble_telescope.open,
           },

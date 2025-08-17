@@ -18,7 +18,7 @@ return {
       global_keymaps = true,
       kulala_keymaps = true,
       -- Display mode, possible values: "split", "float"
-      display_mode = "float",
+      display_mode = "split",
       -- q to close the float (only used when display_mode is set to "float")
       q_to_close_float = true,
     })

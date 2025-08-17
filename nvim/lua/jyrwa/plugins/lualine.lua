@@ -1,11 +1,11 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  enabled = false,
+  enabled = true,
   config = function()
     require("lualine").setup({
       options = {
-        theme = "catppuccin maccchiato",
+        theme = "auto",
         component_separators = { left = "|", right = "|" }, -- Rounded separators
         section_separators = { left = "", right = "" }, -- More rounded look
         icons_enabled = true, -- Ensure icons are enabled for better styling
