@@ -36,7 +36,7 @@ keymap.set(
   { desc = "Find word in the current file" }
 )
 
-keymap.set("n", "<leader>fhs", "<cmd>Telescope search_history<cr>", { desc = "Find search history" })
+keymap.set("n", "<leader>fH", "<cmd>Telescope search_history<cr>", { desc = "Find search history" })
 keymap.set("n", "<leader>fhc", "<cmd>Telescope command_history<cr>", { desc = "Find commands history" })
 keymap.set("n", "<leader>fa", "<cmd>Telescope autocommands<cr>", { desc = "Find auto commands" })
 keymap.set("n", "<leader>fC", "<cmd>Telescope commands<cr>", { desc = "Find commands" })
@@ -51,8 +51,8 @@ keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find noice" })
 keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find noice" })
 keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find noice" })
+keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Fuzzy find jumplist" })
 -- Telescope Git
-keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
@@ -69,6 +69,7 @@ keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
 keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
 keymap.set("n", "<leader>gf", "<cmd>LazyGitFilterCurrentFile<cr>", { desc = "Filter lazy git for current file" })
 keymap.set("n", "<leader>gF", "<cmd>LazyGitFilter<cr>", { desc = "Filter lazy git" })
+
 -- Nvim Tree
 keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
 keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
