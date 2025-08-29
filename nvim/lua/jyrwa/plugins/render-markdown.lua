@@ -53,7 +53,7 @@ return {
       highlight = "RenderMarkdownBullet",
     },
     indent = {
-      enabled = true,
+      enabled = false,
       render_modes = false,
       per_level = 2,
       skip_level = 1,

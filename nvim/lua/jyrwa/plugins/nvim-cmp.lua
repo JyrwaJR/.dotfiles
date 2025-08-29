@@ -64,34 +64,22 @@ return {
         { name = "path" },
         { name = "buffer" },
       }),
-
       formatting = {
-        format = function(entry, vim_item)
-          vim_item.dup = ({
-            buffer = 0,
-            path = 0,
-            nvim_lsp = 0,
-            luasnip = 0,
-          })[entry.source.name] or 0
-          return vim_item
-        end,
-      },
-      -- formatting = {
-      --   fields = { "kind", "abbr", "menu" },
-      --   expandable_indicator = true,
+        fields = { "kind", "abbr", "menu" },
+        expandable_indicator = true,
 
-      --   format = lspkind.cmp_format({
-      --     mode = "symbol_text",
-      --     maxwidth = 50,
-      --     ellipsis_char = "...",
-      --     menu = {
-      --       nvim_lsp = "[LSP]",
-      --       luasnip = "[Snip]",
-      --       buffer = "[Buffer]",
-      --       path = "[Path]",
-      --     },
-      --   }),
-      -- },
+        format = lspkind.cmp_format({
+          mode = "symbol_text",
+          maxwidth = 50,
+          ellipsis_char = "...",
+          menu = {
+            nvim_lsp = "[LSP]",
+            luasnip = "[Snip]",
+            buffer = "[Buffer]",
+            path = "[Path]",
+          },
+        }),
+      },
     })
 
     -- Cmdline `/` setup

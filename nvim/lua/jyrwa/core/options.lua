@@ -11,11 +11,11 @@ opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
 opt.wrap = false -- wrap lines
 -- search settings
-opt.title = false -- set the title of window to the value of the titlestring
+opt.title = true -- set the title of window to the value of the titlestring
 opt.hlsearch = true -- highlight all matches
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
-opt.cursorline = false
+opt.cursorline = true
 opt.inccommand = "split"
 opt.breakindent = true -- enable break indent
 -- turn on termguicolors for tokyonight colorscheme to work
@@ -45,4 +45,4 @@ opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the
 -- Additional settings
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 
-opt.laststatus = 0 -- disable statusline
+opt.laststatus = 1 -- disable statusline

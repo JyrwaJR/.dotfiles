@@ -37,7 +37,7 @@ return {
         },
         file_ignore_patterns = { ".git/", "node_modules" },
         path_shorten = 2,
-        path_display = { "filename_first", "truncate" },
+        path_display = { "filename_first" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
