@@ -32,12 +32,14 @@ return {
         "graphql",
         "emmet_ls",
         "prismals",
+        "sql",
       },
     })
     mason_tool_installer.setup({
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
+        "sqlfluff", -- sql formatter
         "eslint_d", -- eslint linter
       },
     })

@@ -10,7 +10,7 @@ return {
   },
   init = function()
     -- Enable Nerd Fonts for better UI icons
-    vim.g.db_ui_use_nerd_fonts = 1
+    vim.g.db_ui_use_nerd_fonts = 2
   end,
   keys = {
     {

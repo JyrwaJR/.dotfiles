@@ -109,5 +109,13 @@ return {
         },
       }),
     })
+
+    cmp.setup.filetype("sql", {
+      mapping = cmp.mapping.preset.cmdline({
+        ["<C-j>"] = cmp.mapping.select_next_item(),
+        ["<C-k>"] = cmp.mapping.select_prev_item(),
+      }),
+      sources = { { name = "vim-dadbod-completion" }, { name = "buffer" } },
+    })
   end,
 }
