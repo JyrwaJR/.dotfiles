@@ -32,7 +32,6 @@ return {
         "graphql",
         "emmet_ls",
         "prismals",
-        "sql",
       },
     })
     mason_tool_installer.setup({

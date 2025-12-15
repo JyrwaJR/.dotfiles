@@ -1,5 +1,6 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
+  enabled = false,
   dependencies = {
     "nvim-treesitter/nvim-treesitter", -- Syntax parsing (essential for accuracy)
     "echasnovski/mini.icons", -- For icons (can use nvim-web-devicons instead)

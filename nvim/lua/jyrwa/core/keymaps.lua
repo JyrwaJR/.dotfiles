@@ -53,17 +53,18 @@ keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find no
 keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find noice" })
 keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Fuzzy find jumplist" })
 -- Telescope Git
-keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
-keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
-keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
-keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
-keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
 --
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
 keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
 keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" }) -- save workspace session for current working directory
 -- LazyGit
+keymap.set("n", "<leader>gd", "<cmd>Gitsigns diffthis<cr>", { desc = "Fuzzy find git diff" })
+keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
+keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
+keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
+keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
+keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
 keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
 keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
 keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
@@ -102,15 +103,3 @@ keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backl
 keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
--- Symbols Outline
-keymap.set("n", "<leader>so", "<cmd>SymbolsOutline<cr>", { desc = "Toggle Symbols Outline" })
----LSP Saga
-keymap.set("n", "<leader>lc", "<cmd>Lspsaga code_action<cr>", { desc = "Code Action" })
-keymap.set("n", "<leader>lo", "<cmd>Lspsaga outline<cr>", { desc = "Outline" })
-keymap.set("n", "<leader>lr", "<cmd>Lspsaga rename<cr>", { desc = "Rename Symbol" })
-keymap.set("n", "<leader>ld", "<cmd>Lspsaga goto_definition<cr>", { desc = "Go to Definition" })
-keymap.set("n", "<leader>lf", "<cmd>Lspsaga finder<cr>", { desc = "LSP Finder" })
-keymap.set("n", "<leader>lp", "<cmd>Lspsaga preview_definition<cr>", { desc = "Preview Definition" })
-keymap.set("n", "<leader>ls", "<cmd>Lspsaga signature_help<cr>", { desc = "Signature Help" })
-keymap.set("n", "<leader>lw", "<cmd>Lspsaga show_workspace_diagnostics<cr>", { desc = "Workspace Diagnostics" })
---- Inlay hint

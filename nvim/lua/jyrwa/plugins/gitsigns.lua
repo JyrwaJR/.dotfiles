@@ -22,7 +22,6 @@ return {
       changedelete = { text = "~" },
       untracked = { text = "┆" },
     },
-
     signs_staged = {
       add = { text = "┃" },
       change = { text = "┃" },
@@ -36,9 +35,9 @@ return {
 
     -- Display
     signcolumn = true,
-    numhl = false,
-    linehl = false,
-    word_diff = false,
+    numhl = true, -- Highlight line number
+    linehl = false, -- Highlight line
+    word_diff = false, -- Show word diff
 
     -- Git directory watch
     watch_gitdir = { follow_files = true },
