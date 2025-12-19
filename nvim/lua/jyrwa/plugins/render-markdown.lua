@@ -1,23 +1,24 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  enabled = false,
+  enabled = true,
   dependencies = {
     "nvim-treesitter/nvim-treesitter", -- Syntax parsing (essential for accuracy)
     "echasnovski/mini.icons", -- For icons (can use nvim-web-devicons instead)
   },
   ft = { "markdown", "rmd", "org", "norg", "codecompanion" },
   opts = {
-    enabled = true, -- Always render markdown by default
+    enabled = true,
 
     heading = {
-      sign = false, -- Disable icon highlight for headings (as you requested)
-      -- icons = { ... }     -- Icons config if you enable sign
+      sign = false,
+      width = "block",
+      position = "inline",
     },
 
     code = {
-      sign = false, -- No icons for code fences
-      width = "block", -- Display code block in fixed width, for readability
-      right_pad = 1, -- Adds padding to code blocks
+      sign = false,
+      width = "block",
+      right_pad = 2,
     },
 
     checkbox = {
@@ -26,24 +27,24 @@ return {
       bullet = false,
       right_pad = 6,
       unchecked = {
-        icon = "[ ]",
+        icon = "☐",
         highlight = "RenderMarkdownUnchecked",
         scope_highlight = nil,
       },
       checked = {
-        icon = "[x]",
+        icon = "☑",
         highlight = "RenderMarkdownChecked",
         scope_highlight = nil,
       },
       custom = {
-        todo = { raw = "[-]", rendered = "[-]", highlight = "RenderMarkdownTodo", scope_highlight = nil },
+        todo = { raw = "[-]", rendered = "❍", highlight = "RenderMarkdownTodo", scope_highlight = nil },
       },
     },
 
     bullet = {
       enabled = true,
       render_modes = false,
-      icons = { "●", "○", "◆", "◇" },
+      icons = { "•", "◦", "▪", "▫" },
       ordered_icons = function(ctx)
         local value = vim.trim(ctx.value)
         local index = tonumber(value:sub(1, #value - 1))
@@ -54,7 +55,7 @@ return {
       highlight = "RenderMarkdownBullet",
     },
     indent = {
-      enabled = false,
+      enabled = true,
       render_modes = false,
       per_level = 2,
       skip_level = 1,
@@ -77,5 +78,23 @@ return {
   },
   config = function(_, opts)
     require("render-markdown").setup(opts)
+    local ok, catppuccin = pcall(require, "catppuccin.palettes")
+    if ok then
+      local p = catppuccin.get_palette("mocha")
+      vim.api.nvim_set_hl(0, "RenderMarkdownUnchecked", { fg = p.overlay0 })
+      vim.api.nvim_set_hl(0, "RenderMarkdownChecked", { fg = p.green })
+      vim.api.nvim_set_hl(0, "RenderMarkdownTodo", { fg = p.yellow })
+      vim.api.nvim_set_hl(0, "RenderMarkdownBullet", { fg = p.lavender })
+      vim.api.nvim_set_hl(0, "RenderMarkdownIndent", { fg = p.surface1 })
+      vim.api.nvim_set_hl(0, "RenderMarkdownCode", { bg = p.surface0 })
+      vim.api.nvim_set_hl(0, "RenderMarkdownHeading", { fg = p.mauve })
+    end
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "markdown", "rmd" },
+      callback = function(args)
+        vim.opt_local.number = true
+        vim.opt_local.relativenumber = true
+      end,
+    })
   end,
 }

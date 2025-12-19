@@ -13,7 +13,7 @@ return {
       -- Whether to save the "IncRename" command in the command line history
       save_in_cmdline_history = true,
       -- The type of the external input buffer to use (the only supported value is currently "dressing")
-      input_buffer_type = nil,
+      input_buffer_type = "dressing",
     })
   end,
 }

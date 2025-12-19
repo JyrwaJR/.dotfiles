@@ -4,37 +4,36 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = "macchiato", -- latte, frappe, macchiato, mocha
+      flavour = "mocha",
       background = {
-        light = "macchiato",
-        dark = "macchiato",
+        light = "latte",
+        dark = "mocha",
       },
-      float = { border = "rounded", transparent = true, solid = true },
-      transparent_background = true, -- Modern transparent background
-      show_end_of_buffer = true, -- Hide ~ at the end of the buffer
-      term_colors = true, -- Use terminal colors
+      transparent_background = true,
+      show_end_of_buffer = false,
+      term_colors = true,
       dim_inactive = {
-        enabled = false, -- Helps focus on active window
+        enabled = false,
         shade = "dark",
         percentage = 0.10,
       },
-      no_italic = true, -- Disable italics for better readability
-      no_bold = true, -- Allow bold for key elements
+      no_italic = false,
+      no_bold = false,
       no_underline = true,
 
       styles = {
-        comments = { "italic", "bold" }, -- Keep comments slightly italic for readability
-        conditionals = { "bold", "italic" }, -- Make conditionals more prominent
-        loops = { "bold", "italic" },
-        functions = { "bold", "italic" },
-        keywords = { "bold" }, -- Enhance keywords for clarity
-        strings = { "italic", "bold" },
-        variables = { "italic" }, -- Differentiate variables
-        numbers = { "bold" },
-        booleans = { "bold" },
+        comments = { "italic" },
+        conditionals = { "italic" },
+        loops = {},
+        functions = { "bold" },
+        keywords = { "bold" },
+        strings = {},
+        variables = {},
+        numbers = {},
+        booleans = {},
         properties = {},
-        types = { "bold" },
-        operators = { "bold" },
+        types = {},
+        operators = {},
       },
 
       -- Override specific colors for a more vibrant experience
@@ -46,15 +45,26 @@ return {
         },
       },
 
-      -- Custom highlights for better visibility
-      custom_highlights = {
-        Comment = { fg = "#8aadf4", style = { "italic", "bold" } }, -- Light blue comments
-        Function = { fg = "#f5e0dc", style = { "bold" } },
-        Keyword = { fg = "#cba6f7", style = { "bold" } },
-        String = { fg = "#a6e3a1" },
-        Variable = { fg = "#fab387", style = { "italic" } },
-        Type = { fg = "#f9e2af", style = { "bold", "italic" } },
-      },
+      custom_highlights = function(colors)
+        return {
+          Comment = { fg = colors.lavender, style = { "italic", "bold" } },
+          Function = { fg = colors.mauve, style = { "bold" } },
+          Keyword = { fg = colors.pink, style = { "bold" } },
+          String = { fg = colors.green },
+          Variable = { fg = colors.peach },
+          Type = { fg = colors.yellow, style = { "bold" } },
+          NormalFloat = { bg = "NONE" },
+          FloatBorder = { fg = colors.surface1 },
+          WinSeparator = { fg = colors.surface1 },
+          CursorLine = { bg = colors.surface0 },
+          Visual = { bg = colors.surface1 },
+          LineNr = { fg = colors.overlay0 },
+          Pmenu = { bg = colors.crust },
+          PmenuSel = { bg = colors.surface1 },
+          TelescopeTitle = { fg = colors.lavender, style = { "bold" } },
+          TelescopeBorder = { fg = colors.surface1 },
+        }
+      end,
 
       integrations = {
         cmp = true,
@@ -64,8 +74,27 @@ return {
         treesitter = true,
         notify = true,
         noice = true,
+        telescope = true,
+        which_key = true,
+        indent_blankline = { enabled = true },
+        native_lsp = {
+          enabled = true,
+          virtual_text = {
+            errors = { "italic" },
+            hints = { "italic" },
+            warnings = { "italic" },
+            information = { "italic" },
+          },
+          underlines = {
+            errors = { "underline" },
+            hints = { "underline" },
+            warnings = { "underline" },
+            information = { "underline" },
+          },
+        },
         leap = true,
-        mini = { enabled = false, indentscope_color = "#181825" },
+        mini = { enabled = true },
+        dressing = true,
       },
     })
 

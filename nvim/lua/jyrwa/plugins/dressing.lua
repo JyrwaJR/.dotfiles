@@ -91,10 +91,10 @@ return {
 
         -- Options for fzf-lua
         fzf_lua = {
-          -- winopts = {
-          --   height = 0.5,
-          --   width = 0.5,
-          -- },
+          winopts = {
+            height = 0.5,
+            width = 0.5,
+          },
         },
 
         -- Options for nui Menu

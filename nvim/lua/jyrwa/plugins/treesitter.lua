@@ -16,10 +16,8 @@ return {
       },
       -- enable indentation
       indent = { enable = true },
-      -- enable autotagging (w/ nvim-ts-autotag plugin)
-      autotag = {
-        enable = true,
-      },
+      -- explicitly disable deprecated treesitter autotag module
+      autotag = { enable = false },
       -- ensure these language parsers are installed
       ensure_installed = {
         "javascript",
@@ -51,6 +49,22 @@ return {
           scope_incremental = false,
           node_decremental = "<bs>",
         },
+      },
+    })
+    require("nvim-ts-autotag").setup({
+      filetypes = {
+        "html",
+        "xml",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "tsx",
+        "jsx",
+        "svelte",
+        "vue",
+        "markdown",
+        "php",
       },
     })
   end,

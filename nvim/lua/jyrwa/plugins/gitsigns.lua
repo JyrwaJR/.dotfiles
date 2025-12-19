@@ -3,7 +3,7 @@ return {
   event = { "BufReadPre", "BufNewFile" },
 
   opts = {
-    current_line_blame = true, -- 👈 show blame info inline by default
+    current_line_blame = false, -- enable per buffer on attach
     current_line_blame_opts = {
       delay = 0,
       virt_text_pos = "eol", -- "eol" | "overlay" -- position the virtual text
@@ -43,7 +43,7 @@ return {
     watch_gitdir = { follow_files = true },
 
     auto_attach = true,
-    attach_to_untracked = true, -- Change to false if you don't want signs on untracked files
+    attach_to_untracked = false,
 
     -- Performance and UI
     sign_priority = 6,
@@ -65,6 +65,11 @@ return {
 
       local function map(mode, l, r, desc)
         vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
+      end
+
+      -- Enable blame only when attached to a git-tracked file
+      if vim.b.gitsigns_head and vim.api.nvim_buf_get_name(bufnr) ~= "" then
+        gs.toggle_current_line_blame(true)
       end
 
       -- Navigation
