@@ -5,8 +5,17 @@ local keymap = vim.keymap -- for conciseness
 keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 
 keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
-keymap.set("n", "dd", '"_dd', { noremap = true, desc = "Delete line" })
-keymap.set("n", "p", '"_pp', { noremap = true, desc = "paste line" })
+-- Delete to black hole register (don't copy deleted text)
+keymap.set("n", "dd", '"_dd', { noremap = true, desc = "Delete line without copying" })
+keymap.set("n", "d", '"_d', { noremap = true, desc = "Delete without copying" })
+keymap.set("v", "d", '"_d', { noremap = true, desc = "Delete without copying" })
+
+-- Paste in visual mode without yanking replaced text
+keymap.set("v", "p", '"_dP', { noremap = true, desc = "Paste without copying replaced text" })
+keymap.set("x", "p", '"_dP', { noremap = true, desc = "Paste without copying replaced text" })
+
+-- Optional: Normal mode paste works as default
+keymap.set("n", "p", "p", { noremap = true, desc = "Paste" })
 -- write file
 keymap.set("n", "<leader>w", ":wa<CR>", { noremap = true, silent = false, desc = "Save file" })
 --
