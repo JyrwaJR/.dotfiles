@@ -12,9 +12,9 @@ return {
     },
     routes = {
       -- skip info/trace/debug notifications; only show warn/error
-      { filter = { event = "notify", level = "INFO" },  opts = { skip = true } },
-      { filter = { event = "notify", level = "TRACE" }, opts = { skip = true } },
-      { filter = { event = "notify", level = "DEBUG" }, opts = { skip = true } },
+      -- { filter = { event = "notify", level = "INFO" },  opts = { skip = true } },
+      -- { filter = { event = "notify", level = "TRACE" }, opts = { skip = true } },
+      -- { filter = { event = "notify", level = "DEBUG" }, opts = { skip = true } },
     },
   },
   dependencies = {
@@ -25,9 +25,6 @@ return {
     --   If not available, we use `mini` as the fallback
     {
       "rcarriga/nvim-notify",
-      opts = {
-        level = vim.log.levels.WARN,
-      },
     },
   },
 }

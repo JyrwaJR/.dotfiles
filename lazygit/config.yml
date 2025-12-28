@@ -70,30 +70,7 @@ gui:
 
   # Config relating to colors and styles.
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#color-attributes
-  theme:
-  activeBorderColor:
-    - "#f5a97f"
-    - bold
-  inactiveBorderColor:
-    - "#a5adcb"
-  optionsTextColor:
-    - "#8aadf4"
-  selectedLineBgColor:
-    - "#363a4f"
-  cherryPickedCommitBgColor:
-    - "#494d64"
-  cherryPickedCommitFgColor:
-    - "#f5a97f"
-  unstagedChangesColor:
-    - "#ed8796"
-  defaultFgColor:
-    - "#cad3f5"
-  searchingActiveBorderColor:
-    - "#eed49f"
 
-  authorColors:
-    "*": "#b7bdf8"
-  # Config relating to the commit length indicator
   commitLength:
     # If true, show an indicator of commit message length
     show: true
@@ -157,13 +134,14 @@ gui:
 
   # Default size for focused window. Can be changed from within Lazygit with '+' and '_' (but this won't change the default).
   # One of: 'normal' (default) | 'half' | 'full'
-  screenMode: "default"
+  screenMode: "normal"
 
   # Window border style.
   # One of 'rounded' (default) | 'single' | 'double' | 'hidden'
-  border: double
+  border: rounded
 
   # If true, show a seriously epic explosion animation when nuking the working tree.
+
   animateExplosion: true
 
   # Whether to stack UI components on top of each other.
@@ -202,22 +180,6 @@ gui:
 # Config relating to git
 git:
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Custom_Pagers.md
-  paging:
-    # Value of the --color arg in the git diff command. Some pagers want this to be set to 'always' and some want it set to 'never'
-    colorArg: always
-
-    # e.g.
-    # diff-so-fancy
-    # delta --dark --paging=never
-    # ydiff -p cat -s --wrap --width={{columnWidth}}
-    pager: ""
-
-    # If true, Lazygit will use whatever pager is specified in `$GIT_PAGER`, `$PAGER`, or your *git config*. If the pager ends with something like ` | less` we will strip that part out, because less doesn't play nice with our rendering approach. If the custom pager uses less under the hood, that will also break rendering (hence the `--paging=never` flag for the `delta` pager).
-    useConfig: false
-
-    # e.g. 'difft --color=always'
-    externalDiffCommand: ""
-
   # Config relating to committing
   commit:
     # If true, pass '--signoff' flag when committing
@@ -269,7 +231,6 @@ git:
 
   # Command used to display git log of all branches in the main window.
   # Deprecated: Use `allBranchesLogCmds` instead.
-  allBranchesLogCmd: git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium
 
   # If true, do not spawn a separate process when using GPG
   overrideGpg: false
@@ -361,19 +322,15 @@ os:
   # Deprecated: use Edit instead. Note that semantics are different:
   # EditCommand is just the command itself, whereas Edit contains a
   # "{{filename}}" variable.
-  editCommand: ""
 
   # EditCommandTemplate is the command template for editing a file
   # Deprecated: use EditAtLine instead.
-  editCommandTemplate: ""
 
   # OpenCommand is the command for opening a file
   # Deprecated: use Open instead.
-  openCommand: ""
 
   # OpenLinkCommand is the command for opening a link
   # Deprecated: use OpenLink instead.
-  openLinkCommand: ""
 
   # CopyToClipboardCmd is the command for copying to clipboard.
   # See https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md#custom-command-for-copying-to-and-pasting-from-clipboard
@@ -496,7 +453,6 @@ keybinding:
     viewResetOptions: D
     fetch: f
     toggleTreeView: "`"
-    openMergeTool: M
     openStatusFilter: <c-b>
     copyFileInfoToClipboard: "y"
     collapseAll: "-"
