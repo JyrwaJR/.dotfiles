@@ -79,6 +79,8 @@ keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
 keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
 keymap.set("n", "<leader>gf", "<cmd>LazyGitFilterCurrentFile<cr>", { desc = "Filter lazy git for current file" })
 keymap.set("n", "<leader>gF", "<cmd>LazyGitFilter<cr>", { desc = "Filter lazy git" })
+keymap.set("n", "<leader>G", "<cmd>Git<cr>", { desc = "Git" })
+keymap.set("n", "<leader>P", "<cmd>Git push<cr>", { desc = "Git push" })
 
 -- Nvim Tree
 keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
