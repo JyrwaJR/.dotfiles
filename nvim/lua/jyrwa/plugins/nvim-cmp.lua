@@ -61,8 +61,8 @@ return {
       -- Remaining sources
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "path" },
+        { name = "luasnip" },
         { name = "buffer" },
       }),
       formatting = {
@@ -75,9 +75,9 @@ return {
           ellipsis_char = "...",
           menu = {
             nvim_lsp = "[LSP]",
-            luasnip = "[Snip]",
-            buffer = "[Buffer]",
             path = "[Path]",
+            buffer = "[Buffer]",
+            luasnip = "[Snip]",
           },
         }),
       },

@@ -1,0 +1,8 @@
+
+SELECT "type","message","content" from "Log" 
+
+  WHERE "timestamp"> '2026-01-14 00:00:00'
+
+  AND "timestamp"< '2026-01-15 23:17:15'
+AND "type"= 'ERROR'
+  -- AND "message" LIKE '%Failed%'

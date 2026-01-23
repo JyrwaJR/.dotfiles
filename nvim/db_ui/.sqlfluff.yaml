@@ -1,0 +1,2 @@
+rules:
+  L010: false  # Disable WHERE alignment rule

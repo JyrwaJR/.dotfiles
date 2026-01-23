@@ -47,7 +47,6 @@ return {
     })
 
     local capabilities = cmp_nvim_lsp.default_capabilities()
-    vim.lsp.config("*", { capabilities = capabilities })
 
     vim.diagnostic.config({
       virtual_text = true,
@@ -77,80 +76,130 @@ return {
         "lua_ls", -- Neovim config
         "prismals", -- Prisma schema
         "cssls",
+        "sqlls",
+        "jsonls",
+        "yamlls",
+        "eslint",
       },
       automatic_installation = true,
     })
 
-    vim.lsp.config("ts_ls", {
-      settings = {
-        typescript = { inlayHints = { includeInlayParameterNameHints = "all" } },
-        javascript = { inlayHints = { includeInlayParameterNameHints = "all" } },
-      },
-      root_markers = { "bun.lockb" },
-      on_attach = function(client, bufnr)
-        client.handlers["textDocument/publishDiagnostics"] = function() end
-        client.server_capabilities.documentFormattingProvider = false
-        vim.api.nvim_create_autocmd("BufWritePost", {
-          buffer = bufnr,
-          callback = function(ctx)
-            client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-          end,
-        })
-      end,
-    })
-
-    vim.lsp.config("graphql", {
-      filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact", "svelte" },
-    })
-
-    vim.lsp.config("prismals", {
-      filetypes = { "prisma" },
-    })
-
-    vim.lsp.config("emmet_ls", {
-      filetypes = {
-        "html",
-        "typescriptreact",
-        "javascriptreact",
-        "typescript",
-        "javascript",
-        "css",
-        "scss",
-        "less",
-        "svelte",
-      },
-      settings = {
-        emmet = {
-          showAbbreviationsSuggestions = true,
-          showExpandedAbbreviation = true,
+    local servers = {
+      ts_ls = {
+        settings = {
+          typescript = { inlayHints = { includeInlayParameterNameHints = "all" } },
+          javascript = { inlayHints = { includeInlayParameterNameHints = "all" } },
         },
+        on_attach = function(client, bufnr)
+          -- client.handlers["textDocument/publishDiagnostics"] = function() end
+          client.server_capabilities.documentFormattingProvider = false
+          vim.api.nvim_create_autocmd("BufWritePost", {
+            buffer = bufnr,
+            callback = function(ctx)
+              client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+            end,
+          })
+        end,
       },
-    })
-
-    vim.lsp.config("lua_ls", {
-      settings = {
-        Lua = {
-          diagnostics = { globals = { "vim" } },
-          completion = { callSnippet = "Replace" },
-          workspace = {
-            checkThirdParty = false,
+      graphql = {
+        filetypes = { "graphql", "gql", "typescriptreact", "javascriptreact", "svelte" },
+      },
+      prismals = {
+        filetypes = { "prisma" },
+      },
+      emmet_ls = {
+        filetypes = {
+          "html",
+          "typescriptreact",
+          "javascriptreact",
+          "typescript",
+          "javascript",
+          "css",
+          "scss",
+          "less",
+          "svelte",
+        },
+        settings = {
+          emmet = {
+            showAbbreviationsSuggestions = true,
+            showExpandedAbbreviation = true,
           },
-          telemetry = { enable = false },
         },
       },
-    })
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = { globals = { "vim" } },
+            completion = { callSnippet = "Replace" },
+            workspace = {
+              checkThirdParty = false,
+            },
+            telemetry = { enable = false },
+          },
+        },
+      },
+      tailwindcss = {
+        filetypes = {
+          "html",
+          "typescriptreact",
+          "javascriptreact",
+          "typescript",
+          "javascript",
+          "css",
+          "scss",
+          "less",
+          "svelte",
+        },
+      },
+      cssls = {
+        filetypes = {
+          "html",
+          "typescriptreact",
+          "javascriptreact",
+          "typescript",
+          "javascript",
+          "css",
+          "scss",
+          "less",
+          "svelte",
+        },
+      },
+      jsonls = {
+        filetypes = { "json", "jsonc" },
+      },
+      yamlls = {
+        filetypes = { "yaml", "yml" },
+        settings = {
+          yaml = {
+            validate = true,
+            hover = true,
+            completion = true,
+          },
+        },
+      },
+      eslint = {
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "jsx",
+          "tsx",
+        },
+        settings = {
+          codeAction = { disableRuleComment = { enable = true, location = "separateLine" } },
+          format = false,
+        },
+      },
+      sqlls = {
+        filetypes = { "sql" },
+      },
+    }
 
-    vim.lsp.config("tailwindcss", {})
-    vim.lsp.config("cssls", {})
-
-    vim.lsp.enable({
-      "ts_ls",
-      "tailwindcss",
-      "graphql",
-      "emmet_ls",
-      "lua_ls",
-      "prismals",
-      "cssls",
-    })
+    for name, config in pairs(servers) do
+      config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+      vim.lsp.config(name, config)
+      vim.lsp.enable(name)
+    end
   end,
 }
