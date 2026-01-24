@@ -32,6 +32,10 @@ return {
         "graphql",
         "emmet_ls",
         "prismals",
+        "jsonls",
+        "yamlls",
+        "eslint",
+        "sqlls",
       },
     })
     mason_tool_installer.setup({
@@ -40,6 +44,7 @@ return {
         "stylua", -- lua formatter
         "sqlfluff", -- sql formatter
         "eslint_d", -- eslint linter
+        "biome", -- js/ts formatter/linter alternative
       },
     })
   end,

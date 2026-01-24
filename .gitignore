@@ -6,3 +6,6 @@ gh
 ngrok
 .android
 swiftpm
+.env.*
+.env
+/nvim/.env
