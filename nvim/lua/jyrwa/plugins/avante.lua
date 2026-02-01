@@ -1,3 +1,18 @@
+-- Load .env file automatically
+local function load_env()
+  local env_path = vim.fn.stdpath("config") .. "/.env"
+  if vim.fn.filereadable(env_path) == 1 then
+    for line in io.lines(env_path) do
+      local key, value = line:match("^%s*([^=]+)%s*=%s*(.-)%s*$")
+      if key and value then
+        vim.env[key] = value
+      end
+    end
+  end
+end
+
+load_env()
+
 return {
   "yetone/avante.nvim",
   -- Build from precompiled binaries (faster install). Use `make BUILD_FROM_SOURCE=true` if you need source build
@@ -14,40 +29,27 @@ return {
     instructions_file = "avante.md",
 
     -- Default provider (fallback when not specified)
-    provider = "gemini", -- Changed to free tier option
+    provider = "openrouter", -- Use OpenRouter by default
 
     -- AI Provider configurations
     providers = {
-      -- FREE OPTION: Google Gemini (no credit card needed)
-      gemini = {
-        endpoint = "https://generativelanguage.googleapis.com",
-        model = "gemini-2.0-flash-exp", -- Fast, free tier friendly
-        timeout = 30000,
-        extra_request_body = {
-          temperature = 0.7, -- Balanced creativity
-          max_tokens = 8192, -- Reasonable for code
-        },
-      },
+      openrouter = {
+        __inherited_from = "openai",
+        endpoint = "https://openrouter.ai/api/v1",
+        api_key_name = "OPENROUTER_API_KEY",
 
-      -- Moonshot Kimi (India-friendly, limited free quota)
-      moonshot = {
-        endpoint = "https://api.moonshot.ai/v1",
-        model = "kimi-k2-0711-preview",
-        timeout = 30000,
-        extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 32768,
+        model = "openai/gpt-4.1", -- primary working model
+        fallback_models = {
+          "openai/gpt-4.1-2025-04-14",
+          "anthropic/claude-3-opus",
+          "anthropic/claude-3.5-sonnet",
+          "deepseek/deepseek-v3-base:free", -- if your plan allows
         },
-      },
 
-      -- Claude (requires paid API key - export AVANTE_ANTHROPIC_API_KEY)
-      claude = {
-        endpoint = "https://api.anthropic.com",
-        model = "claude-3-5-sonnet-20241022", -- Update to latest model
         timeout = 30000,
         extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 16384,
+          temperature = 0.2,
+          max_tokens = 1200,
         },
       },
     },

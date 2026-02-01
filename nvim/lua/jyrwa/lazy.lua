@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({ { import = "jyrwa.plugins" }, { import = "jyrwa.plugins.lsp" } }, {
   checker = {
     enabled = true,
-    notify = true,
+    notify = false,
     frequency = 3600,
   },
   change_detection = {

@@ -21,6 +21,7 @@ return {
         lua = { "stylua" },
         python = { "isort", "black" },
         sql = { "sqlfluff" },
+        prisma = { "schema" },
       },
       format_on_save = {
         lsp_fallback = true,

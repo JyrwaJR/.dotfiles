@@ -4,10 +4,10 @@ return {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = "mocha",
+      flavour = "macchiato", -- latte, frappe, macchiato, mocha
       background = {
         light = "latte",
-        dark = "mocha",
+        dark = "macchiato",
       },
       transparent_background = true,
       show_end_of_buffer = false,
@@ -19,23 +19,42 @@ return {
       },
       no_italic = false,
       no_bold = false,
-      no_underline = true,
+      no_underline = false,
 
       styles = {
         comments = { "italic" },
         conditionals = { "italic" },
-        loops = {},
+        loops = { "bold" },
         functions = { "bold" },
         keywords = { "bold" },
-        strings = {},
+        strings = { "italic" },
         variables = {},
         numbers = {},
-        booleans = {},
-        properties = {},
+        booleans = { "italic" },
+        properties = { "italic" },
         types = {},
         operators = {},
       },
-
+      lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+        virtual_text = {
+          errors = { "italic" },
+          hints = { "italic" },
+          warnings = { "italic" },
+          information = { "italic" },
+          ok = { "italic" },
+        },
+        underlines = {
+          errors = { "bold" },
+          hints = { "italic" },
+          warnings = { "italic" },
+          information = { "italic" },
+          ok = { "italic" },
+        },
+        inlay_hints = {
+          background = true,
+          illuminate = true,
+        },
+      },
       -- Override specific colors for a more vibrant experience
       color_overrides = {
         mocha = {
@@ -47,9 +66,9 @@ return {
 
       custom_highlights = function(colors)
         return {
-          Comment = { fg = colors.lavender, style = { "italic", "bold" } },
+          Comment = { fg = colors.lavender, style = { "italic" } },
           Function = { fg = colors.mauve, style = { "bold" } },
-          Keyword = { fg = colors.pink, style = { "bold" } },
+          Keyword = { fg = colors.pink, style = { "italic" } },
           String = { fg = colors.green },
           Variable = { fg = colors.peach },
           Type = { fg = colors.yellow, style = { "bold" } },
@@ -68,7 +87,6 @@ return {
 
       integrations = {
         cmp = true,
-        illuminate = true,
         gitsigns = true,
         nvimtree = true,
         treesitter = true,
