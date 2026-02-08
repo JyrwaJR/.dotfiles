@@ -5,9 +5,10 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline", -- Added missing dependency
     {
       "L3MON4D3/LuaSnip",
-      version = "*",
+      version = "v2.*", -- Updated to latest major
       build = "make install_jsregexp",
     },
     "saadparwaiz1/cmp_luasnip",
@@ -22,7 +23,9 @@ return {
     require("luasnip.loaders.from_vscode").lazy_load()
 
     cmp.setup({
-      completion = { completeopt = "menu,menuone,noselect" },
+      completion = {
+        completeopt = "menu,menuone,preview,noselect",
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
@@ -38,12 +41,20 @@ return {
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-@>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        -- Tab mapping for snippets
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
       }),
 
-      -- Simplified sorting (no need to dedup Codeium now)
       sorting = {
         priority_weight = 2,
         comparators = {
@@ -51,76 +62,60 @@ return {
           cmp.config.compare.exact,
           cmp.config.compare.score,
           cmp.config.compare.recently_used,
-          cmp.config.compare.kind,
+          cmp.config.compare.locality, -- Prioritizes variables in current scope
+          cmp.config.compare.kind, -- This helps put Properties/Methods above Text
           cmp.config.compare.sort_text,
           cmp.config.compare.length,
           cmp.config.compare.order,
         },
       },
 
-      -- Remaining sources
+      -- LSP is now first priority, Buffer is moved down
       sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "path" },
-        { name = "luasnip" },
-        { name = "buffer" },
+        { name = "nvim_lsp", priority = 1000 },
+        { name = "luasnip", priority = 750 },
+        -- { name = "buffer", priority = 500, keyword_length = 3 },
+        -- { name = "path", priority = 250 },
       }),
+
       formatting = {
         fields = { "kind", "abbr", "menu" },
-        expandable_indicator = true,
-
         format = lspkind.cmp_format({
           mode = "symbol_text",
           maxwidth = 50,
           ellipsis_char = "...",
           menu = {
             nvim_lsp = "[LSP]",
-            path = "[Path]",
-            buffer = "[Buffer]",
             luasnip = "[Snip]",
+            buffer = "[Buf]",
+            path = "[Path]",
           },
         }),
       },
     })
 
-    -- Cmdline `/` setup
+    -- `/` search setup
     cmp.setup.cmdline("/", {
-      mapping = cmp.mapping.preset.cmdline({
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-@>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
-      }),
+      mapping = cmp.mapping.preset.cmdline(),
       sources = { { name = "buffer" } },
     })
 
-    -- Cmdline `:` setup
+    -- `:` cmdline setup
     cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline({
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-@>"] = cmp.mapping.complete(),
-      }),
-      sources = cmp.config.sources({ { name = "path" } }, {
-        {
-          name = "cmdline",
-          option = { ignore_cmds = { "Man", "!" } },
-        },
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "path" },
+      }, {
+        { name = "cmdline", option = { ignore_cmds = { "Man", "!" } } },
       }),
     })
 
+    -- SQL specific
     cmp.setup.filetype("sql", {
-      mapping = cmp.mapping.preset.cmdline({
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-Space>"] = cmp.mapping.complete(),
-      }),
-      sources = { { name = "vim-dadbod-completion" }, { name = "buffer" } },
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
+      },
     })
   end,
 }
