@@ -49,10 +49,10 @@ return {
     -- React/Node.js focused linters (your stack)
     lint.linters_by_ft = {
       -- JavaScript/TypeScript/React/Next.js
-      javascript = { "eslint_d" },
-      typescript = { "eslint_d" },
-      javascriptreact = { "eslint_d" },
-      typescriptreact = { "eslint_d" },
+      -- javascript = { "eslint_d" },
+      -- typescript = { "eslint_d" },
+      -- javascriptreact = { "eslint_d" },
+      -- typescriptreact = { "eslint_d" },
       -- Config files
       json = { "eslint_d" },
       jsonc = { "eslint_d" },

@@ -8,7 +8,7 @@ return {
         enabled = true,
 
         -- Default prompt string
-        default_prompt = "Input",
+        default_prompt = "Input", -- Input | 
 
         -- Trim trailing `:` from prompt
         trim_prompt = true,
@@ -22,7 +22,7 @@ return {
         -- These are passed to nvim_open_win
         border = "rounded",
         -- 'editor' and 'win' will default to being centered
-        relative = "editor", -- "cursor" | "editor" | "win"
+        relative = "cursor", -- "cursor" | "editor" | "win"
 
         -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
         prefer_width = 40,

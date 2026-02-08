@@ -101,7 +101,7 @@ return {
     })
 
     telescope.load_extension("fzf")
-    telescope.load_extension("noice")
+    -- telescope.load_extension("noice")
     telescope.load_extension("lazygit")
     telescope.load_extension("file_browser")
     telescope.load_extension("todo-comments")

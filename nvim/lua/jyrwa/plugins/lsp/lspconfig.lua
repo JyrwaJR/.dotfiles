@@ -40,7 +40,10 @@ return {
         opts.desc = "Hover documentation"
         keymap.set("n", "K", vim.lsp.buf.hover, opts)
         opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+        keymap.set("n", "<leader>rn", function()
+          require("renamer").rename()
+        end, opts)
+        -- Or direct lua call if preferred: keymap.set("i", "<F2>", function() require("renamer").rename() end, opts)
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
       end,
@@ -85,52 +88,22 @@ return {
     })
 
     local servers = {
-      settings = {
-        complete_function_calls = true,
-        vtsls = {
-          enableMoveToFileCodeAction = true,
-          autoUseWorkspaceTsdk = true,
-          experimental = {
-            maxInlayHintLength = 30,
-            completion = {
-              enableServerSideFuzzyMatch = true,
-            },
-          },
-        },
-        prismals = {
-          enableServerSideFuzzyMatch = true,
-        },
-        typescript = {
-          updateImportsOnFileMove = { enabled = "always" },
-          suggest = {
-            completeFunctionCalls = true,
-          },
-          inlayHints = {
-            enumMemberValues = { enabled = true },
-            functionLikeReturnTypes = { enabled = true },
-            parameterNames = { enabled = "literals" },
-            parameterTypes = { enabled = true },
-            propertyDeclarationTypes = { enabled = true },
-            variableTypes = { enabled = false },
-          },
-        },
-      },
       ts_ls = {
         enabled = true,
         settings = {
-          typescript = { inlayHints = { includeInlayParameterNameHints = "error" } },
-          javascript = { inlayHints = { includeInlayParameterNameHints = "error" } },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+          },
+          javascript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+          },
         },
-        on_attach = function(client, bufnr)
-          -- client.handlers["textDocument/publishDiagnostics"] = function() end
-          client.server_capabilities.documentFormattingProvider = false
-          vim.api.nvim_create_autocmd("BufWritePost", {
-            buffer = bufnr,
-            callback = function(ctx)
-              client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-            end,
-          })
-        end,
       },
       graphql = {
         filetypes = {
@@ -217,6 +190,11 @@ return {
             validate = true,
             hover = true,
             completion = true,
+            checkThirdParty = false,
+            schemas = {
+              ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+              ["https://json.schemastore.org/eas.json"] = "eas.json",
+            },
           },
         },
       },
@@ -232,6 +210,7 @@ return {
         settings = {
           codeAction = { disableRuleComment = { enable = true, location = "separateLine" } },
           format = false,
+          useFlatConfig = true,
         },
       },
       sqlls = {

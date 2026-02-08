@@ -19,7 +19,7 @@ return {
       -- enable indentation
       indent = { enable = true },
       -- explicitly disable deprecated treesitter autotag module
-      autotag = { enable = false },
+      autotag = { enable = false, },
       -- ensure these language parsers are installed
       ensure_installed = {
         "javascript",
@@ -27,13 +27,10 @@ return {
         "tsx",
         "sql",
         "yaml",
-        "html",
         "css",
         "prisma",
         "markdown",
         "markdown_inline",
-        "svelte",
-        "graphql",
         "bash",
         "vim",
         "dockerfile",
@@ -47,8 +44,8 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
+          init_selection = "<C-s>",
+          node_incremental = "<C-s>",
           scope_incremental = false,
           node_decremental = "<bs>",
         },

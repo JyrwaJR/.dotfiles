@@ -36,7 +36,7 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 -- Noice notifications
 keymap.set("n", "<leader>cn", "<cmd>NoiceDismiss<CR>", { desc = "Close all notifications" })
 
-keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "Trigger LSP Completion" })
+
 -- Telescope Keymaps
 keymap.set(
   "n",
