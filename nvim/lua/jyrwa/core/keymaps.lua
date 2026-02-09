@@ -114,3 +114,16 @@ keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backl
 keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
+
+-- DBUI
+keymap.set("n", "<leader>du", function()
+  vim.cmd("NvimTreeClose")
+  require("lazy").load({ plugins = { "vim-dadbod-ui" } })
+  vim.cmd("DBUIToggle")
+end, { desc = "Toggle DBUI" })
+
+keymap.set("n", "<leader>dt", "<cmd>DBUIToggle<CR>", { desc = "DBUI Toggle" })
+keymap.set("n", "<leader>df", "<cmd>DBUIFindBuffer<CR>", { desc = "DBUI Find Buffer" })
+keymap.set("n", "<leader>dr", "<cmd>DBUIRenameBuffer<CR>", { desc = "DBUI Rename Buffer" })
+keymap.set("n", "<leader>dl", "<cmd>DBUILastQueryInfo<CR>", { desc = "DBUI Last Query Info" })
+keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<CR>", { desc = "DBUI Add Connection" })
