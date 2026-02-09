@@ -57,11 +57,5 @@ return {
       end,
     })
 
-    -- Fix your keymap - remove tabnew (this causes bottom split!)
-    vim.keymap.set("n", "<leader>d", function()
-      vim.cmd("NvimTreeClose")
-      require("lazy").load({ plugins = { "vim-dadbod-ui" } })
-      vim.cmd("DBUI")
-    end, { desc = "Open Database UI" })
   end,
 }

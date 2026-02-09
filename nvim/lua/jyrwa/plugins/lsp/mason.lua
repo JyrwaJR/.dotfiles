@@ -42,7 +42,6 @@ return {
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
-        "sqlfluff", -- sql formatter
         "eslint_d", -- eslint linter
         "biome", -- js/ts formatter/linter alternative
         "actionlint", -- github actions linter
