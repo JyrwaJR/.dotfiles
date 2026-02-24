@@ -45,6 +45,7 @@ return {
         "eslint_d", -- eslint linter
         "biome", -- js/ts formatter/linter alternative
         "actionlint", -- github actions linter
+        "js-debug-adapter", -- dap adapter for node/typescript
       },
     })
   end,

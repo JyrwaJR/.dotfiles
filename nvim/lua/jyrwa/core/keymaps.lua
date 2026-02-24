@@ -36,7 +36,6 @@ keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer
 -- Noice notifications
 keymap.set("n", "<leader>cn", "<cmd>NoiceDismiss<CR>", { desc = "Close all notifications" })
 
-
 -- Telescope Keymaps
 keymap.set(
   "n",
@@ -100,8 +99,17 @@ keymap.set(
 keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix toggle<cr>", { desc = "Toggle Trouble quickfix list" })
 keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Toggle Trouble location list" })
 keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle Todos in Trouble" })
--- Vim Maximizer
-keymap.set("n", "<leader>sm", "<cmd>MaximizerToggle<cr>", { desc = "Toggle Maximizer" })
+-- Vim Maximizer (Native Lua Implementation)
+keymap.set("n", "<leader>sm", function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Toggle Split Maximizer" })
 
 -- Obsidian
 keymap.set("n", "<leader>of", "<cmd>Telescope obsidian find_notes<cr>", { desc = "Find Obsidian notes" })
@@ -114,16 +122,3 @@ keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backl
 keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
-
--- DBUI
-keymap.set("n", "<leader>du", function()
-  vim.cmd("NvimTreeClose")
-  require("lazy").load({ plugins = { "vim-dadbod-ui" } })
-  vim.cmd("DBUIToggle")
-end, { desc = "Toggle DBUI" })
-
-keymap.set("n", "<leader>dt", "<cmd>DBUIToggle<CR>", { desc = "DBUI Toggle" })
-keymap.set("n", "<leader>df", "<cmd>DBUIFindBuffer<CR>", { desc = "DBUI Find Buffer" })
-keymap.set("n", "<leader>dr", "<cmd>DBUIRenameBuffer<CR>", { desc = "DBUI Rename Buffer" })
-keymap.set("n", "<leader>dl", "<cmd>DBUILastQueryInfo<CR>", { desc = "DBUI Last Query Info" })
-keymap.set("n", "<leader>da", "<cmd>DBUIAddConnection<CR>", { desc = "DBUI Add Connection" })

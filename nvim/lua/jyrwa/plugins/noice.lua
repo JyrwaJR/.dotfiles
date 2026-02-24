@@ -1,7 +1,7 @@
 return {
   "folke/noice.nvim",
   event = "VeryLazy",
-  enabled = true,
+  enabled = false,
   opts = {
     lsp = {
       override = {
@@ -14,6 +14,7 @@ return {
       bottom_search = true,
       command_palette = false,
       long_message_to_split = true,
+      lsp_doc_border = true,
     },
     routes = {
       {
