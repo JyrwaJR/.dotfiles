@@ -1,35 +1,29 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
 
-config.colors = {
-	foreground = "#CBE0F0",
-	background = "#011423",
-	cursor_bg = "#47FF9C",
-	cursor_border = "#47FF9C",
-	cursor_fg = "#011423",
-	selection_bg = "#033259",
-	selection_fg = "#CBE0F0",
-	ansi = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#0FC5ED", "#a277ff", "#24EAF7", "#24EAF7" },
-	brights = { "#214969", "#E52E2E", "#44FFB1", "#FFE073", "#A277FF", "#a277ff", "#24EAF7", "#24EAF7" },
-	split = "#24EAF7",
-	scrollbar_thumb = "#214969",
-	compose_cursor = "#47FF9C",
-	visual_bell = "#E52E2E",
-}
+config.color_scheme = "Catppuccin Macchiato" -- Mocha Macchiato
 
-config.font = wezterm.font("Recursive Mn Csl St")
-config.font_size = 14
+config.font = wezterm.font("RecMonoCasual Nerd Font", {
+	weight = 900,
+	italic = true,
+})
+
+-- config.font = wezterm.font("FiraCode Nerd Font Mono", {
+-- 	weight = 600,
+-- 	italic = false,
+-- })
+
+config.font_size = 20
 config.enable_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
 config.window_decorations = "RESIZE"
-config.window_background_opacity = 0.9
-config.bold_brightens_ansi_colors = true
+config.window_background_opacity = 1
 config.hide_mouse_cursor_when_typing = true
-config.default_prog = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" }
-config.macos_window_background_blur = 10
+config.macos_window_background_blur = 8
 config.window_close_confirmation = "NeverPrompt"
--- config.front_end = "OpenGL"
-config.detect_password_input = true
+
+-- Set zsh as the default shell for new tabs/windows
+config.default_prog = { "/bin/zsh", "--login" } -- Replace with the correct path to zsh for your system
 
 config.keys = {
 	{
@@ -45,34 +39,34 @@ config.keys = {
 			size = { Percent = 50 },
 		}),
 	},
+	-- Modify the keybinding for Ctrl+Shift+B to open a new tab with zsh
 	{
 		key = "B",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL",
 		action = wezterm.action({
-			SpawnCommandInNewTab = { args = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" } },
+			SpawnCommandInNewTab = { args = { "/bin/zsh", "--login" } }, -- Ensure this points to the correct zsh path
 		}),
 	},
 	-- Key bindings for pane navigation like nvim
 	{
 		key = "H",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL",
 		action = wezterm.action.ActivatePaneDirection("Left"),
 	},
 	{
 		key = "J",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL",
 		action = wezterm.action.ActivatePaneDirection("Down"),
 	},
 	{
 		key = "K",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL",
 		action = wezterm.action.ActivatePaneDirection("Up"),
 	},
 	{
 		key = "L",
-		mods = "CTRL|SHIFT",
+		mods = "CTRL",
 		action = wezterm.action.ActivatePaneDirection("Right"),
 	},
 }
-
 return config
