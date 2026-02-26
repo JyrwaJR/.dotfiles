@@ -73,15 +73,16 @@ return {
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",
-        layout_strategy = "horizontal", -- Horizontal or vertical
+        layout_strategy = "vertical", -- Horizontal or vertical
+        preview = true,
         layout_config = {
           prompt_position = "bottom",
           horizontal = { width = 0.9 },
           vertical = { width = 0.9 },
         },
-        file_ignore_patterns = { ".git/", "node_modules", },
+        file_ignore_patterns = { ".git/", "node_modules", "*.test.*", "migration.sql" },
         path_shorten = 2,
-        path_display = { "filename_first" },
+        path_display = { "truncate" },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
@@ -105,7 +106,26 @@ return {
     telescope.load_extension("lazygit")
     telescope.load_extension("file_browser")
     telescope.load_extension("todo-comments")
-    telescope.load_extension("undo")
+    telescope.load_extension("undo", {
+      surround = true,
+      mappings = {
+        i = {
+          ["<C-u>"] = require("telescope-undo.actions").yank_additions,
+          ["<C-d>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-y>"] = require("telescope-undo.actions").restore,
+        },
+        n = {
+          ["<C-u>"] = require("telescope-undo.actions").yank_additions,
+          ["<C-d>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-y>"] = require("telescope-undo.actions").restore,
+        },
+        v = {
+          ["<C-u>"] = require("telescope-undo.actions").yank_additions,
+          ["<C-d>"] = require("telescope-undo.actions").yank_deletions,
+          ["<C-y>"] = require("telescope-undo.actions").restore,
+        },
+      },
+    })
 
     local function grep_globs(globs, title)
       builtin.live_grep({

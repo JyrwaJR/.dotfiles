@@ -57,8 +57,8 @@ keymap.set("n", "<leader>fb", "<cmd>Telescope file_browser<cr>", { desc = "File 
 keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
 keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
 keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find noice" })
-keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find noice" })
-keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find noice" })
+keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find undo" })
+keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find resume" })
 keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Fuzzy find jumplist" })
 -- Telescope Git
 --
@@ -122,3 +122,9 @@ keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backl
 keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
+
+-- Map <leader>cg to open ChatGPT window
+keymap.set("n", "<leader>cg", ":ChatGPT<CR>", { noremap = true, silent = true })
+
+-- Map <leader>cw to open ChatGPT edit window
+keymap.set("n", "<leader>cw", ":ChatGPTEdit<CR>", { noremap = true, silent = true })

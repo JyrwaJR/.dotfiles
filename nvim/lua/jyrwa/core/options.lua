@@ -39,6 +39,12 @@ opt.splitbelow = true -- split horizontal window to the bottom
 
 -- turn off swap file
 opt.swapfile = false -- turn off swap file
+
+-- save undo history
+opt.undofile = true
+opt.undolevels = 10000
+opt.undoreload = 10000
+
 -- Get 8 line below and above the cursor
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor
 
