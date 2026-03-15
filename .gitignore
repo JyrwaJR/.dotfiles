@@ -9,3 +9,4 @@ swiftpm
 .env.*
 .env
 /nvim/.env
+gh
