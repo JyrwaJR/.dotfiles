@@ -1,37 +1,34 @@
 return {
-  "jackMort/ChatGPT.nvim",
-  event = "VeryLazy",
-  opts = {
-    -- 1. Point to your local Ollama server
-    -- Note: Ollama's OpenAI-compatible endpoint is usually at /v1
-    api_host_cmd = "echo http://localhost:11434",
-
-    -- 2. Ollama doesn't need a key, but the plugin requires one to start
-    api_key_cmd = "echo 'ollama'",
-
-    -- 3. Configure the model settings
-    openai_params = {
-      model = "qwen2.5-coder:3b-instruct-q4_0",
-      frequency_penalty = 0,
-      presence_penalty = 0,
-      max_tokens = 4096,
-      temperature = 0,
-      top_p = 1,
-      n = 1,
-    },
-    openai_edit_params = {
-      model = "qwen2.5-coder:3b-instruct-q4_0",
-      temperature = 0,
-      top_p = 1,
-      n = 1,
-    },
-    -- 4. Set the chat specific instructions (persona)
-    system_prompt = "You are a helpful AI assistant and expert coder.",
+  "robitx/gp.nvim",
+  keys = {
+    { "<leader>gn", "<cmd>GpChatNew vsplit<cr>", desc = "New Chat" },
+    { "<leader>gt", "<cmd>GpChatToggle vsplit<cr>", desc = "Toggle Chat" },
+    { "<leader>s", "<cmd>GpChatRespond<cr>", desc = "Send to AI" },
   },
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "nvim-lua/plenary.nvim",
-    "folke/trouble.nvim",
-    "nvim-telescope/telescope.nvim",
-  },
+  config = function()
+    require("gp").setup({
+      providers = {
+        ollama = {
+          endpoint = "http://192.168.1.11:11434/api/chat", -- IMPORTANT: /v1
+        },
+      },
+
+      agents = {
+        {
+          provider = "ollama",
+          name = "QwenCoder",
+          chat = true,
+          command = true,
+
+          -- your actual model
+          model = { model = "qwen2.5-coder:3b-instruct-q4_0" },
+
+          system_prompt = "You are a helpful coding assistant. Explain things simply and clearly.",
+        },
+      },
+
+      default_chat_agent = "QwenCoder",
+      default_command_agent = "QwenCoder",
+    })
+  end,
 }

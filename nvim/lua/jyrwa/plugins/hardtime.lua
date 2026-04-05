@@ -4,14 +4,21 @@ return {
   opts = {
     -- Disable hardtime when explicitly turned off
     disable_mouse = false,
-    -- Prevent mashing j,k,h,l by setting a delay. 
+    -- Prevent mashing j,k,h,l by setting a delay.
     max_count = 4,
     hint = true,
     notification = true,
     -- don't run in telescope, undotree, NvimTree, alpha, etc.
-    disabled_filetypes = { 
-      "qf", "netrw", "NvimTree", "lazy", "mason", "oil", 
-      "undotree", "Trouble", "alpha" 
+    disabled_filetypes = {
+      "qf",
+      "netrw",
+      "NvimTree",
+      "lazy",
+      "mason",
+      "oil",
+      "undotree",
+      "Trouble",
+      "alpha",
     },
   },
   config = function(_, opts)

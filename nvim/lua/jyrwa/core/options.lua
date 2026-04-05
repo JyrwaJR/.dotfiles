@@ -2,7 +2,7 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
-opt.relativenumber = false
+opt.relativenumber = true
 opt.number = false
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)

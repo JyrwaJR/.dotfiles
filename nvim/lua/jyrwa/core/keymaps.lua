@@ -78,8 +78,6 @@ keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
 keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
 keymap.set("n", "<leader>gf", "<cmd>LazyGitFilterCurrentFile<cr>", { desc = "Filter lazy git for current file" })
 keymap.set("n", "<leader>gF", "<cmd>LazyGitFilter<cr>", { desc = "Filter lazy git" })
-keymap.set("n", "<leader>G", "<cmd>Git<cr>", { desc = "Git" })
-keymap.set("n", "<leader>P", "<cmd>Git push<cr>", { desc = "Git push" })
 
 -- Nvim Tree
 keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
@@ -123,8 +121,7 @@ keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
 
--- Map <leader>cg to open ChatGPT window
-keymap.set("n", "<leader>cg", ":ChatGPT<CR>", { noremap = true, silent = true })
-
--- Map <leader>cw to open ChatGPT edit window
-keymap.set("n", "<leader>cw", ":ChatGPTEdit<CR>", { noremap = true, silent = true })
+-- DADBOD
+keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
+keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
+keymap.set("n", "<leader>d", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
