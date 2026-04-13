@@ -5,16 +5,15 @@ return {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },
   config = function()
-    -- Import Comment.nvim safely
-    local comment = require("Comment")
-    local ts_context_commentstring = require("ts_context_commentstring.integrations.comment_nvim")
+    -- IMPORTANT: setup FIRST
+    require("ts_context_commentstring").setup({
+      enable_autocmd = false,
+    })
 
-    -- Enable comment plugin with JSX/TSX support
+    local comment = require("Comment")
+
     comment.setup({
-      pre_hook = ts_context_commentstring.create_pre_hook(),
-      padding = true,
-      sticky = true,
-      ignore = "^%s*$",
+      pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
     })
   end,
 }

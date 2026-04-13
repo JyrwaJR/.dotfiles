@@ -3,6 +3,7 @@ return {
     "echasnovski/mini.indentscope",
     version = "*",
     event = "BufEnter",
+    enabled = false,
     opts = {
       symbol = "|",
       options = { try_as_border = true, border = "both" },

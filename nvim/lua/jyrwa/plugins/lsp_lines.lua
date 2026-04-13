@@ -2,11 +2,11 @@ return {
   "ErichDonGubler/lsp_lines.nvim",
   config = function()
     require("lsp_lines").setup()
-    
+
     -- Disable virtual_text since it's redundant when lsp_lines is on
     vim.diagnostic.config({
-      virtual_text = false,
-      virtual_lines = true, 
+      virtual_text = true,
+      virtual_lines = true,
     })
 
     -- Toggle lsp_lines via keymap

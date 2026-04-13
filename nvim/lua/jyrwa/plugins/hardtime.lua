@@ -3,9 +3,9 @@ return {
   dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
   opts = {
     -- Disable hardtime when explicitly turned off
-    disable_mouse = false,
+    disable_mouse = true,
     -- Prevent mashing j,k,h,l by setting a delay.
-    max_count = 4,
+    max_count = 5,
     hint = true,
     notification = true,
     -- don't run in telescope, undotree, NvimTree, alpha, etc.
