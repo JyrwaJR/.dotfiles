@@ -182,6 +182,28 @@ return {
       },
       jsonls = {
         filetypes = { "json", "jsonc" },
+        settings = {
+          json = {
+            schemas = {
+              {
+                fileMatch = { "package.json" },
+                url = "https://json.schemastore.org/package.json",
+              },
+              {
+                fileMatch = { "app.json", "expo.json" },
+                url = "https://json.schemastore.org/expo.json",
+              },
+              {
+                fileMatch = { "eas.json" },
+                url = "https://json.schemastore.org/eas.json",
+              },
+              {
+                fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+                url = "https://json.schemastore.org/tsconfig.json",
+              },
+            },
+          },
+        },
       },
       yamlls = {
         filetypes = { "yaml", "yml" },
@@ -193,7 +215,7 @@ return {
             checkThirdParty = false,
             schemas = {
               ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-              ["https://json.schemastore.org/eas.json"] = "eas.json",
+              ["https://json.schemastore.org/github-action.json"] = "/.github/actions/*",
             },
           },
         },
