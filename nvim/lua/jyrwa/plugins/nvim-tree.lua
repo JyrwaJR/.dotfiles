@@ -36,7 +36,8 @@ return {
         },
       },
       filters = {
-        custom = { ".DS_Store", "node_modules", ".git", "ios", "android", ".vercel", ".expo" },
+        custom = { ".DS_Store", "ios", "android", ".vercel", ".expo" },
+        dotfiles = false,
       },
       git = {
         ignore = false,
