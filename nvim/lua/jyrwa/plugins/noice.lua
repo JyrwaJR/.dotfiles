@@ -25,18 +25,14 @@ return {
         },
         opts = { skip = true },
       },
-      -- 1. Explicitly ALLOW/SHOW errors
       {
         filter = {
-          event = "notify",
-          level = "error",
-        },
-        opts = { skip = false },
-      },
-      -- 2. SKIP all other notifications
-      {
-        filter = {
-          event = "notify",
+          event = "msg_show",
+          any = {
+            { find = "%d+L, %d+B" },
+            { find = "; after #%d+" },
+            { find = "; before #%d+" },
+          },
         },
         opts = { skip = true },
       },
@@ -74,8 +70,5 @@ return {
   },
   dependencies = {
     "MunifTanjim/nui.nvim",
-    {
-      "rcarriga/nvim-notify",
-    },
   },
 }

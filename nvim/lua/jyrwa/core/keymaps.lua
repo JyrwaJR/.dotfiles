@@ -60,44 +60,36 @@ keymap.set("n", "<leader>fn", "<cmd>Telescope noice<cr>", { desc = "Fuzzy find n
 keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Fuzzy find undo" })
 keymap.set("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Fuzzy find resume" })
 keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Fuzzy find jumplist" })
--- Telescope Git
---
--- Auto Session
-keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" }) -- restore last workspace session for current directory
-keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto session root dir" }) -- save workspace session for current working directory
-keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" }) -- save workspace session for current working directory
--- LazyGit
+
+-- Git
 keymap.set("n", "<leader>gd", "<cmd>Gitsigns diffthis<cr>", { desc = "Fuzzy find git diff" })
 keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Find Git Files" })
 keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy find commits for current file" })
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
 keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
 keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
-keymap.set("n", "<leader>gg", "<cmd>LazyGit<cr>", { desc = "Open lazy git" })
-keymap.set("n", "<leader>gl", "<cmd>LazyGitLog<cr>", { desc = "Git Logs" })
-keymap.set("n", "<leader>gc", "<cmd>LazyGitCurrentFile<cr>", { desc = "Open git for current file" })
-keymap.set("n", "<leader>gf", "<cmd>LazyGitFilterCurrentFile<cr>", { desc = "Filter lazy git for current file" })
-keymap.set("n", "<leader>gF", "<cmd>LazyGitFilter<cr>", { desc = "Filter lazy git" })
+keymap.set("n", "<leader>gg", function() Snacks.lazygit() end, { desc = "Lazygit" })
+keymap.set("n", "<leader>gl", function() Snacks.lazygit.log() end, { desc = "Lazygit Log" })
+keymap.set("n", "<leader>gc", function() Snacks.lazygit.log_file() end, { desc = "Lazygit Current File Log" })
 
--- Nvim Tree
-keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file explorer" }) -- toggle file explorer
-keymap.set("n", "<leader>ef", "<cmd>NvimTreeFindFileToggle<CR>", { desc = "Toggle file explorer on current file" }) -- toggle file explorer on current file
-keymap.set("n", "<leader>ec", "<cmd>NvimTreeCollapse<CR>", { desc = "Collapse file explorer" }) -- collapse file explorer
-keymap.set("n", "<leader>er", "<cmd>NvimTreeRefresh<CR>", { desc = "Refresh file explorer" }) -- refresh file explorer
-keymap.set("n", "<leader>en", "<cmd>NvimTreeFindFile<CR>", { desc = "Find file in file explorer" }) -- find file in file explorer
+-- Explorer
+keymap.set("n", "<leader>ee", function() Snacks.picker.explorer() end, { desc = "Toggle Snacks explorer" })
+keymap.set("n", "<leader>ef", function() Snacks.picker.explorer({ hidden = true, ignored = true }) end, { desc = "Snacks explorer (show hidden/ignored)" })
+
+-- Auto Session
+keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" })
+keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session" })
+keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" })
+
 -- Trouble
 keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble" })
 keymap.set("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble workspace diagnostics" })
-keymap.set(
-  "n",
-  "<leader>xd",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-  { desc = "Toggle Trouble document diagnostics" }
-)
+keymap.set("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Toggle Trouble document diagnostics" })
 keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix toggle<cr>", { desc = "Toggle Trouble quickfix list" })
 keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Toggle Trouble location list" })
 keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle Todos in Trouble" })
--- Vim Maximizer (Native Lua Implementation)
+
+-- Vim Maximizer
 keymap.set("n", "<leader>sm", function()
   if vim.t.maximized then
     vim.cmd("wincmd =")
@@ -110,14 +102,11 @@ keymap.set("n", "<leader>sm", function()
 end, { desc = "Toggle Split Maximizer" })
 
 -- Obsidian
-keymap.set("n", "<leader>of", "<cmd>Telescope obsidian find_notes<cr>", { desc = "Find Obsidian notes" })
-keymap.set("n", "<leader>ol", "<cmd>Telescope obsidian backlinks<cr>", { desc = "View backlinks for current note" })
-keymap.set("n", "<leader>os", "<cmd>Telescope obsidian search<cr>", { desc = "Search notes content" })
 keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })
 keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "Open New Note" })
 keymap.set("n", "<leader>osw", "<cmd>ObsidianWorkspace<cr>", { desc = "Open Switch Workspace" })
 keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backlinks from current note" })
-keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow  " })
+keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow" })
 keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
 keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
 

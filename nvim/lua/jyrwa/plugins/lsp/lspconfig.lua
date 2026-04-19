@@ -2,17 +2,14 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
-    { "hrsh7th/nvim-cmp" },
-    { "hrsh7th/cmp-cmdline" },
+    { "folke/lazydev.nvim", opts = {} },
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
+    "saghen/blink.cmp",
   },
   config = function()
     local mason_lspconfig = require("mason-lspconfig")
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
     local keymap = vim.keymap
 
     -- Enhanced LSP keymaps (unchanged, works with 2025 standards)
@@ -49,7 +46,7 @@ return {
       end,
     })
 
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    local capabilities = require("blink.cmp").get_lsp_capabilities()
 
     vim.diagnostic.config({
       virtual_text = false,
