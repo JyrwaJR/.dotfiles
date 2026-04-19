@@ -11,11 +11,11 @@ return {
     nvimtree.setup({
       view = {
         width = 30,
-        relativenumber = true,
+        relativenumber = false,
       },
       -- change folder arrow icons
       renderer = {
-        indent_markers = { enable = true },
+        indent_markers = { enable = false },
       },
       -- disable window_picker for
       --
@@ -39,7 +39,7 @@ return {
         custom = { ".DS_Store", "node_modules", ".git", "ios", "android", ".vercel", ".expo" },
       },
       git = {
-        ignore = true,
+        ignore = false,
       },
     })
   end,
