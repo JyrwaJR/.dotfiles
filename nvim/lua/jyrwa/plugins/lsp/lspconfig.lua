@@ -12,7 +12,7 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
     local keymap = vim.keymap
 
-    -- Enhanced LSP keymaps (unchanged, works with 2025 standards)
+    -- Enhanced LSP keymaps
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
       callback = function(ev)
@@ -33,20 +33,19 @@ return {
         keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
         opts.desc = "Show line diagnostics"
         keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        opts.desc = "Previous diagnostic"
         opts.desc = "Hover documentation"
         keymap.set("n", "K", vim.lsp.buf.hover, opts)
         opts.desc = "Smart rename"
         keymap.set("n", "<leader>rn", function()
           require("renamer").rename()
         end, opts)
-        -- Or direct lua call if preferred: keymap.set("i", "<F2>", function() require("renamer").rename() end, opts)
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
       end,
     })
 
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
+    local has_blink, blink = pcall(require, "blink.cmp")
+    local capabilities = has_blink and blink.get_lsp_capabilities() or vim.lsp.protocol.make_client_capabilities()
 
     vim.diagnostic.config({
       virtual_text = false,
@@ -64,17 +63,14 @@ return {
       float = { border = "rounded" },
     })
 
-    -- Mason setup with latest React/Node.js/Drizzle/Prisma servers [web:1][web:7][web:39]
-    require("mason").setup()
-
     mason_lspconfig.setup({
       ensure_installed = {
-        "ts_ls", -- TypeScript/JS/React/Next
-        "tailwindcss", -- Tailwind in React
-        "graphql", -- if you use GraphQL
-        "emmet_ls", -- JSX/TSX snippets
-        "lua_ls", -- Neovim config
-        "prismals", -- Prisma schema
+        "ts_ls",
+        "tailwindcss",
+        "graphql",
+        "emmet_ls",
+        "lua_ls",
+        "prismals",
         "cssls",
         "sqlls",
         "jsonls",
@@ -86,130 +82,50 @@ return {
 
     local servers = {
       ts_ls = {
-        enabled = true,
         settings = {
           typescript = {
             updateImportsOnFileMove = { enabled = "always" },
-            suggest = {
-              completeFunctionCalls = true,
-            },
+            suggest = { completeFunctionCalls = true },
           },
           javascript = {
             updateImportsOnFileMove = { enabled = "always" },
-            suggest = {
-              completeFunctionCalls = true,
-            },
+            suggest = { completeFunctionCalls = true },
           },
         },
       },
       graphql = {
-        filetypes = {
-          "graphql",
-          "gql",
-          "svelte",
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-        },
+        filetypes = { "graphql", "gql", "svelte", "javascript", "javascriptreact", "typescript", "typescriptreact" },
       },
-      prismals = {
-        filetypes = { "prisma", "schema" },
-      },
+      prismals = { filetypes = { "prisma", "schema" } },
       emmet_ls = {
-        filetypes = {
-          "html",
-          "javascript",
-          "javascriptreact",
-          "javascript.jsx",
-          "typescript",
-          "typescriptreact",
-          "typescript.tsx",
-          "css",
-          "scss",
-          "less",
-          "svelte",
-        },
-        settings = {
-          emmet = {
-            showAbbreviationsSuggestions = true,
-            showExpandedAbbreviation = true,
-          },
-        },
+        filetypes = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "scss", "less", "svelte" },
       },
       lua_ls = {
         settings = {
           Lua = {
             diagnostics = { globals = { "vim" } },
             completion = { callSnippet = "Replace" },
-            workspace = {
-              checkThirdParty = false,
-            },
-            telemetry = { enable = false },
+            workspace = { checkThirdParty = false },
           },
         },
       },
-      tailwindcss = {
-        filetypes = {
-          "html",
-          "typescriptreact",
-          "javascriptreact",
-          "typescript",
-          "javascript",
-          "css",
-          "scss",
-          "less",
-          "svelte",
-        },
-      },
-      cssls = {
-        filetypes = {
-          "html",
-          "typescriptreact",
-          "javascriptreact",
-          "typescript",
-          "javascript",
-          "css",
-          "scss",
-          "less",
-          "svelte",
-        },
-      },
+      tailwindcss = {},
+      cssls = {},
       jsonls = {
-        filetypes = { "json", "jsonc" },
         settings = {
           json = {
             schemas = {
-              {
-                fileMatch = { "package.json" },
-                url = "https://json.schemastore.org/package.json",
-              },
-              {
-                fileMatch = { "app.json", "expo.json" },
-                url = "https://json.schemastore.org/expo.json",
-              },
-              {
-                fileMatch = { "eas.json" },
-                url = "https://json.schemastore.org/eas.json",
-              },
-              {
-                fileMatch = { "tsconfig.json", "tsconfig.*.json" },
-                url = "https://json.schemastore.org/tsconfig.json",
-              },
+              { fileMatch = { "package.json" }, url = "https://json.schemastore.org/package.json" },
+              { fileMatch = { "app.json", "expo.json" }, url = "https://json.schemastore.org/expo.json" },
+              { fileMatch = { "eas.json" }, url = "https://json.schemastore.org/eas.json" },
+              { fileMatch = { "tsconfig.json", "tsconfig.*.json" }, url = "https://json.schemastore.org/tsconfig.json" },
             },
           },
         },
       },
       yamlls = {
-        filetypes = { "yaml", "yml" },
         settings = {
           yaml = {
-            validate = true,
-            hover = true,
-            completion = true,
-            checkThirdParty = false,
             schemas = {
               ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
               ["https://json.schemastore.org/github-action.json"] = "/.github/actions/*",
@@ -218,27 +134,17 @@ return {
         },
       },
       eslint = {
-        filetypes = {
-          "javascript",
-          "javascriptreact",
-          "typescript",
-          "typescriptreact",
-          "jsx",
-          "tsx",
-        },
         settings = {
           codeAction = { disableRuleComment = { enable = true, location = "separateLine" } },
-          format = false,
           useFlatConfig = true,
         },
       },
-      sqlls = {
-        filetypes = { "sql" },
-      },
+      sqlls = {},
     }
 
     for name, config in pairs(servers) do
       config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
+      -- Use the new 2026/Neovim 0.11+ API
       vim.lsp.config(name, config)
       vim.lsp.enable(name)
     end

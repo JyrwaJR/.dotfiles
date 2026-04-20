@@ -28,7 +28,6 @@ return {
         "html",
         "cssls",
         "tailwindcss",
-        "lua_ls",
         "graphql",
         "emmet_ls",
         "prismals",

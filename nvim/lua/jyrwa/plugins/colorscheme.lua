@@ -113,6 +113,7 @@ return {
         leap = true,
         mini = { enabled = true },
         dressing = true,
+        lazygit = true,
       },
     })
 

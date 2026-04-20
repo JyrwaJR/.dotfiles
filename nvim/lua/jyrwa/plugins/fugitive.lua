@@ -41,9 +41,9 @@ return {
     {
       "<leader>gd",
       function()
-        vim.cmd("Gvdiffsplit")
+        vim.cmd("botright vertical Gdiffsplit")
       end,
-      desc = "Git Diff",
+      desc = "Git Diff (Right)",
     },
     -- New useful keybindings
     {
