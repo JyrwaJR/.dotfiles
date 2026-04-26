@@ -13,24 +13,35 @@ return {
       },
     },
     indent = { enabled = true },
-    input = { enabled = true },
+    input = {
+      enabled = true,
+      win = {
+        style = "input",
+        relative = "cursor",
+        row = 1,
+        col = 0,
+        width = 30,
+      },
+    },
     notifier = {
       enabled = true,
       timeout = 3000,
     },
     picker = {
       enabled = true,
-      explorer = {
-        ignored = true,
-        hidden = true,
-        exclude = {
-          ".DS_Store",
-          ".git",
-          "node_modules",
-          "ios",
-          "android",
-          ".vercel",
-          ".expo",
+      sources = {
+        explorer = {
+          hidden = true,
+          ignored = true,
+          exclude = {
+            ".DS_Store",
+            ".git",
+            "node_modules",
+            "ios",
+            "android",
+            ".vercel",
+            ".expo",
+          },
         },
       },
     },
@@ -38,6 +49,7 @@ return {
     rename = { enabled = true },
     scroll = { enabled = true },
     statuscolumn = { enabled = true },
+    terminal = { enabled = true },
     words = { enabled = true },
     zen = { enabled = true },
     styles = {
@@ -47,6 +59,7 @@ return {
     },
   },
   keys = {
+    -- Top Level Utilities
     {
       "<leader>.",
       function()
@@ -83,6 +96,36 @@ return {
       desc = "Rename File",
     },
     {
+      "<leader>un",
+      function()
+        Snacks.notifier.hide()
+      end,
+      desc = "Dismiss All Notifications",
+    },
+    {
+      "<leader>nd",
+      function()
+        Snacks.notifier.hide()
+      end,
+      desc = "Dismiss All Notifications",
+    },
+
+    -- Git
+    {
+      "<leader>gg",
+      function()
+        Snacks.lazygit()
+      end,
+      desc = "Lazygit",
+    },
+    {
+      "<leader>gl",
+      function()
+        Snacks.lazygit.log()
+      end,
+      desc = "Lazygit Log",
+    },
+    {
       "<leader>gB",
       function()
         Snacks.gitbrowse()
@@ -103,27 +146,8 @@ return {
       end,
       desc = "Lazygit Current File Log",
     },
-    {
-      "<leader>gl",
-      function()
-        Snacks.lazygit.log()
-      end,
-      desc = "Lazygit Log",
-    },
-    {
-      "<leader>gg",
-      function()
-        Snacks.lazygit()
-      end,
-      desc = "Lazygit",
-    },
-    {
-      "<leader>nd",
-      function()
-        Snacks.notifier.hide()
-      end,
-      desc = "Dismiss All Notifications",
-    },
+
+    -- Navigation & View
     {
       "<leader>z",
       function()
@@ -137,6 +161,15 @@ return {
         Snacks.picker.undo()
       end,
       desc = "Undo History",
+    },
+
+    -- Terminal
+    {
+      "<leader>tt",
+      function()
+        Snacks.terminal()
+      end,
+      desc = "Toggle Terminal",
     },
   },
 }

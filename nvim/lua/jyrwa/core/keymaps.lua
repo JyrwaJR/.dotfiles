@@ -67,23 +67,10 @@ keymap.set("n", "<leader>gC", "<cmd>Telescope git_bcommits<cr>", { desc = "Fuzzy
 keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Fuzzy find git branches" })
 keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy find git status" })
 keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
-keymap.set("n", "<leader>gg", function()
-  Snacks.lazygit()
-end, { desc = "Lazygit" })
-keymap.set("n", "<leader>gl", function()
-  Snacks.lazygit.log()
-end, { desc = "Lazygit Log" })
-keymap.set("n", "<leader>gc", function()
-  Snacks.lazygit.log_file()
-end, { desc = "Lazygit Current File Log" })
 
--- Explorer
-keymap.set("n", "<leader>ee", function()
-  Snacks.picker.explorer()
-end, { desc = "Toggle Snacks explorer" })
-keymap.set("n", "<leader>ef", function()
-  Snacks.picker.explorer({ hidden = true, ignored = true })
-end, { desc = "Snacks explorer (show hidden/ignored)" })
+-- Snacks Explorer & Utilities
+keymap.set("n", "<leader>ee", function() Snacks.picker.explorer() end, { desc = "Toggle Snacks explorer" })
+keymap.set("n", "<leader>ef", function() Snacks.picker.explorer() end, { desc = "Snacks explorer" })
 
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" })
@@ -93,12 +80,7 @@ keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle
 -- Trouble
 keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble" })
 keymap.set("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble workspace diagnostics" })
-keymap.set(
-  "n",
-  "<leader>xd",
-  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-  { desc = "Toggle Trouble document diagnostics" }
-)
+keymap.set("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Toggle Trouble document diagnostics" })
 keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix toggle<cr>", { desc = "Toggle Trouble quickfix list" })
 keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Toggle Trouble location list" })
 keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle Todos in Trouble" })
@@ -115,12 +97,16 @@ keymap.set("n", "<leader>sm", function()
   end
 end, { desc = "Toggle Split Maximizer" })
 
+-- Obsidian
+keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })
+keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "Open New Note" })
+keymap.set("n", "<leader>osw", "<cmd>ObsidianWorkspace<cr>", { desc = "Open Switch Workspace" })
+keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backlinks from current note" })
+keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow" })
+keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
+keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
+
 -- DADBOD
 keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
 keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
 keymap.set("n", "<leader>d", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
--- Terminal
-vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]])
-vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]])
-vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]])
-vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]])
