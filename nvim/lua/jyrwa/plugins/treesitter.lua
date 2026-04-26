@@ -2,9 +2,6 @@ return {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPre", "BufNewFile" },
   build = ":TSUpdate",
-  dependencies = {
-    "windwp/nvim-ts-autotag",
-  },
   config = function()
     local ok, treesitter = pcall(require, "nvim-treesitter.configs")
     if not ok or not treesitter then
@@ -19,7 +16,7 @@ return {
       -- enable indentation
       indent = { enable = true },
       -- explicitly disable deprecated treesitter autotag module
-      autotag = { enable = false, },
+      autotag = { enable = false },
       -- ensure these language parsers are installed
       ensure_installed = {
         "javascript",
@@ -49,22 +46,6 @@ return {
           scope_incremental = false,
           node_decremental = "<bs>",
         },
-      },
-    })
-    require("nvim-ts-autotag").setup({
-      filetypes = {
-        "html",
-        "xml",
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-        "tsx",
-        "jsx",
-        "svelte",
-        "vue",
-        "markdown",
-        "php",
       },
     })
   end,
