@@ -115,15 +115,6 @@ keymap.set("n", "<leader>sm", function()
   end
 end, { desc = "Toggle Split Maximizer" })
 
--- Obsidian
-keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })
-keymap.set("n", "<leader>on", "<cmd>ObsidianNew<cr>", { desc = "Open New Note" })
-keymap.set("n", "<leader>osw", "<cmd>ObsidianWorkspace<cr>", { desc = "Open Switch Workspace" })
-keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<cr>", { desc = "Open Backlinks from current note" })
-keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<cr>", { desc = "Create note for tomorrow" })
-keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<cr>", { desc = "Create note for yesterday" })
-keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Search" })
-
 -- DADBOD
 keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
 keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })

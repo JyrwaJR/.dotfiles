@@ -80,12 +80,18 @@ return {
       map("v", "<leader>hs", function()
         gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
       end, "Stage hunk")
+      map("v", "<leader>gw", function()
+        gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end, "Stage selection")
       map("n", "<leader>hs", gs.stage_hunk, "Stage hunk")
       map("n", "<leader>hu", gs.undo_stage_hunk, "Undo stage hunk")
       map("n", "<leader>hr", gs.reset_hunk, "Reset hunk")
       map("v", "<leader>hr", function()
         gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
       end, "Reset hunk")
+      map("v", "<leader>gr", function()
+        gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+      end, "Reset selection")
       -- Text object
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Gitsigns select hunk") -- in visual mode, select hunk
     end,

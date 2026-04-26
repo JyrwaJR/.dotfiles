@@ -5,7 +5,6 @@ return {
     {
       "<leader>gs",
       function()
-        -- 'topleft' ensures it opens on the far left
         vim.cmd("topleft vertical Git")
       end,
       desc = "Git Status (Left)",
@@ -25,11 +24,25 @@ return {
       desc = "Git Push",
     },
     {
+      "<leader>gP",
+      function()
+        vim.cmd("Git push --force")
+      end,
+      desc = "Git Push (Force)",
+    },
+    {
       "<leader>gl",
       function()
         vim.cmd("Git pull")
       end,
       desc = "Git Pull",
+    },
+    {
+      "<leader>gf",
+      function()
+        vim.cmd("Git fetch")
+      end,
+      desc = "Git Fetch",
     },
     {
       "<leader>gb",
@@ -45,20 +58,16 @@ return {
       end,
       desc = "Git Diff (Right)",
     },
-    -- New useful keybindings
-    {
-      "<leader>gr",
-      function()
-        vim.cmd("Gread")
-      end,
-      desc = "Git Checkout Current File (Revert)",
-    },
+    -- Normal mode staging/reverting (whole file)
     {
       "<leader>gw",
-      function()
-        vim.cmd("Gwrite")
-      end,
+      "<cmd>Gwrite<CR>",
       desc = "Git Stage (Write) Current File",
+    },
+    {
+      "<leader>gr",
+      "<cmd>Gread<CR>",
+      desc = "Git Checkout Current File (Revert)",
     },
     {
       "<leader>gm",
@@ -70,7 +79,6 @@ return {
     {
       "<leader>gh",
       function()
-        -- Opens the commit log for the current file
         vim.cmd("topleft vertical Git log --oneline -- %")
       end,
       desc = "Git File History",
