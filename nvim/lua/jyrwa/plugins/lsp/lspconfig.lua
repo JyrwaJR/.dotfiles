@@ -2,7 +2,6 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/lazydev.nvim", opts = {} },
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -36,9 +35,7 @@ return {
         opts.desc = "Hover documentation"
         keymap.set("n", "K", vim.lsp.buf.hover, opts)
         opts.desc = "Smart rename"
-        keymap.set("n", "<leader>rn", function()
-          require("renamer").rename()
-        end, opts)
+        keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
       end,
