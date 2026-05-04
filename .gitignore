@@ -10,3 +10,7 @@ swiftpm
 .env
 /nvim/.env
 gh
+
+.gemini/
+gha-creds-*.json
+.github
