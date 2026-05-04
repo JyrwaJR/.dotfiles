@@ -37,6 +37,7 @@ return {
         "json",
         "vimdoc",
         "c",
+        "dart",
       },
       incremental_selection = {
         enable = true,
