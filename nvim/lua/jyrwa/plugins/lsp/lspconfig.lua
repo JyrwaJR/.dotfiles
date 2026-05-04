@@ -73,6 +73,7 @@ return {
         "jsonls",
         "yamlls",
         "eslint",
+        "dartls",
       },
       automatic_installation = true,
     })
