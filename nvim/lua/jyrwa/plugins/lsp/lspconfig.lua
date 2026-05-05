@@ -73,6 +73,7 @@ return {
         "jsonls",
         "yamlls",
         "eslint",
+        "html",
         "dartls",
       },
       automatic_installation = true,
@@ -138,6 +139,7 @@ return {
         },
       },
       sqlls = {},
+      html = {},
     }
 
     for name, config in pairs(servers) do
