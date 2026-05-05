@@ -74,7 +74,6 @@ return {
         "yamlls",
         "eslint",
         "html",
-        "dartls",
       },
       automatic_installation = true,
     })
@@ -97,7 +96,17 @@ return {
       },
       prismals = { filetypes = { "prisma", "schema" } },
       emmet_ls = {
-        filetypes = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact", "css", "scss", "less", "svelte" },
+        filetypes = {
+          "html",
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact",
+          "css",
+          "scss",
+          "less",
+          "svelte",
+        },
       },
       lua_ls = {
         settings = {
@@ -108,8 +117,11 @@ return {
           },
         },
       },
-      tailwindcss = {},
+      tailwindcss = {
+        filetypes = { "html", "javascript", "javascriptreact", "typescript", "typescriptreact" },
+      },
       cssls = {},
+      dartls = {},
       jsonls = {
         settings = {
           json = {
@@ -117,7 +129,10 @@ return {
               { fileMatch = { "package.json" }, url = "https://json.schemastore.org/package.json" },
               { fileMatch = { "app.json", "expo.json" }, url = "https://json.schemastore.org/expo.json" },
               { fileMatch = { "eas.json" }, url = "https://json.schemastore.org/eas.json" },
-              { fileMatch = { "tsconfig.json", "tsconfig.*.json" }, url = "https://json.schemastore.org/tsconfig.json" },
+              {
+                fileMatch = { "tsconfig.json", "tsconfig.*.json" },
+                url = "https://json.schemastore.org/tsconfig.json",
+              },
             },
           },
         },
