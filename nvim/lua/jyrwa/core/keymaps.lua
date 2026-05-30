@@ -110,3 +110,14 @@ keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Sear
 keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
 keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
 keymap.set("n", "<leader>d", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
+
+-- Spectre (Search & Replace)
+keymap.set("n", "<leader>Sr", '<cmd>lua require("spectre").toggle()<CR>', {
+  desc = "Toggle Spectre",
+})
+keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+  desc = "Search current word",
+})
+keymap.set("n", "<leader>Sf", '<cmd>lua require("spectre").open_file_search()<CR>', {
+  desc = "Search on current file",
+})
