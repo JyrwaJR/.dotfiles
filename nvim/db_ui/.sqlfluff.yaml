@@ -1,2 +1,4 @@
+dialect: postgres
+
 rules:
-  L010: false  # Disable WHERE alignment rule
+  L010: true # Disable WHERE alignment rule

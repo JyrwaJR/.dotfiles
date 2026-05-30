@@ -1,0 +1,144 @@
+-- =========================================
+-- LOG SEARCH QUERY
+-- =========================================
+
+SELECT
+  content,
+  message,
+  type
+
+FROM
+  public."logs"
+
+WHERE
+  TRUE
+
+  -- =========================================
+  -- BASIC FILTERS
+  -- =========================================
+
+  -- Filter backend logs only
+  AND "isBackend" = true -- true | false
+
+  -- Filter by exact log level
+  AND type = 'info' -- 'debug' | 'error' | 'info' | 'warn'
+
+  -- Filter by exact message
+  -- AND message = 'Unauthorized'
+
+  -- =========================================
+  -- FUZZY TEXT SEARCH
+  -- =========================================
+
+  AND (
+    TRUE
+
+    -- Search inside message column
+    AND (
+      message LIKE '%association%'
+
+      -- Search entire JSON content as text
+      -- OR content::text ILIKE '%unauthorize%'
+
+      -- Search by JSON top-level field
+      -- OR content ->> 'name' = 's'
+
+      -- Partial JSON field match
+      -- OR content ->> 'name' ILIKE '%kam%'
+
+      -- Search trace id
+      -- OR content ->> 'traceId' = '035f4746-f964-464e-9e4e-9943912f6b65'
+      -- OR content->>'traceId' = 'd586d32b-ce9f-4e62-945c-af84be8ab322'
+
+      -- Search tenant id
+      -- OR content ->> 'tenantId' = 'tenant_1'
+
+      -- Search user id
+      -- OR content ->> 'userId' = 'user_123'
+
+      -- Search request method
+      -- OR content -> 'request' ->> 'method' = 'POST'
+
+      -- Search request path
+      -- OR content -> 'request' ->> 'path' = '/api/users'
+
+      -- Search nested error code
+      -- OR content -> 'error' ->> 'code' = 'AUTH_FAILED'
+    )
+  )
+
+  -- =========================================
+  -- DATE FILTERS
+  -- =========================================
+
+  -- Filter from date
+  AND "createdAt" >= '2026-05-30 00:00:00'
+
+  -- Filter to date
+  AND "createdAt" <= '2026-05-30 23:59:59'
+
+  -- Alternative BETWEEN syntax
+  -- AND "createdAt" BETWEEN
+  --   '2026-05-01 00:00:00'
+  --   AND
+  --   '2026-05-30 23:59:59'
+
+  -- =========================================
+  -- UUID FILTERS
+  -- =========================================
+
+  -- Filter by specific log id
+  -- AND id = 'uuid_here'
+
+  -- Multiple ids
+  -- AND id IN (
+  --   'uuid_1',
+  --   'uuid_2'
+  -- )
+
+  -- =========================================
+  -- JSON EXISTENCE CHECKS
+  -- =========================================
+
+  -- Check if key exists
+  -- AND content ? 'traceId'
+
+  -- Check nested object exists
+  -- AND content ? 'request'
+
+  -- =========================================
+  -- JSON CONTAINMENT
+  -- =========================================
+
+  -- Match partial JSON structure
+  -- AND content @> '{"error":{"code":"AUTH_FAILED"}}'
+
+  -- Match request object
+  -- AND content @> '{"request":{"method":"POST"}}'
+
+  -- =========================================
+  -- ADVANCED SEARCH
+  -- =========================================
+
+  -- Regex search on message
+  -- AND message ~* 'timeout|unauthorize'
+
+  -- Regex search inside JSON
+  -- AND content::text ~* 'timeout|database'
+
+  -- =========================================
+  -- SORTING
+  -- =========================================
+
+ORDER BY
+  "createdAt" DESC
+
+  -- Alternative sorting
+  -- type ASC,
+  -- message ASC
+
+  -- =========================================
+  -- PAGINATION
+  -- =========================================
+
+LIMIT 100

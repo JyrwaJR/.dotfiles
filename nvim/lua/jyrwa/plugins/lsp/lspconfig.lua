@@ -74,11 +74,13 @@ return {
         "yamlls",
         "eslint",
         "html",
+        "marksman",
       },
       automatic_installation = true,
     })
 
     local servers = {
+      marksman = {},
       ts_ls = {
         settings = {
           typescript = {

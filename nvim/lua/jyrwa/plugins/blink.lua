@@ -22,7 +22,23 @@ return {
       menu = {
         border = "rounded",
         draw = {
-          columns = { { "label", "label_description", gap = 1 }, { "kind_icon", "kind" } },
+          columns = { { "kind_icon" }, { "label", gap = 1 }, { "import_path" } },
+          components = {
+            label = {
+              width = { max = 35 },
+            },
+            import_path = {
+              width = { fill = true, max = 55 },
+              text = function(ctx)
+                if ctx.label_description ~= "" then
+                  return ctx.label_description
+                end
+
+                return ""
+              end,
+              highlight = "BlinkCmpLabelDescription",
+            },
+          },
         },
       },
       documentation = {
@@ -33,6 +49,14 @@ return {
     },
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
+      per_filetype = {
+        sql = { "lsp", "snippets", "dadbod", "buffer" },
+        mysql = { "lsp", "snippets", "dadbod", "buffer" },
+        plsql = { "lsp", "snippets", "dadbod", "buffer" },
+      },
+      providers = {
+        dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+      },
     },
     signature = {
       enabled = true,

@@ -4,35 +4,30 @@ return {
     { "tpope/vim-dadbod", lazy = false },
     {
       "kristijanhusak/vim-dadbod-completion",
-      ft = { "sql", "mysql", "plsql", "sqlite", "psql", "mongodb" },
+      ft = { "sql", "mysql", "plsql" },
       lazy = true,
     },
   },
 
   cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
 
-  opts = {
-    default = true,
-    save_location = vim.fn.stdpath("config") .. "/db_ui",
-    execute_on_save = true,
-    use_nerd_fonts = true,
-    show_database_icon = true,
-    sort_by = "name",
-    auto_focus = true,
+  init = function()
+    vim.g.db_ui_save_location = vim.fn.stdpath("config") .. "/db_ui"
+    vim.g.db_ui_use_nerd_fonts = 1
+    vim.g.db_ui_auto_focus = 1
 
-    window = {
-      width = 20,
-      position = "right",
-    },
+    vim.g.db_ui_default_query = "select * from {table} limit 100"
 
-    result = {
-      default = true,
-      show_headers = true,
-      max_column_width = 60,
-      truncate = true,
-      position = "right",
-      split = "vertical",
-      size = 0.6,
-    },
-  },
+    vim.g.db_ui_table_helpers = {
+      postgresql = {
+        List = 'select * from "{table}" order by id desc limit 100',
+        Count = 'select count(*) from "{table}"',
+        Explain = 'explain analyze select * from "{table}"',
+      },
+    }
+  end,
+
+  config = function()
+    vim.treesitter.language.register("sql", "dbui")
+  end,
 }

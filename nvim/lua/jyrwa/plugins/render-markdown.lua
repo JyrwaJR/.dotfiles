@@ -6,8 +6,11 @@ return {
     "echasnovski/mini.icons", -- For icons (can use nvim-web-devicons instead)
   },
   ft = { "markdown", "rmd", "org", "norg", "codecompanion" },
+  keys = {
+    { "<leader>mr", "<cmd>RenderMarkdown toggle<cr>", desc = "Toggle Markdown Render" },
+  },
   opts = {
-    enabled = true,
+    enabled = false,
 
     heading = {
       sign = false,
