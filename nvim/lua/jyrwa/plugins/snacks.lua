@@ -33,15 +33,7 @@ return {
         explorer = {
           hidden = true,
           ignored = true,
-          exclude = {
-            ".DS_Store",
-            ".git",
-            "node_modules",
-            "ios",
-            "android",
-            ".vercel",
-            ".expo",
-          },
+          exclude = {},
         },
       },
     },

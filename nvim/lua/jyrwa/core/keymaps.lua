@@ -109,7 +109,19 @@ keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Sear
 -- DADBOD
 keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
 keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
-keymap.set("n", "<leader>d", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
+keymap.set("n", "<leader>df", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
+
+-- Run query under cursor or visual selection
+keymap.set("n", "<leader>dr", ":.DB<CR>", { desc = "Run current line as query" })
+keymap.set("v", "<leader>dr", ":'<,'>DB<CR>", { desc = "Run visual selection as query" })
+
+-- Save current query buffer
+keymap.set("n", "<leader>ds", function()
+  local name = vim.fn.input("Save query as: ")
+  if name and name ~= "" then
+    vim.cmd("DBUI save " .. name)
+  end
+end, { desc = "Save query with name" })
 
 -- Spectre (Search & Replace)
 keymap.set("n", "<leader>Sr", '<cmd>lua require("spectre").toggle()<CR>', {
