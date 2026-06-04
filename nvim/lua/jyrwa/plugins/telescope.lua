@@ -37,7 +37,7 @@ return {
           horizontal = { width = 0.9 },
           vertical = { width = 0.9 },
         },
-        file_ignore_patterns = { ".git/", "node_modules", "*.test.*", "migration.sql" },
+        file_ignore_patterns = { ".git/", "node_modules", "*.test.*", "migration.sql", "__tests__", "__mocks__" },
         path_shorten = 2,
         path_display = { "truncate" },
         mappings = {
@@ -61,6 +61,7 @@ return {
     pcall(telescope.load_extension, "fzf")
     pcall(telescope.load_extension, "todo-comments")
     pcall(telescope.load_extension, "undo")
+    pcall(telescope.load_extension, "rest")
 
     local function grep_globs(globs, title)
       builtin.live_grep({
@@ -76,13 +77,29 @@ return {
       })
     end
 
-    vim.api.nvim_create_user_command("FindTS", function() grep_globs({ "*.ts" }, "Search *.ts") end, {})
-    vim.api.nvim_create_user_command("FindJS", function() grep_globs({ "*.js" }, "Search *.js") end, {})
-    vim.api.nvim_create_user_command("FindTSX", function() grep_globs({ "*.tsx" }, "Search *.tsx") end, {})
-    vim.api.nvim_create_user_command("FindJSX", function() grep_globs({ "*.jsx" }, "Search *.jsx") end, {})
-    vim.api.nvim_create_user_command("FindJSON", function() grep_globs({ "*.json", "*.jsonc" }, "Search JSON") end, {})
-    vim.api.nvim_create_user_command("FindYAML", function() grep_globs({ "*.yml", "*.yaml" }, "Search YAML") end, {})
-    vim.api.nvim_create_user_command("FindPrisma", function() grep_globs({ "*.prisma" }, "Search Prisma") end, {})
-    vim.api.nvim_create_user_command("FindSQL", function() grep_globs({ "*.sql" }, "Search SQL") end, {})
+    vim.api.nvim_create_user_command("FindTS", function()
+      grep_globs({ "*.ts" }, "Search *.ts")
+    end, {})
+    vim.api.nvim_create_user_command("FindJS", function()
+      grep_globs({ "*.js" }, "Search *.js")
+    end, {})
+    vim.api.nvim_create_user_command("FindTSX", function()
+      grep_globs({ "*.tsx" }, "Search *.tsx")
+    end, {})
+    vim.api.nvim_create_user_command("FindJSX", function()
+      grep_globs({ "*.jsx" }, "Search *.jsx")
+    end, {})
+    vim.api.nvim_create_user_command("FindJSON", function()
+      grep_globs({ "*.json", "*.jsonc" }, "Search JSON")
+    end, {})
+    vim.api.nvim_create_user_command("FindYAML", function()
+      grep_globs({ "*.yml", "*.yaml" }, "Search YAML")
+    end, {})
+    vim.api.nvim_create_user_command("FindPrisma", function()
+      grep_globs({ "*.prisma" }, "Search Prisma")
+    end, {})
+    vim.api.nvim_create_user_command("FindSQL", function()
+      grep_globs({ "*.sql" }, "Search SQL")
+    end, {})
   end,
 }
