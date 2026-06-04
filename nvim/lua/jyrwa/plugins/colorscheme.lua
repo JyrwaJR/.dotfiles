@@ -134,4 +134,38 @@ return {
       },
     },
   },
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000,
+  },
+  {
+    "olivercederborg/poimandres.nvim",
+    priority = 1000,
+  },
+  {
+    "uloco/bluloco.nvim",
+    lazy = false,
+    priority = 1000,
+    dependencies = { "rktjmp/lush.nvim" },
+    opts = {
+      transparent = true,
+      italics = true,
+    },
+  },
+  {
+    "oxfist/night-owl.nvim",
+    priority = 1000,
+  },
+  {
+    "lalitmee/cobalt2.nvim",
+    priority = 1000,
+    dependencies = { "tjdevries/colorbuddy.nvim" },
+  },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    priority = 1000,
+    opts = {
+      transparent = true,
+    },
+  },
 }
