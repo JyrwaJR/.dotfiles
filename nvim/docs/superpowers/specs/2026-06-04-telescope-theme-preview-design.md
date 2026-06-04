@@ -1,32 +1,40 @@
-# Telescope Theme Preview & Tokyo Night Integration Design
+# Telescope Theme Preview & Multi-Theme Integration Design
 
 **Status:** APPROVED
 **Created:** 2026-06-04
 **Last Updated:** 2026-06-04
 
 ## Purpose
-Add a Telescope-based theme picker with live preview and integrate the Tokyo Night colorscheme into the existing Neovim configuration.
+Expand the Neovim colorscheme collection to include a variety of popular themes (One Dark Pro, Poimandres, Bluloco, Night Owl, Cobalt2, and Solarized Osaka) and ensure they are all previewable via Telescope.
 
 ## Architecture
-- **Plugin Management:** Centralize colorscheme plugins in `lua/jyrwa/plugins/colorscheme.lua`.
-- **Keymaps:** Define a consistent Telescope keymap for theme switching.
+- **Plugin Management:** Centralize all colorscheme plugins in `lua/jyrwa/plugins/colorscheme.lua`.
+- **Keymaps:** Use the existing `<leader>fh` keymap for Telescope theme switching.
 
 ## Proposed Changes
 
 ### 1. Plugin Configuration (`lua/jyrwa/plugins/colorscheme.lua`)
-- Convert the single plugin return to a table containing both `catppuccin` and `tokyonight.nvim`.
-- Configure `tokyonight` with basic defaults (transparent background support).
+Expand the plugin list to include:
+- `catppuccin/nvim` (Existing)
+- `folke/tokyonight.nvim` (Existing)
+- `olimorris/onedarkpro.nvim` (New)
+- `olivercederborg/poimandres.nvim` (New)
+- `uloco/bluloco.nvim` (New, depends on `rktjmp/lush.nvim`)
+- `oxfist/night-owl.nvim` (New)
+- `lalitmee/cobalt2.nvim` (New, depends on `tjdevries/colorbuddy.nvim`)
+- `craftzdog/solarized-osaka.nvim` (New)
 
-### 2. Keymap Integration (`lua/jyrwa/core/keymaps.lua`)
-- Add `<leader>fh` mapping to trigger `Telescope colorscheme enable_preview=true`.
-- Place this mapping in the "Telescope Keymaps" section for consistency.
+### 2. Dependencies
+Ensure themes requiring helper plugins have them correctly specified:
+- `Bluloco` -> `lush.nvim`
+- `Cobalt2` -> `colorbuddy.nvim`
 
 ## Success Metrics
 - `<leader>fh` opens Telescope colorscheme picker.
-- Live preview works as the user scrolls through themes.
-- Tokyo Night is available in the picker.
-- Selecting a theme applies it correctly.
+- All new themes appear in the list.
+- Live preview works for all new themes.
+- Each theme integrates correctly with existing UI elements (Telescope, Bufferline, Lualine, etc.).
 
 ## Out of Scope
-- Persisting the theme across Neovim restarts (will default to `catppuccin` as per current `colorscheme.lua` logic).
-- Advanced Tokyo Night configurations (e.g., custom highlights).
+- Persisting theme selection across sessions (will still default to Catppuccin on startup).
+- Deep customization of each individual theme.
