@@ -6,13 +6,82 @@ local act = wezterm.action
 -- THEME & VISUALS
 -- ==========================================================
 config.color_scheme = "Catppuccin Macchiato"
-config.font = wezterm.font("RecMonoCasual Nerd Font", { weight = 900, italic = true })
-config.font_size = 20.0
 
-config.set_environment_variables = {
-	HOME = os.getenv("HOME"),
-	PATH = "/opt/homebrew/bin:/usr/local/bin:" .. os.getenv("PATH"),
+config.font = wezterm.font_with_fallback({
+	{
+		-- family = "FiraCode Nerd Font Mono",
+		family = "CaskaydiaCove Nerd Font",
+		weight = "DemiBold",
+		italic = true,
+	},
+
+	"Symbols Nerd Font Mono",
+	"Noto Color Emoji",
+})
+
+config.font_rules = {
+	{
+		italic = true,
+		intensity = "Normal",
+		font = wezterm.font("CaskaydiaCove Nerd Font", {
+			style = "Italic",
+		}),
+	},
+
+	{
+		italic = false,
+		intensity = "Bold",
+		font = wezterm.font("CaskaydiaCove Nerd Font", {
+			weight = "Bold",
+		}),
+	},
+
+	{
+		italic = true,
+		intensity = "Bold",
+		font = wezterm.font("CaskaydiaCove Nerd Font", {
+			weight = "Bold",
+			style = "Italic",
+		}),
+	},
 }
+
+config.font_shaper = "Harfbuzz"
+
+config.harfbuzz_features = {
+	"calt",
+	"kern",
+	"liga",
+	"clig",
+	"calt",
+	"dlig",
+	"hist",
+	"ss01",
+	"ss02",
+	"ss03",
+	"ss04",
+	"ss05",
+	"ss06",
+	"ss07",
+	"ss08",
+	"ss09",
+	"ss10",
+	"ss11",
+	"ss12",
+	"ss13",
+	"ss14",
+	"ss15",
+	"ss16",
+	"ss17",
+	"ss18",
+	"ss19",
+	"ss20",
+}
+
+-- config.font = wezterm.font("RecMonoCasual Nerd Font", { weight = 900, italic = true })
+
+config.font_size = 18.0
+--
 -- SLEEK UI
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
@@ -25,9 +94,8 @@ config.window_padding = { left = 15, right = 15, top = 15, bottom = 0 }
 config.window_decorations = "RESIZE"
 config.window_background_opacity = 0.85
 config.macos_window_background_blur = 30
-
 -- Status Bar (Right side info)
-wezterm.on("update-right-status", function(window, pane)
+wezterm.on("update-right-status", function(window, _)
 	local name = window:active_workspace()
 	window:set_right_status(wezterm.format({
 		{ Attribute = { Intensity = "Bold" } },

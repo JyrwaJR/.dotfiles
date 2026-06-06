@@ -3,7 +3,7 @@
 -- =========================================
 
 SELECT
-  content,
+  -- content,
   message,
   type
 
@@ -18,10 +18,12 @@ WHERE
   -- =========================================
 
   -- Filter backend logs only
-  AND "isBackend" = true -- true | false
+  AND 
+  "isBackend" = true -- true | false
 
   -- Filter by exact log level
-  AND type = 'info' -- 'debug' | 'error' | 'info' | 'warn'
+  AND 
+  type = 'info' -- 'debug' | 'error' | 'info' | 'warn'
 
   -- Filter by exact message
   -- AND message = 'Unauthorized'
@@ -31,7 +33,7 @@ WHERE
   -- =========================================
 
   AND (
-    TRUE
+  TRUE
 
     -- Search inside message column
     AND (
@@ -72,10 +74,12 @@ WHERE
   -- =========================================
 
   -- Filter from date
-  AND "createdAt" >= '2026-05-30 00:00:00'
+  AND 
+  "createdAt" >= '2026-06-05 00:00:00'
 
   -- Filter to date
-  AND "createdAt" <= '2026-05-30 23:59:59'
+  AND 
+  "createdAt" <= '2026-06-30 23:59:59'
 
   -- Alternative BETWEEN syntax
   -- AND "createdAt" BETWEEN
