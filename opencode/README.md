@@ -72,7 +72,7 @@ a pointer to this command if the build step is missing.
 
 ## Features
 
-### Agents (12)
+### Agents (9)
 
 | Agent | Description |
 |-------|-------------|
@@ -85,11 +85,9 @@ a pointer to this command if the build step is missing.
 | e2e-runner | E2E testing |
 | doc-updater | Documentation |
 | refactor-cleaner | Dead code cleanup |
-| go-reviewer | Go code review |
-| go-build-resolver | Go build errors |
 | database-reviewer | Database optimization |
 
-### Commands (31)
+### Commands (28)
 
 | Command | Description |
 |---------|-------------|
@@ -109,9 +107,6 @@ a pointer to this command if the build step is missing.
 | `/update-codemaps` | Update codemaps |
 | `/test-coverage` | Coverage analysis |
 | `/setup-pm` | Package manager |
-| `/go-review` | Go code review |
-| `/go-test` | Go TDD |
-| `/go-build` | Go build fix |
 | `/skill-create` | Generate skills |
 | `/instinct-status` | View instincts |
 | `/instinct-import` | Import instincts |
@@ -119,11 +114,6 @@ a pointer to this command if the build step is missing.
 | `/evolve` | Cluster instincts |
 | `/promote` | Promote project instincts |
 | `/projects` | List known projects |
-| `/harness-audit` | Audit harness reliability and eval readiness |
-| `/loop-start` | Start controlled agentic loops |
-| `/loop-status` | Check loop state and checkpoints |
-| `/quality-gate` | Run quality gates on file/repo scope |
-| `/model-route` | Route tasks by model and budget |
 
 ### Plugin Hooks
 

@@ -1,6 +1,6 @@
 ---
 description: Orchestrate multiple agents for complex tasks
-agent: everything-claude-code:planner
+agent: planner
 subtask: true
 ---
 
@@ -29,8 +29,7 @@ Orchestrate multiple specialized agents for this complex task: $ARGUMENTS
 | e2e-runner | E2E testing | User flow testing |
 | doc-updater | Documentation | Updating docs |
 | refactor-cleaner | Code cleanup | Dead code removal |
-| go-reviewer | Go code | Go-specific review |
-| go-build-resolver | Go builds | Go build errors |
+
 | database-reviewer | Database | Query optimization |
 
 ## Orchestration Patterns

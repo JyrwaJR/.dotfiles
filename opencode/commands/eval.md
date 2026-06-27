@@ -1,6 +1,5 @@
 ---
 description: Run evaluation against acceptance criteria
-agent: everything-claude-code:build
 ---
 
 # Eval Command

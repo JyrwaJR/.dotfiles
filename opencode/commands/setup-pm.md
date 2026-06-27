@@ -1,6 +1,5 @@
 ---
 description: Configure package manager preference
-agent: everything-claude-code:build
 ---
 
 # Setup Package Manager Command

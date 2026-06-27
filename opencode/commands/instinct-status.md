@@ -1,6 +1,5 @@
 ---
 description: Show learned instincts (project + global) with confidence
-agent: everything-claude-code:build
 ---
 
 # Instinct Status Command
