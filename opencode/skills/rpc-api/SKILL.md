@@ -95,4 +95,120 @@ interface ApiResponse<T> {
   message: string;     // Human-readable result/error
   data?: T;            // The typed payload (undefined on failure)
 }
+
+## Usage Patterns
+
+### Pattern 1: TanStack Query Wrapper (read — `useQuery`)
+
+This is the **most common pattern** — wrap `rpc()` inside a custom hook using `useQuery`:
+
+```typescript
+// src/features/salary/hooks/use-salary-statements.ts
+import { useQuery } from '@tanstack/react-query';
+import { rpc } from '@utils/api';
+import { METHODS, QUERY_KEYS } from '@utils/constants';
+import { SalarySlip } from '../types';
+
+export function useSalaryStatements() {
+  const { emp_cd, isSignedIn } = useAuthStore();
+
+  const { data, isFetched, isError, error, refetch, isLoading, isFetching } = useQuery({
+    queryKey: QUERY_KEYS.SALARY.STATEMENTS(emp_cd),
+    queryFn: () => rpc<SalarySlip[]>(METHODS.GET_EMP_SALARY_STATEMENTS, { emp_cd }),
+    select: (response) => response?.data,  // ⬅ Unwrap ApiResponse.data
+    enabled: !!emp_cd && isSignedIn,        // ⬅ Don't fire until authenticated
+  });
+
+  return { data, isFetched, isError, error, refetch, isLoading, isFetching };
+}
+```
+
+**Key rules for query wrappers:**
+1. Always pass the generic `rpc<TResult>` with your expected response type
+2. Use `select: (res) => res.data` to unwrap `ApiResponse` so consumers get `TResult | undefined`
+3. Check `enabled` — never fire a query before the user is signed in
+4. Use `QUERY_KEYS` (defined in `src/shared/utils/constants/query-keys.ts`) for cache key structure
+
+### Pattern 2: RPC Call with `select` unwrapping + params
+
+```typescript
+// src/features/leave/hooks/use-leave-detail.ts
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_KEYS, METHODS } from '@utils/constants';
+import { rpc } from '@utils/api';
+
+interface LeaveResponse extends Leave {
+  leave_bal: LeaveBal;
+}
+
+export function useLeaveDetail(id: string) {
+  const { isSignedIn } = useAuthStore();
+
+  return useQuery({
+    queryKey: QUERY_KEYS.LEAVE.DETAILS(id),
+    queryFn: () => rpc<LeaveResponse>(METHODS.GET_EMP_LEAVE_DETAILS_DETAILS, { leave_id: id }),
+    enabled: !!id && isSignedIn,
+    select: (data) => data.data,
+  });
+}
+```
+
+### Pattern 3: Mutation (write — `useMutation`)
+
+```typescript
+// src/features/auth/hooks/use-login-mutation.ts
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { rpc } from '@utils/api';
+import { ApiResponse } from '@sharedTypes/api';
+import { METHODS } from '@utils/constants';
+
+type LoginResponse = {
+  access_token: string;
+  expires_in: number;
+  scope: 'default';
+  token_type: 'Barear' | 'Basic';
+};
+
+export const useLoginMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<ApiResponse<LoginResponse>, unknown, LoginFormInputs>({
+    mutationFn: (data) =>
+      rpc<LoginResponse>(METHODS.EMP_LOGIN, {
+        password: data.password,
+        emp_cd: data.emp_cd,
+      }),
+    onSuccess: (response) => {
+      if (response.success) {
+        // Handle successful login — invalidate queries, store tokens
+        queryClient.invalidateQueries({ queryKey: ['me'] });
+      }
+    },
+  });
+};
+```
+
+**Mutation rules:**
+1. The mutation generic is `useMutation<ApiResponse<T>, Error, TParams>` — the first param is what `mutationFn` returns
+2. Check `response.success` inside `onSuccess` — failed RPCs still resolve as HTTP 200 with `success: false`
+3. Use `meta: { auth: true }` to skip auth headers for login/register endpoints
+
+### Pattern 4: Direct RPC call (in stores / services)
+
+```typescript
+// Inside a Zustand store action
+const res = await rpc<UserT>(METHODS.GET_EMP_DETAILS, { emp_cd: empCode });
+
+if (res.success && res.data) {
+  set({ user: res.data });
+} else {
+  // Don't swallow the failure
+  throw new Error(res.message || 'Failed to fetch employee details');
+}
+```
+
+**Store pattern rules:**
+1. Always check `res.success` before using `res.data`
+2. Throw or return an error state on failure — don't silently fall through to a stale state
+3. The `data` field is `T | undefined`, so guard with `&& res.data` for TypeScript narrow
 ```
