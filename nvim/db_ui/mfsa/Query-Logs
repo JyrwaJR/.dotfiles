@@ -5,7 +5,8 @@
 SELECT
   -- content,
   message,
-  type
+  content 
+
 
 FROM
   public."logs"
@@ -37,7 +38,7 @@ WHERE
 
     -- Search inside message column
     AND (
-      message LIKE '%association%'
+      message LIKE '%device%'
 
       -- Search entire JSON content as text
       -- OR content::text ILIKE '%unauthorize%'
@@ -75,11 +76,11 @@ WHERE
 
   -- Filter from date
   AND 
-  "createdAt" >= '2026-06-05 00:00:00'
+  "createdAt" >= '2026-06-19 00:00:00'
 
   -- Filter to date
   AND 
-  "createdAt" <= '2026-06-30 23:59:59'
+  "createdAt" <= '2026-06-19 23:59:59'
 
   -- Alternative BETWEEN syntax
   -- AND "createdAt" BETWEEN
@@ -145,4 +146,4 @@ ORDER BY
   -- PAGINATION
   -- =========================================
 
-LIMIT 100
+LIMIT 10000

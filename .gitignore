@@ -14,3 +14,7 @@ gh
 .gemini/
 gha-creds-*.json
 .github
+.opencode/dist
+opencode/.reports
+opencode/dist
+opencode/logs

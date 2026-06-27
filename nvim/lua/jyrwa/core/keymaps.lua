@@ -70,8 +70,12 @@ keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Fuzzy f
 keymap.set("n", "<leader>gS", "<cmd>Telescope git_stash<cr>", { desc = "Fuzzy find git stash" })
 
 -- Snacks Explorer & Utilities
-keymap.set("n", "<leader>ee", function() Snacks.picker.explorer() end, { desc = "Toggle Snacks explorer" })
-keymap.set("n", "<leader>ef", function() Snacks.picker.explorer() end, { desc = "Snacks explorer" })
+keymap.set("n", "<leader>ee", function()
+  Snacks.picker.explorer()
+end, { desc = "Toggle Snacks explorer" })
+keymap.set("n", "<leader>ef", function()
+  Snacks.picker.explorer()
+end, { desc = "Snacks explorer" })
 
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" })
@@ -81,7 +85,12 @@ keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle
 -- Trouble
 keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble" })
 keymap.set("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble workspace diagnostics" })
-keymap.set("n", "<leader>xd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Toggle Trouble document diagnostics" })
+keymap.set(
+  "n",
+  "<leader>xd",
+  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+  { desc = "Toggle Trouble document diagnostics" }
+)
 keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix toggle<cr>", { desc = "Toggle Trouble quickfix list" })
 keymap.set("n", "<leader>xl", "<cmd>Trouble loclist toggle<cr>", { desc = "Toggle Trouble location list" })
 keymap.set("n", "<leader>xt", "<cmd>Trouble todo toggle<cr>", { desc = "Toggle Todos in Trouble" })
@@ -109,8 +118,8 @@ keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<cr>", { desc = "Obsidian Sear
 
 -- DADBOD
 keymap.set("n", "<leader>dd", ":DBUI<CR>", { desc = "Open DB UI" })
-keymap.set("n", "<leader>dt", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
-keymap.set("n", "<leader>df", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
+keymap.set("n", "<leader>dT", ":DBUIToggle<CR>", { desc = "Toggle DB UI" })
+keymap.set("n", "<leader>dF", ":DBUIFindBuffer<CR>", { desc = "Find buffer in DB UI" })
 
 -- Run query under cursor or visual selection
 keymap.set("n", "<leader>dr", ":.DB<CR>", { desc = "Run current line as query" })

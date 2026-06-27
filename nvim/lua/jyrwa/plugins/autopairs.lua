@@ -7,6 +7,7 @@ return {
 
     -- configure autopairs
     autopairs.setup({
+      map_cr = false,
       disable_filetype = { "TelescopePrompt", "spectre_panel", "typr" },
       check_ts = true, -- enable treesitter
       ts_config = {

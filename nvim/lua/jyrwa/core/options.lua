@@ -2,7 +2,7 @@ vim.cmd("let g:netrw_liststyle = 3")
 
 local opt = vim.opt
 
-opt.relativenumber = false
+opt.relativenumber = true
 opt.number = false
 -- tabs & indentation
 opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
@@ -15,7 +15,7 @@ opt.title = true -- set the title of window to the value of the titlestring
 opt.hlsearch = true -- highlight all matches
 opt.ignorecase = true -- ignore case when searching
 opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
-opt.cursorline = true
+opt.cursorline = false -- highlight the current line
 opt.inccommand = "split"
 opt.breakindent = true -- enable break indent
 -- turn on termguicolors for tokyonight colorscheme to work
@@ -51,4 +51,4 @@ opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the
 -- Additional settings
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 
-opt.laststatus = 1 -- disable statusline
+opt.laststatus = 0 -- disable statusline

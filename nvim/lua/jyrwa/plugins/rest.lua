@@ -52,13 +52,15 @@ return {
       },
 
       -- Local dev performance
-      skip_ssl_verification = true,
+      request = {
+        skip_ssl_verification = true,
+      },
       timeout = 10,
 
       -- Fast system curl for local backend
       curl = {
         bin = "curl",
-        args = { "--max-time", "10", "--noproxy", "localhost,127.0.0.1" },
+        args = { "-k", "--max-time", "10", "--noproxy", "localhost,127.0.0.1" },
       },
 
       highlight = {

@@ -82,6 +82,10 @@ return {
     local servers = {
       marksman = {},
       ts_ls = {
+        init_options = {
+          includeCompletionsWithInsertText = true,
+          includeCompletionsForModuleExports = true,
+        },
         settings = {
           typescript = {
             updateImportsOnFileMove = { enabled = "always" },

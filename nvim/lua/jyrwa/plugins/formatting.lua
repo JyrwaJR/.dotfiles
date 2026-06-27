@@ -12,6 +12,18 @@ return {
       stdin = true,
     }
 
+    -- Ensure prettier resolves config from the project root
+    conform.formatters.prettier = {
+      cwd = function()
+        local buf_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
+        return vim.fs.root(buf_dir, {
+          ".prettierrc", ".prettierrc.json", ".prettierrc.yaml",
+          ".prettierrc.yml", ".prettierrc.js", "prettier.config.js",
+          ".prettierrc.toml", "package.json", ".git",
+        })
+      end,
+    }
+
     conform.setup({
       formatters_by_ft = {
         javascript = { "prettier" },

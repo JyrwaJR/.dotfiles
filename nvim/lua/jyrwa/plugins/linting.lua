@@ -5,37 +5,46 @@ return {
     local lint = require("lint")
     local path = require("lint.util").path
 
-    -- Enhanced eslint_d with project-local detection
+    -- Enhanced eslint_d with project-root detection
+    local function find_eslint_root()
+      local buf_dir = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
+      local markers = {
+        ".eslintrc.js", ".eslintrc.json", ".eslintrc",
+        ".eslintrc.yaml", ".eslintrc.yml", "eslint.config.js",
+        "package.json", ".git",
+      }
+      return vim.fs.root(buf_dir, markers)
+    end
+
     lint.linters.eslint_d = {
       cmd = "eslint_d",
       stdin = true,
       args = function()
         local bufname = vim.api.nvim_buf_get_name(0)
-        local cwd = vim.fn.fnamemodify(bufname, ":p:h")
         local args = { "-f", "unix", "--stdin", "--stdin-filename", bufname }
 
-        local configs = {
-          path.join(cwd, ".eslintrc.js"),
-          path.join(cwd, ".eslintrc.json"),
-          path.join(cwd, ".eslintrc"),
-          path.join(cwd, ".eslintrc.yaml"),
-          path.join(cwd, ".eslintrc.yml"),
-          path.join(cwd, "eslint.config.js"),
-          path.join(cwd, "package.json"),
-        }
-        for _, config in ipairs(configs) do
-          if vim.fn.filereadable(config) == 1 then
-            table.insert(args, "--config")
-            table.insert(args, config)
-            break
+        local root = find_eslint_root()
+        if root then
+          local configs = {
+            path.join(root, ".eslintrc.js"),
+            path.join(root, ".eslintrc.json"),
+            path.join(root, ".eslintrc"),
+            path.join(root, ".eslintrc.yaml"),
+            path.join(root, ".eslintrc.yml"),
+            path.join(root, "eslint.config.js"),
+          }
+          for _, config in ipairs(configs) do
+            if vim.fn.filereadable(config) == 1 then
+              table.insert(args, "--config")
+              table.insert(args, config)
+              break
+            end
           end
         end
         return args
       end,
       stream = "stdout",
-      cwd = function()
-        return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p:h")
-      end,
+      cwd = find_eslint_root,
       env = {
         ESLINT_USE_FLAT_CONFIG = "true",
       },

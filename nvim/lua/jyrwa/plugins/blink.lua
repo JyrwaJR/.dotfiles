@@ -19,6 +19,9 @@ return {
         and vim.b.completion ~= false
     end,
     completion = {
+      accept = {
+        resolve_timeout_ms = 500,
+      },
       menu = {
         border = "rounded",
         draw = {
