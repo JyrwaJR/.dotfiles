@@ -13,6 +13,7 @@
       "planningAgents": ["planner","build"]
     }]
   ],
+
   "mcp": {
     "sequential-thinking": {
       "type": "local",
