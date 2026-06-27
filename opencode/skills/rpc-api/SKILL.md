@@ -40,3 +40,59 @@ This project uses a **custom RPC (Remote Procedure Call) pattern** — not tRPC,
 | `src/shared/utils/api/axios.ts` | Axios instance configuration |
 | `src/shared/utils/constants/method.ts` | `METHODS` constant — string enum of all RPC function names |
 | `src/shared/types/api.ts` | `ApiResponse<T>` type definition |
+
+## Quick Reference
+
+### The `rpc()` Function
+
+```typescript
+// src/shared/utils/api/rpc.ts (simplified)
+const rpc = async <TResult, TParams = unknown>(
+  functionName: string,       // Key from METHODS constant
+  params?: TParams            // Params object (spread into request body)
+): Promise<ApiResponse<TResult>> => {
+  return http.post<TResult>('/make_request', {
+    functionName,
+    ...params,
+  });
+};
+```
+
+**Key detail:** `params` are **spread** into the top-level request body alongside `functionName`. The request body sent to the server is:
+
+```json
+{
+  "functionName": "get_employee_details",
+  "emp_cd": "EMP001",
+  ...// every key from params at top level
+}
+```
+
+### The `METHODS` Constant
+
+```typescript
+// src/shared/utils/constants/method.ts
+export const METHODS = {
+  GET_EMP_DETAILS: 'get_employee_details',
+  EMP_LOGIN: 'employee_login',
+  GET_EMP_LEAVE_DETAILS: 'get_employee_leave_details',
+  GET_EMP_LEAVE_DETAILS_DETAILS: 'get_employee_leave_details_details',
+  GET_EMP_SALARY_STATEMENTS: 'get_employee_salary_statements',
+  GET_EMP_SALARY_STATEMENTS_DETAILS: 'get_employee_salary_statements_DETAILS',
+} as const;
+
+export type METHODS = keyof typeof METHODS;
+```
+
+**Always use `METHODS.X` not raw strings.** The type `METHODS` is used by Zod validators to restrict allowed function names server-side.
+
+### The `ApiResponse<T>` Type
+
+```typescript
+// src/shared/types/api.ts
+interface ApiResponse<T> {
+  success: boolean;    // Always check this before using data
+  message: string;     // Human-readable result/error
+  data?: T;            // The typed payload (undefined on failure)
+}
+```
