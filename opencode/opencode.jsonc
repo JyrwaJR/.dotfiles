@@ -4,6 +4,7 @@
     "bash": "allow"
   },
   "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git#v5.1.0",
     ["@plannotator/opencode@latest", {
       "workflow": "all-agents",
       "planningAgents": ["planner","build"]
