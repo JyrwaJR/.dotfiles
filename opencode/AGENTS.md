@@ -6,7 +6,7 @@ tags: []
 
 # 🚀 Global Agent Instructions — Google Antigravity
 
-**Version:** 2.0.1 | **Last Updated:** 2026-03-30
+**Version:** 2.1.0 | **Last Updated:** 2026-06-28
 
 ---
 
@@ -248,6 +248,31 @@ on first run. The human must explicitly override them in the Brain file if diffe
 - No console.log in production: use a structured logger
 ```
 
+### JSDoc Documentation Requirement
+
+Every exported symbol (function, type, interface, class, constant) **must** have a detailed, informative JSDoc/TSDoc comment — not a one-liner. Every edit to an existing file **must** update or add JSDoc for all touched exports.
+
+**Detail and clarity are mandatory.** A JSDoc must explain *what* the symbol does, *how* to use it, and any notable behavior (side effects, edge cases, thrown errors). It should be useful to a developer who is reading the code for the first time.
+
+**Conventions:**
+- Use `/** */` block comments — never `//` comments for doc strings
+- Description on the first line; tags grouped: `@template`, `@param` (alphabetical), `@returns`, `@throws`, `@example`, `@deprecated`
+- Use present tense: "Creates a user" not "This function will create a user"
+- Line wrap at 80 characters
+- Use actual TypeScript types in `@param` tags — type annotations are redundant but explicit types are encouraged
+- When adding or editing any file with exported symbols, scan all exports in that file and ensure every one has a JSDoc comment — not just the ones you touched
+
+**What counts as detailed and clear:**
+
+| Good (detailed & clear) | Bad (too vague — reject) |
+|---|---|
+| `/** Creates a new user record in the database. Hashes the password with bcrypt before storing. Throws if email already exists. */` | `/** Creates a user. */` |
+| `/** Fetches the authenticated user's profile from the session cache. Falls back to the database on cache miss. Returns null if no session exists. */` | `/** Gets user profile. */` |
+| `/** Builds the Prisma query filter from the incoming request query params. Supports pagination (`page`, `limit`) and sorting (`sortBy`, `order`). Returns an empty filter object if no params are provided. */` | `/** Builds query filter. */` |
+| `/** @param userId - The UUID of the user to look up. Must be a valid UUID v4. @returns The user entity without the password hash. @throws {NotFoundError} If no user matches the given ID. */` | `/** @param userId - User ID. @returns User. */` |
+
+**Rule of thumb:** If a developer can understand what the function does without reading its implementation, the JSDoc is detailed enough. If they'd have to open the function body to understand it, the JSDoc needs more detail.
+
 ---
 
 ## 6. Antigravity Views & When to Use Them
@@ -326,8 +351,9 @@ Use Editor View when:
 1. Read the active plan → identify the **single next unchecked task only**
 2. Load domain rules (`rules/backend/index.md` or `rules/frontend/index.md`) — apply §3 if missing
 3. Write tests first — implementation follows green tests (TDD)
-4. Run the security post-check (§8 Step 5) before publishing the diff artifact
-5. Mark the task `[x]` in the active plan **only after** the human approves the artifact
+4. **JSDoc requirement** — For every file modified, add or update JSDoc (§5) on all touched exports before moving on
+5. Run the security post-check (§8 Step 5) before publishing the diff artifact
+6. Mark the task `[x]` in the active plan **only after** the human approves the artifact
 
 ---
 
@@ -386,7 +412,8 @@ STEP 3 — SECURITY PRE-CHECK
   └── Identify relevant OWASP Top 10 categories before writing any code
 
 STEP 4 — EXECUTE
-  └── Perform the task per PRD, active plan, loaded rules, and brain/stack.md
+  ├── Perform the task per PRD, active plan, loaded rules, and brain/stack.md
+  └── For every file modified, add or update JSDoc (§5) on all touched exports before moving on
 
 STEP 5 — SECURITY POST-CHECK
   ├── Review your output as an adversary targeting this codebase
