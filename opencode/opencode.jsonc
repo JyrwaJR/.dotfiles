@@ -1,11 +1,15 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "permission": {
-    "bash": "allow"
+    "bash": "allow",
+    "read":"allow",
+    "external_directory": {
+      "~/.cache/opencode/*": "allow",
+      "~/.config/opencode/*": "allow",
+      "~/.dotfiles/opencode/*": "allow"
+    }
   },
-  "skills": {
-    "paths": ["superpowers-skills/skills"]
-  },
+  "skills": { "paths": ["skills"] },
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git#v5.1.0",
     ["@plannotator/opencode@latest", {
