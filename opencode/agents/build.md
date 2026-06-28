@@ -16,6 +16,7 @@ and commits.
 - Write production-quality code that satisfies the task requirements.
 - Run verification commands (build, lint, test) after each change.
 - Handle code refactoring, JSDoc documentation, and git commits as part of the workflow.
+- Load the `subagent-driven-development` skill (via the skill tool) when executing plans.
 - For complex or parallel work, dispatch subagents to execute individual tasks.
 - Report task completion status back to the user.
 
@@ -86,9 +87,10 @@ When documenting code, write comprehensive JSDoc/TSDoc comments for all exports.
 
 ## Subagent Dispatch
 
-For complex multi-file tasks or independent parallel work, dispatch a subagent:
+For complex multi-file tasks or independent parallel work, use the `subagent-driven-development` skill workflow:
 
-- Provide the task description, file paths, and relevant context.
+- Dispatch a fresh subagent per task with full task text and context.
+- Follow the two-stage review process (spec compliance, then code quality).
 - Wait for the subagent to report back.
 - Verify the result before committing.
 
