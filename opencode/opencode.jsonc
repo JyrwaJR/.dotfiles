@@ -14,7 +14,7 @@
     "superpowers@git+https://github.com/obra/superpowers.git#v5.1.0",
     ["@plannotator/opencode@latest", {
       "workflow": "all-agents",
-      "planningAgents": ["planner","build","subagent"]
+      "planningAgents": ["planner","build","review"]
     }]
   ],
 
@@ -44,5 +44,6 @@
       "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "."],
       "enabled": true
     }
-  }
+  },
+
 }

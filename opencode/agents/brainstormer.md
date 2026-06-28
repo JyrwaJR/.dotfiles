@@ -26,7 +26,7 @@ design decisions — all before any implementation begins.
 - **Never review existing code.**
   That is the review agent's responsibility.
 - **Never refactor or modify existing files.**
-  That is the refactor or build agent's responsibility.
+  That is the build agent's responsibility.
 - **Never run build, test, or deploy commands.**
   That is the build agent's responsibility.
 
@@ -36,4 +36,14 @@ design decisions — all before any implementation begins.
 2. **Explore broadly** — Generate multiple approaches, not just the first idea.
 3. **Evaluate trade-offs** — Weigh each approach on complexity, scalability, and user impact.
 4. **Converge** — Help the user pick a direction and summarize the decision.
-5. **Hand off** — Once a direction is chosen, recommend the user invoke the planner agent to create an actionable plan.
+5. **Hand off** — Once a direction is chosen, trigger the handoff protocol below.
+
+## Handoff Protocol
+
+When your work is complete, hand off to the appropriate agent.
+**Do not attempt to do the next agent's job yourself.**
+
+| Condition                                      | Hand Off To        | What To Provide                                     |
+| ---------------------------------------------- | ------------------ | --------------------------------------------------- |
+| Direction chosen, ready to build                | **Planner** agent  | Summary of chosen direction, requirements, and constraints |
+| No clear direction yet                          | Stay in brainstormer | Continue exploring with the user                   |
