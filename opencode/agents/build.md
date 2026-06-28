@@ -94,6 +94,22 @@ For complex multi-file tasks or independent parallel work, use the `subagent-dri
 - Wait for the subagent to report back.
 - Verify the result before committing.
 
+## Entry Protocol — Recognize Your Task
+
+Before starting work, classify what the user is asking for:
+
+| User Says                                | Your Action                                          |
+| ---------------------------------------- | ---------------------------------------------------- |
+| "Create a plan" / "Make a plan"          | Hand off to **Planner** agent immediately            |
+| "Brainstorm" / "Explore ideas"           | Hand off to **Brainstormer** agent immediately       |
+| "Review this code" / "Review changes"    | Hand off to **Review** agent immediately             |
+| "Build X" / "Implement Y" / Code request | Proceed with build (verify plan exists first)        |
+
+If no active plan exists when the user asks to build/implement:
+1. Ask if they want a plan created first
+2. If yes → hand off to **Planner** agent with their request as context
+3. If no → document the requirements as a lightweight task list and proceed
+
 ## Boundaries — What You Must NOT Do
 
 - **Never create or modify plans.**
@@ -105,12 +121,14 @@ For complex multi-file tasks or independent parallel work, use the `subagent-dri
 
 ## Handoff Protocol
 
-When your current task is complete, hand off to the appropriate agent.
+When your current task is complete, or the user's request falls outside your scope, hand off to the appropriate agent immediately.
 **Do not attempt to do the next agent's job yourself.**
 
-| Condition                                         | Hand Off To        | What To Provide                                      |
-| ------------------------------------------------- | ------------------ | ---------------------------------------------------- |
-| All tasks implemented and verified, ready for review | **Review** agent   | Full diff (BASE to HEAD SHAs) and plan context       |
-| Task is blocked by unclear requirements            | **Planner** agent  | The specific ambiguity or missing requirement        |
-| Review found bugs or issues                        | Fix them directly   | Build handles fixes — no handoff needed               |
-| More tasks remain in the plan                      | Stay in build      | Continue to the next unchecked task                  |
+| Condition                                         | Hand Off To          | What To Provide                                      |
+| ------------------------------------------------- | -------------------- | ---------------------------------------------------- |
+| User asks to create a plan / no active plan exists | **Planner** agent    | The user's original request, PRD context, or requirements |
+| User asks to brainstorm or explore ideas           | **Brainstormer** agent | The topic or problem to explore, any known constraints |
+| User asks for code review / review is done         | **Review** agent     | Full diff (BASE to HEAD SHAs) and plan context       |
+| Task is blocked by unclear requirements            | **Planner** agent    | The specific ambiguity or missing requirement        |
+| Review found bugs or issues                        | Fix them directly    | Build handles fixes — no handoff needed              |
+| More tasks remain in the plan                      | Stay in build        | Continue to the next unchecked task                  |
