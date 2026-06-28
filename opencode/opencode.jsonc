@@ -17,7 +17,6 @@
       "planningAgents": ["planner","build","review"]
     }]
   ],
-
   "mcp": {
     "sequential-thinking": {
       "type": "local",
@@ -44,6 +43,5 @@
       "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "."],
       "enabled": true
     }
-  },
-
+  }
 }
