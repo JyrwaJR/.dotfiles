@@ -75,6 +75,7 @@ return {
         "eslint",
         "html",
         "marksman",
+        "snyk_ls", -- Snyk security scanner (Code, Open Source, IaC)
       },
       automatic_installation = true,
     })
@@ -161,6 +162,19 @@ return {
       },
       sqlls = {},
       html = {},
+      snyk_ls = {
+        init_options = {
+          activateSnykOpenSource = "true",
+          activateSnykCode = "true",
+          activateSnykIac = "true",
+          integrationName = "Neovim",
+          integrationVersion = tostring(vim.version()),
+          token = os.getenv("SNYK_TOKEN") or vim.NIL,
+          trustedFolders = {
+            vim.fn.expand("$HOME/.dotfiles"),
+          },
+        },
+      },
     }
 
     for name, config in pairs(servers) do
