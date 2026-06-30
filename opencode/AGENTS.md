@@ -1,5 +1,5 @@
 ---
-id: GEMINI
+id: AGENT
 aliases: []
 tags: []
 ---
@@ -344,11 +344,26 @@ This project uses **memories.sh** for persistent memory across sessions. The `me
 
 The `opencode/memory/` directory is the local file-based memory layer. It sits alongside the MCP-based memories.sh and provides the baseline agent harness configuration:
 
-| File | Purpose |
-|------|---------|
+| File              | Purpose                                                                |
+| ----------------- | ---------------------------------------------------------------------- |
 | `instructions.md` | Agent Harness instructions, runtime checklist, project rules and facts |
-| `config.yaml` | Memory provider configuration (`provider: local`, store path) |
-| `settings.json` | Permissions (allow/deny), hooks, and env overrides |
+| `config.yaml`     | Memory provider configuration (see below)                              |
+| `settings.json`   | Permissions (allow/deny), hooks, and env overrides                     |
+
+### Memory Configuration (`config.yaml`)
+
+```yaml
+name: project-name
+description: Agent memory configuration
+version: 0.1.0
+memory:
+  provider: local
+  store: ~/.config/memories/local.db
+```
+
+- **name:** `dotfiles` — the memory system identifier
+- **global store** — `~/.config/memories/local.db` — shared across all projects (managed by memories.sh)
+- **project store** — `.agent/memory/local.db` — per-project memory database
 
 **How it fits in the workflow:**
 
@@ -358,40 +373,45 @@ The `opencode/memory/` directory is the local file-based memory layer. It sits a
 
 ### MCP Tools Available
 
-| Tool | Purpose |
-|------|---------|
-| `get_context(query)` | Load relevant memories + all active rules for the current task |
+| Tool                              | Purpose                                                        |
+| --------------------------------- | -------------------------------------------------------------- |
+| `get_context(query)`              | Load relevant memories + all active rules for the current task |
 | `add_memory(content, type, tags)` | Store a new memory (types: `rule`, `decision`, `fact`, `note`) |
-| `search_memories(query)` | Full-text search across all memories |
-| `list_memories()` | List recent memories |
+| `search_memories(query)`          | Full-text search across all memories                           |
+| `list_memories()`                 | List recent memories                                           |
 
 ### Required Workflow
 
 **Session start** — Always begin by loading context:
+
 ```
 Tool: get_context
 Arguments: { "query": "<brief description of what you're about to work on>" }
 ```
 
 **File creation** — Record every new file:
+
 ```
 Tool: add_memory
 Arguments: { "content": "Created <filepath>: <what it does>", "type": "fact", "tags": ["file", "<area>"] }
 ```
 
 **Architecture decisions** — Capture the why:
+
 ```
 Tool: add_memory
 Arguments: { "content": "Decision: <what>. Rationale: <why>", "type": "decision", "tags": ["architecture"] }
 ```
 
 **Project rules** — Record discovered conventions:
+
 ```
 Tool: add_memory
 Arguments: { "content": "Rule: <the rule>", "type": "rule", "tags": ["convention"] }
 ```
 
 **Before guessing** — Search for past context first:
+
 ```
 Tool: search_memories
 Arguments: { "query": "<what you need to know>" }
@@ -399,14 +419,13 @@ Arguments: { "query": "<what you need to know>" }
 
 ### Memory Types
 
-| Type | When to Use |
-|------|-------------|
-| `rule` | Coding standards, conventions, always-active constraints |
-| `decision` | Architectural choices with rationale |
-| `fact` | File locations, API details, project-specific knowledge |
-| `note` | General-purpose observations, TODOs, context |
+| Type       | When to Use                                              |
+| ---------- | -------------------------------------------------------- |
+| `rule`     | Coding standards, conventions, always-active constraints |
+| `decision` | Architectural choices with rationale                     |
+| `fact`     | File locations, API details, project-specific knowledge  |
+| `note`     | General-purpose observations, TODOs, context             |
 
 ### Tag Convention
 
 Use consistent tags: `file`, `api`, `architecture`, `convention`, `tech-stack`, `security`, `db`, `deployment`.
-

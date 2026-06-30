@@ -7,7 +7,7 @@
       "~/.cache/opencode/*": "allow",
       "~/.config/opencode/*": "allow",
       "~/.dotfiles/opencode/*": "allow",
-      "~/tmp/superpowers-clone/skills/*":"allow"
+      "~/tmp/*":"allow"
     }
   },
   "skills": { "paths": ["skills"] },
