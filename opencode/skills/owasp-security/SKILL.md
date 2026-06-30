@@ -303,10 +303,6 @@ app.use(session({
 npm audit
 npm audit fix
 
-# Use Snyk for deeper scanning
-npx snyk test
-npx snyk monitor
-
 # Keep dependencies updated
 npx npm-check-updates -u
 ```
@@ -533,4 +529,4 @@ app.post('/api/fetch-url', async (req, res) => {
 - **OWASP Top 10**: https://owasp.org/Top10/
 - **OWASP Cheat Sheets**: https://cheatsheetseries.owasp.org/
 - **Node.js Security**: https://nodejs.org/en/docs/guides/security/
-- **Snyk**: https://snyk.io/
+
