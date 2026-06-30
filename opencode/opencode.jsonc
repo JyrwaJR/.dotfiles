@@ -24,13 +24,13 @@
       "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
       "enabled": true
     },
-   "memories": {
-      "type": "local",
-      "command": ["npx", "-y", "@memories.sh/cli", "serve"],
-      "environment": {
-        "MEMORIES_DATA_DIR": "$HOME/.dotfiles/opencode/memory/db"
-      }
-    },
+    "memories": {
+       "type": "local",
+       "command": ["npx", "-y", "@memories.sh/cli", "serve"],
+       "environment": {
+          "MEMORIES_DATA_DIR": "/Users/harrison/.dotfiles/opencode/memory/db"
+       }
+     },
     "shadcn": {
       "command": ["npx", "-y", "shadcn@latest", "mcp"],
       "type":"local",
