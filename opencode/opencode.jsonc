@@ -15,13 +15,22 @@
     "superpowers@git+https://github.com/obra/superpowers.git#v5.1.0",
     ["@plannotator/opencode@latest", {
       "workflow": "all-agents",
-      "planningAgents": ["planner","build","review"]
+      "planningAgents": ["plan","build"]
     }]
   ],
   "mcp": {
     "sequential-thinking": {
       "type": "local",
       "command": ["npx", "-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "enabled": true
+    },
+   "memories": {
+      "type": "local",
+      "command": ["npx", "-y", "@memories.sh/cli", "serve"]
+    },
+    "shadcn": {
+      "command": ["npx", "-y", "shadcn@latest", "mcp"],
+      "type":"local",
       "enabled": true
     },
     "context7": {
