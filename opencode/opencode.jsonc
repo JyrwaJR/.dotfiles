@@ -124,8 +124,8 @@
   "snapshot": true,
   "instructions": ["AGENTS.md"],
   "default_agent": "build",
-  "model": "anthropic/claude-sonnet-4-6",
-  "small_model": "anthropic/claude-haiku-3-5-20241022",
+  "model": "opencode/deepseek-v4-flash-free",
+  "small_model": "opencode/deepseek-v4-flash-free",
   "formatter": true,
   "lsp": true,
   "compaction": {
@@ -159,19 +159,19 @@
   },
   "agent": {
     "brainstormer": {
-      "model": "anthropic/claude-sonnet-4-6",
+      "model": "opencode/deepseek-v4-flash-free",
       "steps": 50
     },
     "planner": {
-      "model": "anthropic/claude-sonnet-4-6",
+      "model": "opencode/deepseek-v4-flash-free",
       "steps": 30
     },
     "build": {
-      "model": "anthropic/claude-sonnet-4-6",
+      "model": "opencode/deepseek-v4-flash-free",
       "steps": 100
     },
     "review": {
-      "model": "anthropic/claude-sonnet-4-6",
+      "model": "opencode/deepseek-v4-flash-free",
       "steps": 30
     }
   }
