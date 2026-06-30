@@ -6,7 +6,7 @@
     "external_directory": {
       "~/.cache/opencode/*": "allow",
       "~/.config/opencode/*": "allow",
-      "~/.dotfiles/opencode/*": "allow",
+      "~/.dotfiles/opencode/**": "allow",
       "~/tmp/*":"allow"
     }
   },
