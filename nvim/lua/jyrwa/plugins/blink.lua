@@ -53,6 +53,7 @@ return {
     sources = {
       default = { "lsp", "path", "snippets", "buffer" },
       per_filetype = {
+        opencode_ask = { "lsp", "buffer" },
         sql = { "lsp", "snippets", "dadbod", "buffer" },
         mysql = { "lsp", "snippets", "dadbod", "buffer" },
         plsql = { "lsp", "snippets", "dadbod", "buffer" },

@@ -4,6 +4,7 @@ return {
   init = function()
     vim.o.timeout = true
     vim.o.timeoutlen = 2000
+    vim.o.ttimeoutlen = 300 -- allow <leader> sequences in terminal mode (default: 50ms)
   end,
   opts = {
     -- your configuration comes here

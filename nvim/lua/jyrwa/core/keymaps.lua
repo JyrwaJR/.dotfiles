@@ -106,6 +106,20 @@ keymap.set("n", "<leader>sm", function()
     vim.t.maximized = true
   end
 end, { desc = "Toggle Split Maximizer" })
+-- Terminal mode: same toggle, uses vim.cmd which works from any mode
+keymap.set("t", "<leader>sm", function()
+  if vim.t.maximized then
+    vim.cmd("wincmd =")
+    vim.t.maximized = false
+  else
+    vim.cmd("wincmd |")
+    vim.cmd("wincmd _")
+    vim.t.maximized = true
+  end
+end, { desc = "Terminal: toggle split maximizer" })
+
+-- Terminal mode: equalize splits (escape to normal, then <C-w>=)
+keymap.set("t", "<leader>se", "<C-\\><C-n><C-w>=", { desc = "Terminal: make splits equal size" })
 
 -- Obsidian
 keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<cr>", { desc = "Open Obsidian" })

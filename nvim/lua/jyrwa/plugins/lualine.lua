@@ -73,6 +73,9 @@ return {
         },
 
         lualine_z = {
+          {
+            require("opencode").statusline,
+          },
           { "location", separator = { left = "", right = "" } },
         },
       },

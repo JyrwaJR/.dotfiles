@@ -52,3 +52,8 @@ opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the
 opt.conceallevel = 0 -- so that `` is visible in markdown files
 
 opt.laststatus = 0 -- disable statusline
+
+-- Increase terminal key sequence timeout so <leader>sm/se work in terminal mode
+-- Default is 50ms which is too fast for leader sequences
+-- 300ms gives enough time for leader sequences without making typing feel sluggish
+vim.o.ttimeoutlen = 300
