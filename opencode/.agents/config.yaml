@@ -1,6 +1,0 @@
-name: dotfiles
-description: Agent memory configuration for the dotfiles/opencode project
-version: 0.1.0
-memory:
-  provider: local
-  store: ~/.dotfiles/opencode/memory/db/local.db
