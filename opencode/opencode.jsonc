@@ -117,5 +117,62 @@
       "command": ["npx", "-y", "@modelcontextprotocol/server-filesystem", "."],
       "enabled": true
     }
+  },
+  "username": "harrison",
+  "logLevel": "INFO",
+  "autoupdate": "notify",
+  "snapshot": true,
+  "instructions": ["AGENTS.md"],
+  "default_agent": "build",
+  "model": "anthropic/claude-sonnet-4-6",
+  "small_model": "anthropic/claude-haiku-3-5-20241022",
+  "formatter": true,
+  "lsp": true,
+  "compaction": {
+    "auto": true,
+    "tail_turns": 15
+  },
+  "tool_output": {
+    "max_lines": 2000,
+    "max_bytes": 51200
+  },
+  "command": {
+    "fix": {
+      "description": "Fix code issues found during review or build",
+      "template": "Fix the issues found in the current codebase. Read any review findings, lint errors, or test failures, then implement fixes."
+    },
+    "review": {
+      "description": "Request a code review of current changes",
+      "template": "Review all uncommitted changes in the working tree for quality, correctness, and security issues."
+    },
+    "deploy": {
+      "description": "Deploy the current branch",
+      "template": "Deploy the current branch to production following the project's deployment process."
+    },
+    "plan": {
+      "description": "Create an implementation plan",
+      "template": "Create a detailed implementation plan for the requested feature or change."
+    }
+  },
+  "experimental": {
+    "mcp_timeout": 30000
+  },
+  "agent": {
+    "brainstormer": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "steps": 50
+    },
+    "planner": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "steps": 30
+    },
+    "build": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "steps": 100
+    },
+    "review": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "steps": 30
+    }
   }
 }
