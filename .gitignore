@@ -18,3 +18,4 @@ gha-creds-*.json
 opencode/.reports
 opencode/dist
 opencode/logs
+snyk/
