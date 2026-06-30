@@ -340,6 +340,22 @@ _End of AGENTS.md v3.0.0_
 
 This project uses **memories.sh** for persistent memory across sessions. The `memories` MCP server is configured globally and available in every project.
 
+### Local Memory Directory (`opencode/memory/`)
+
+The `opencode/memory/` directory is the local file-based memory layer. It sits alongside the MCP-based memories.sh and provides the baseline agent harness configuration:
+
+| File | Purpose |
+|------|---------|
+| `instructions.md` | Agent Harness instructions, runtime checklist, project rules and facts |
+| `config.yaml` | Memory provider configuration (`provider: local`, store path) |
+| `settings.json` | Permissions (allow/deny), hooks, and env overrides |
+
+**How it fits in the workflow:**
+
+- **Session start** — Read `opencode/memory/instructions.md` for baseline project rules alongside the MCP `get_context` call
+- **Conflict resolution** — When rules conflict: path-scoped rules > project rules > global rules
+- **Persistence** — Edit `instructions.md` directly for project-specific rules that should survive across all sessions; use MCP `add_memory` for ephemeral runtime context
+
 ### MCP Tools Available
 
 | Tool | Purpose |
