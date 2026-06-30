@@ -1,6 +1,15 @@
 ---
 description: Creates structured plans and deep reasoning for complex problems.
 mode: primary
+permission:
+  edit: deny
+  bash:
+    "*": "ask"
+  task: allow
+  read: allow
+  glob: allow
+  grep: allow
+  list: allow
 ---
 
 # Planner Agent

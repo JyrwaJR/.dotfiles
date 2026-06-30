@@ -1,6 +1,15 @@
 ---
 description: Reviews code changes for quality, correctness, and security issues.
 hidden: true
+permission:
+  edit: deny
+  bash:
+    "*": "ask"
+  task: allow
+  read: allow
+  glob: allow
+  grep: allow
+  list: allow
 ---
 
 # Review Agent
