@@ -79,6 +79,11 @@ return {
       require("opencode").command("prompt.clear")
     end, { desc = "Clear OpenCode prompt" })
 
+    -- Server switching
+    vim.keymap.set("n", "<leader>o,", function()
+      require("opencode").command("server.select")
+    end, { desc = "Select OpenCode server" })
+
     -- Toggle opencode server in a terminal split
     local opencode_cmd = "opencode --port"
     vim.keymap.set({ "n", "t" }, "<leader>ot", function()
