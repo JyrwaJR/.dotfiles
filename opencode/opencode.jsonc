@@ -26,7 +26,10 @@
     },
    "memories": {
       "type": "local",
-      "command": ["npx", "-y", "@memories.sh/cli", "serve"]
+      "command": ["npx", "-y", "@memories.sh/cli", "serve"],
+      "environment": {
+        "MEMORIES_DATA_DIR": "$HOME/.dotfiles/opencode/memory/db"
+      }
     },
     "shadcn": {
       "command": ["npx", "-y", "shadcn@latest", "mcp"],

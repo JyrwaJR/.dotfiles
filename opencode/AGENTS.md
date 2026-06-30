@@ -358,11 +358,11 @@ description: Agent memory configuration
 version: 0.1.0
 memory:
   provider: local
-  store: ~/.config/memories/local.db
+  store: ~/.dotfiles/opencode/memory/db/local.db
 ```
 
 - **name:** `dotfiles` — the memory system identifier
-- **global store** — `~/.config/memories/local.db` — shared across all projects (managed by memories.sh)
+- **global store** — `~/.dotfiles/opencode/memory/db/local.db` — shared across all projects (managed by memories.sh)
 - **project store** — `.agent/memory/local.db` — per-project memory database
 
 **How it fits in the workflow:**
