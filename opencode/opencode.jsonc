@@ -8,7 +8,6 @@
       "exec *": "deny",
       "nc *": "deny",
       "netcat *": "deny",
-      "git *": "allow",
       "npm *": "allow",
       "npx *": "allow",
       "pnpm *": "allow",
@@ -19,7 +18,8 @@
       "which *": "allow",
       "echo *": "allow",
       "cat *": "allow",
-      "source *": "allow"
+      "source *": "allow",
+      "git **": "allow"
     },
     "read": {
       "*": "allow",
@@ -33,20 +33,7 @@
       "**/secrets/**": "deny",
       "**/credentials*": "deny"
     },
-    "edit": {
-      "**/opencode.jsonc": "ask",
-      "**/opencode.json": "ask",
-      "**/AGENTS.md": "ask",
-      "**/SKILL.md": "allow",
-      "**/*.md": "allow",
-      "**/*.json": "allow",
-      "**/*.jsonc": "allow",
-      "**/*.ts": "allow",
-      "**/*.tsx": "allow",
-      "**/*.js": "allow",
-      "**/*.mjs": "allow",
-      "*": "ask"
-    },
+    "edit": "allow",
     "external_directory": {
       "~/.dotfiles/**": "allow",
       "~/.cache/opencode/**": "allow",
@@ -54,7 +41,6 @@
       "~/tmp/**": "allow",
       "/tmp/**": "allow",
       "/var/tmp/**": "allow",
-      "~/projects/**": "allow",
       "~/src/**": "allow",
       "~/Desktop/**": "allow",
       "~/Downloads/**": "allow",
@@ -123,7 +109,7 @@
   "autoupdate": "notify",
   "snapshot": true,
   "instructions": ["AGENTS.md"],
-  "default_agent": "build",
+  "default_agent": "planner",
   "model": "opencode/deepseek-v4-flash-free",
   "small_model": "opencode/deepseek-v4-flash-free",
   "formatter": true,

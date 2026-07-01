@@ -19,3 +19,6 @@ opencode/.reports
 opencode/dist
 opencode/logs
 snyk/
+
+# opencode memory database
+opencode/memory/db/*.db
