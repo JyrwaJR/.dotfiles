@@ -4,6 +4,8 @@ return {
     "nvim-lua/plenary.nvim",
   },
   config = function()
-    require("spectre").setup()
+    require("spectre").setup({
+      color_devicons = true,
+    })
   end,
 }
