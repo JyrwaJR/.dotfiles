@@ -57,3 +57,15 @@ opt.laststatus = 0 -- disable statusline
 -- Default is 50ms which is too fast for leader sequences
 -- 300ms gives enough time for leader sequences without making typing feel sluggish
 vim.o.ttimeoutlen = 300
+vim.opt.updatetime = 100
+opt.ttimeoutlen = 300
+-- timeoutlen controls how long to wait for a mapped key sequence (like "jk" to exit insert mode)
+-- 10ms was too short for reliable use. 300ms gives a snappy feel while allowing mapped sequences
+-- to work comfortably. VS Code/Cursor have no equivalent timeout.
+opt.timeoutlen = 300
+-- Smooth scrolling (pixel-based like VS Code/Cursor)
+opt.smoothscroll = true
+
+-- Disable lazyredraw for immediate screen updates (like VS Code)
+-- lazyredraw delays redraws which makes editing feel less responsive
+opt.lazyredraw = false
