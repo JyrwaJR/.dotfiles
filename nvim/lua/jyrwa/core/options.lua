@@ -53,6 +53,12 @@ opt.conceallevel = 0 -- so that `` is visible in markdown files
 
 opt.laststatus = 0 -- disable statusline
 
+-- Reduce per-keystroke overhead (VS Code doesn't compute partial commands)
+opt.showcmd = false
+
+-- Don't show mode in command line (lualine already shows it)
+opt.showmode = false
+
 -- Increase terminal key sequence timeout so <leader>sm/se work in terminal mode
 -- Default is 50ms which is too fast for leader sequences
 -- 300ms gives enough time for leader sequences without making typing feel sluggish
