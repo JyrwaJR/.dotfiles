@@ -84,10 +84,9 @@ keybindings:
         cd {{.RepoPath}}; lazygit
   prs:
     - key: C
-      name: code review
+      name: checkout pr
       command: >
-        wezterm cli spawn --new-window --workspace "PR-{{.PrNumber}}"
-        -- bash -c 'cd {{.RepoPath}} && gh pr checkout {{.PrNumber}} && opencode --prompt "@code-reviewer: review-pr-for-this-branch"'
+        cd {{.RepoPath}} && gh pr checkout {{.PrNumber}}
 
 theme:
   colors:
