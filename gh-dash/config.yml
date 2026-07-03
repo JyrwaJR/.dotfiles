@@ -87,7 +87,7 @@ keybindings:
       name: code review
       command: >
         wezterm cli spawn --new-window --workspace "PR-{{.PrNumber}}"
-        -- bash -c 'gh pr checkout {{.PrNumber}} && opencode --prompt "@code-reviewer: review-pr-for-this-branch"'
+        -- bash -c 'cd {{.RepoPath}} && gh pr checkout {{.PrNumber}} && opencode --prompt "@code-reviewer: review-pr-for-this-branch"'
 
 theme:
   colors:
