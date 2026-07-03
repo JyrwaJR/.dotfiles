@@ -83,26 +83,12 @@ keybindings:
       command: >
         cd {{.RepoPath}}; lazygit
   prs:
+    - key: O
+      builtin: checkout
     - key: C
-      name: checkout pr
+      name: code review
       command: >
-        cd {{.RepoPath}} && gh pr checkout {{.PrNumber}}
-
-theme:
-  colors:
-    text:
-      primary: "#CAD3F5"
-      secondary: "#C6A0F6"
-      inverted: "#24273A"
-      faint: "#6E738D"
-      warning: "#ED8796"
-      success: "#A6DA95"
-    background:
-      selected: "#363A4F"
-    border:
-      primary: "#B7BDF8"
-      secondary: "#8BD5CA"
-      faint: "#494D64"
+        cd {{.RepoPath}} && nvim -c ":Octo pr edit {{.PrNumber}}"
   ui:
     sectionsShowCount: true
     table:
