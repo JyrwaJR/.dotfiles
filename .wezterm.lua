@@ -191,6 +191,16 @@ config.keys = {
 	-- TAB SWITCHING
 	{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
 
+	-- GH-DASH (Leader + c)
+	{
+		key = "c",
+		mods = "LEADER",
+		action = wezterm.action.SpawnCommandInNewTab({
+			cwd = wezterm.home_dir,
+			args = { "/bin/zsh", "-lc", "gh dash" },
+		}),
+	},
+
 	-- NEW TAB (same directory as current pane)
 	{
 		key = "b",
