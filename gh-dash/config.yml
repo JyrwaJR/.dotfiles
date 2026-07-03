@@ -89,9 +89,11 @@ keybindings:
       name: code review
       command: >
         cd {{.RepoPath}} && gh pr checkout {{.PrNumber}} 2>&1 &&
-        wezterm cli spawn --new-window --workspace "PR-{{.PrNumber}}"
+        p=$(wezterm cli spawn --new-window --workspace "PR-{{.PrNumber}}"
         --cwd {{.RepoPath}}
-        -- bash -c 'nvim -c "Octo pr edit {{.PrNumber}}"'
+        -- bash -c 'nvim -c "Octo pr edit {{.PrNumber}}"') &&
+        wezterm cli split-pane --horizontal --pane-id "$p" --percent 50
+        -- bash -c 'cd {{.RepoPath}} && gh pr diff {{.PrNumber}} | nvim -R -c "set filetype=diff" -'
   ui:
     sectionsShowCount: true
     table:
