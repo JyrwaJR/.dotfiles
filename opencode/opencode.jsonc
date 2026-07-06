@@ -79,11 +79,8 @@
     [
       "@plannotator/opencode@latest",
       {
-        "workflow": "all-agents",
-        "planningAgents": [
-          "plan",
-          "build"
-        ]
+        "workflow": "plan-agent",
+        "planningAgents": [ "plan" ]
       }
     ]
   ],
@@ -434,23 +431,5 @@
   },
   "experimental": {
     "mcp_timeout": 30000
-  },
-  "agent": {
-    "brainstormer": {
-      "model": "opencode/deepseek-v4-flash-free",
-      "steps": 50
-    },
-    "planner": {
-      "model": "antigravity-claude-opus-4-6-thinking",
-      "steps": 30
-    },
-    "build": {
-      "model": "opencode/deepseek-v4-flash-free",
-      "steps": 100
-    },
-    "review": {
-      "model": "opencode/nemotron-3-ultra-free",
-      "steps": 30
-    }
   }
 }

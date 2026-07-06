@@ -34,6 +34,8 @@ return {
           hidden = true,
           ignored = true,
           exclude = {},
+          follow_file = true,
+          auto_close = false,
         },
       },
       actions = {

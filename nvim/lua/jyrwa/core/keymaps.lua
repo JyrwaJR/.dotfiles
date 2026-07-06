@@ -75,7 +75,7 @@ keymap.set("n", "<leader>ee", function()
 end, { desc = "Toggle Snacks explorer" })
 keymap.set("n", "<leader>ef", function()
   Snacks.picker.explorer()
-end, { desc = "Snacks explorer" })
+end, { desc = "Snacks explorer (strict follow)" })
 
 -- Auto Session
 keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" })
