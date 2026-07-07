@@ -57,17 +57,3 @@ opt.laststatus = 0 -- disable statusline
 -- Default is 50ms which is too fast for leader sequences
 -- 300ms gives enough time for leader sequences without making typing feel sluggish
 vim.o.ttimeoutlen = 300
-
-vim.opt.guicursor = table.concat({
-  -- Normal, Visual, Command: steady underline
-  "n-v-c:hor20-blinkon0",
-
-  -- Insert: blinking underline
-  "i-ci-ve:hor20-blinkwait700-blinkon400-blinkoff250",
-
-  -- Replace: steady underline
-  "r-cr:hor20-blinkon0",
-
-  -- Operator-pending: steady underline
-  "o:hor20-blinkon0",
-}, ",")

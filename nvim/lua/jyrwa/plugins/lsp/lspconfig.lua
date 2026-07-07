@@ -74,13 +74,11 @@ return {
         "yamlls",
         "eslint",
         "html",
-        "marksman",
       },
       automatic_installation = true,
     })
 
     local servers = {
-      marksman = {},
       ts_ls = {
         init_options = {
           includeCompletionsWithInsertText = true,
