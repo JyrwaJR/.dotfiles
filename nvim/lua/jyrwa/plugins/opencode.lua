@@ -32,6 +32,11 @@ return {
       require("opencode").command("session.half.page.down")
     end, { desc = "Scroll OpenCode down" })
 
+    -- Ask raw — no @mention, just an empty prompt
+    vim.keymap.set({ "n", "x" }, "<leader>oo", function()
+      require("opencode").ask("")
+    end, { desc = "Open OpenCode prompt" })
+
     -- Ask variants with @context presets
     vim.keymap.set({ "n", "x" }, "<leader>ob", function()
       require("opencode").ask("@buffer: ")
