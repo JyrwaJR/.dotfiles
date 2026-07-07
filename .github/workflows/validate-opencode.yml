@@ -1,0 +1,89 @@
+name: Validate OpenCode Config
+
+on:
+  push:
+    branches: [main]
+    paths: ['opencode/**']
+  pull_request:
+    branches: [main]
+    paths: ['opencode/**']
+
+jobs:
+  validate-opencode-jsonc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate opencode.jsonc
+        run: |
+          node -e '
+          const fs = require("fs");
+          const raw = fs.readFileSync("opencode/opencode.jsonc", "utf8");
+
+          // Strip JSONC comments (// and /* */)
+          let stripped = raw.replace(/\\/\\*[\\s\\S]*?\\*\\//g, "");
+          stripped = stripped.replace(/\\/\\/.*/g, "");
+
+          let config;
+          try {
+            config = JSON.parse(stripped);
+          } catch (e) {
+            console.error("FAIL: opencode.jsonc is not valid JSON:", e.message);
+            process.exit(1);
+          }
+
+          console.log("PASS: opencode.jsonc is valid JSON");
+
+          // Check that all agents referenced in command section have entries in agent section
+          const agentKeys = new Set(Object.keys(config.agent || {}));
+          const commands = config.command || {};
+          const errors = [];
+
+          for (const [cmdName, cmdConfig] of Object.entries(commands)) {
+            if (cmdConfig.agent && !agentKeys.has(cmdConfig.agent)) {
+              errors.push(
+                `Command "${cmdName}" references agent "${cmdConfig.agent}" which is not defined in the agent section`
+              );
+            }
+          }
+
+          if (errors.length > 0) {
+            console.error("FAIL: Agent reference validation errors:");
+            errors.forEach((e) => console.error("  -", e));
+            process.exit(1);
+          }
+
+          console.log("PASS: All command agents have corresponding agent entries");
+          console.log(`Checked ${Object.keys(commands).length} commands against ${agentKeys.size} agents`);
+          }
+
+  validate-skills-lock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate skills-lock.json
+        run: |
+          node -e '
+          const fs = require("fs");
+          const raw = fs.readFileSync("opencode/skills-lock.json", "utf8");
+
+          let data;
+          try {
+            data = JSON.parse(raw);
+          } catch (e) {
+            console.error("FAIL: skills-lock.json is not valid JSON:", e.message);
+            process.exit(1);
+          }
+
+          if (typeof data.version !== "number") {
+            console.error("FAIL: skills-lock.json missing required number field: version");
+            process.exit(1);
+          }
+
+          if (!data.skills || typeof data.skills !== "object" || Array.isArray(data.skills)) {
+            console.error("FAIL: skills-lock.json missing required object field: skills");
+            process.exit(1);
+          }
+
+          const skillCount = Object.keys(data.skills).length;
+          console.log("PASS: skills-lock.json is valid with version", data.version, "and", skillCount, "skills");
+          ';

@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -o nounset
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+CONFLICT_FILES=()
+SECRET_FILES=()
+SECRET_PATTERNS='\.env$|id_rsa|id_ed25519|\.pem$|\.key$|secrets'
+
+while IFS= read -r -d '' file; do
+  if [ -z "$file" ]; then
+    continue
+  fi
+
+  if echo "$file" | grep -qE "$SECRET_PATTERNS"; then
+    SECRET_FILES+=("$file")
+    continue
+  fi
+
+  if git diff --cached -- "$file" | grep -qE '^\+.*<<<<<<< |^\+.*=======$|^\+.*>>>>>>> '; then
+    CONFLICT_FILES+=("$file")
+  fi
+done < <(git diff --cached --name-only -z)
+
+HAS_ERROR=false
+
+if [ ${#SECRET_FILES[@]} -gt 0 ]; then
+  HAS_ERROR=true
+  echo -e "${RED}⛔ SECURITY: Potentially sensitive files are staged:${NC}"
+  for f in "${SECRET_FILES[@]}"; do
+    echo -e "${RED}   • $f${NC}"
+  done
+  echo ""
+fi
+
+if [ ${#CONFLICT_FILES[@]} -gt 0 ]; then
+  HAS_ERROR=true
+  echo -e "${YELLOW}⚠️  Merge conflict markers detected in staged files:${NC}"
+  for f in "${CONFLICT_FILES[@]}"; do
+    echo -e "${YELLOW}   • $f${NC}"
+  done
+  echo ""
+fi
+
+if [ "$HAS_ERROR" = true ]; then
+  echo -e "${RED}Commit rejected. Fix the issues above and try again.${NC}"
+  echo -e "${YELLOW}To bypass: git commit --no-verify${NC}"
+  exit 1
+fi
+
+exit 0

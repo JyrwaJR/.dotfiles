@@ -13,7 +13,10 @@ gh
 
 .gemini/
 gha-creds-*.json
-.github
+.github/
+!.github/workflows/
+!.github/workflows/validate-opencode.yml
+!.github/workflows/check-merge-conflicts.yml
 .opencode/dist
 opencode/.reports
 opencode/dist

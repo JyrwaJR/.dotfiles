@@ -1,0 +1,34 @@
+name: Check Merge Conflicts
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-merge-conflicts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for merge conflict markers
+        run: |
+          FOUND=$(grep -rn "^<<<<<<< \|^=======\$" . \
+            --include="*" \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            -l 2>/dev/null)
+
+          FOUND_SEVEN=$(grep -rn "^>>>>>>> " . \
+            --include="*" \
+            --exclude-dir=node_modules \
+            --exclude-dir=.git \
+            -l 2>/dev/null)
+
+          ALL=$(echo "$FOUND"$'\n'"$FOUND_SEVEN" | sort -u | grep -v "^$" || true)
+
+          if [ -n "$ALL" ]; then
+            echo "ERROR: Merge conflict markers found in the following files:"
+            echo "$ALL" | while IFS= read -r file; do echo "  - $file"; done
+            exit 1
+          fi
+
+          echo "PASS: No merge conflict markers found"
