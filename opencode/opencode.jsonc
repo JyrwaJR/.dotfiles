@@ -166,6 +166,68 @@
   "default_agent": "build",
   "model": "opencode/deepseek-v4-flash-free",
   "small_model": "opencode/deepseek-v4-flash-free",
+  "agent": {
+    "brainstormer": {
+      "description": "Explores ideas, requirements, and design before implementation",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "deny",
+        "bash": { "*": "ask" }
+      }
+    },
+    "planner": {
+      "description": "Creates structured plans and deep reasoning for complex problems",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "deny",
+        "bash": { "*": "ask" }
+      }
+    },
+    "build": {
+      "description": "Executes implementation, runs verification, refactors, documents, and commits",
+      "model": "opencode/deepseek-v4-flash-free"
+    },
+    "review": {
+      "description": "Reviews code changes for quality, correctness, and security issues",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "deny",
+        "bash": { "*": "ask" }
+      }
+    },
+    "code-reviewer": {
+      "description": "Reviews code for quality, correctness, and security",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "deny",
+        "bash": { "*": "ask" }
+      }
+    },
+    "jsdoc": {
+      "description": "Writes comprehensive JSDoc/TSDoc documentation",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "allow",
+        "bash": { "*": "ask" }
+      }
+    },
+    "refactor-cleaner": {
+      "description": "Dead code cleanup and consolidation specialist",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "allow",
+        "bash": { "*": "ask" }
+      }
+    },
+    "security-reviewer": {
+      "description": "Security audit specialist for OWASP compliance",
+      "model": "opencode/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "deny",
+        "bash": { "*": "ask" }
+      }
+    }
+  },
   "provider": {
     "google": {
       "models": {
@@ -418,6 +480,7 @@
     },
     "review": {
       "description": "Request a code review of current changes",
+      "agent": "review",
       "template": "Review all uncommitted changes in the working tree for quality, correctness, and security issues."
     },
     "deploy": {
@@ -426,7 +489,47 @@
     },
     "plan": {
       "description": "Create an implementation plan",
+      "agent": "planner",
       "template": "Create a detailed implementation plan for the requested feature or change."
+    },
+    "brainstorm": {
+      "description": "Explore ideas, requirements, and design before implementation",
+      "agent": "brainstormer",
+      "template": "Explore the idea or problem described. Ask clarifying questions, explore approaches, and produce a design direction."
+    },
+    "build": {
+      "description": "Execute implementation based on existing plan",
+      "agent": "build",
+      "template": "Execute the active implementation plan. Read the plan, identify the next unchecked task, and implement it following TDD."
+    },
+    "commit": {
+      "description": "Stage and commit related changes with Conventional Commit messages",
+      "agent": "build",
+      "subtask": true,
+      "template": "Analyze the working tree with git status and git diff. Group related files and commit with Conventional Commit types (feat:, fix:, chore:, refactor:, docs:, test:)."
+    },
+    "debug": {
+      "description": "Systematic root-cause debugging before proposing fixes",
+      "agent": "planner",
+      "template": "Load the systematic-debugging skill and follow its four-phase process: root cause investigation, pattern analysis, hypothesis testing, then implementation. No fixes without root cause."
+    },
+    "security": {
+      "description": "Run a comprehensive security review",
+      "agent": "security-reviewer",
+      "subtask": true,
+      "template": "Conduct a comprehensive security review of the current codebase following OWASP guidelines and security best practices."
+    },
+    "think": {
+      "description": "Deep reasoning for complex problems using sequential thinking",
+      "agent": "planner",
+      "subtask": true,
+      "template": "Use the sequential-thinking MCP tool to reason through this problem step-by-step. Break it down, explore alternatives, and reach a conclusion."
+    },
+    "verify": {
+      "description": "Run verification gate before claiming work is complete",
+      "agent": "build",
+      "subtask": true,
+      "template": "Run the verification-before-completion workflow. Check that all tests pass, build succeeds, and no lint errors exist before reporting completion."
     }
   },
   "experimental": {

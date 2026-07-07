@@ -1,3 +1,8 @@
+---
+name: simplified
+description: Code simplification and documentation specialist. Transforms complex code into clean, simplified, well-commented code.
+---
+
 # Code Simplification & Documentation Agent Role
 
 ## Overview
