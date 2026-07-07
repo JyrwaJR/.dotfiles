@@ -7,7 +7,7 @@
     "enabled": true
   },
   "diff_style": "auto",
-  "mouse": false,
+  "mouse": true,
   "keybinds": {
     "leader": "ctrl+x",
     "command_list": "ctrl+p"
