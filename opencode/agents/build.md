@@ -107,20 +107,20 @@ For complex multi-file tasks or independent parallel work, use the `subagent-dri
 
 Before starting work, classify what the user is asking for:
 
-| User Says                                | Your Action                                    |
-| ---------------------------------------- | ---------------------------------------------- |
-| "Create a plan" / "Make a plan"          | Hand off to **Plan** agent immediately         |
-| "Brainstorm" / "Explore ideas"           | Load the `brainstorming` skill and explore the idea |
-| "Review this code" / "Review changes"    | Run verification, then present diff for user review |
-| "Build X" / "Implement Y" / Code request | Ensure a plan exists — hand off to **Plan** agent if none is present |
-| Quick fix / small refactor / config tweak | Proceed directly (trivial changes only)                                   |
+| User Says                                 | Your Action                                                          |
+| ----------------------------------------- | -------------------------------------------------------------------- |
+| "Create a plan" / "Make a plan"           | Hand off to **Plan** agent immediately                               |
+| "Brainstorm" / "Explore ideas"            | Load the `brainstorming` skill and explore the idea                  |
+| "Review this code" / "Review changes"     | Run verification, then present diff for user review                  |
+| "Build X" / "Implement Y" / Code request  | Ensure a plan exists — hand off to **Plan** agent if none is present |
+| Quick fix / small refactor / config tweak | Proceed directly (trivial changes only)                              |
 
 If no active plan exists when the user asks to build/implement, classify the request:
 
-| Type of Change | What This Means | Action |
-|---|---|---|
-| **Important / non-trivial** | New feature, new file, refactor, cross-file change, any behavior change | Always hand off to **Plan** agent. Do not proceed without an approved plan. |
-| **Trivial / safe** | Single-line fix, config value change, typos, comments, dependency version bump | Can proceed directly without a plan. |
+| Type of Change              | What This Means                                                                | Action                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| **Important / non-trivial** | New feature, new file, refactor, cross-file change, any behavior change        | Always hand off to **Plan** agent. Do not proceed without an approved plan. |
+| **Trivial / safe**          | Single-line fix, config value change, typos, comments, dependency version bump | Can proceed directly without a plan.                                        |
 
 When in doubt, default to the **Plan** agent. If two or more files need changes, it is not trivial.
 
