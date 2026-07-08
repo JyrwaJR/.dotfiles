@@ -80,7 +80,7 @@
       "@plannotator/opencode@latest",
       {
         "workflow": "plan-agent",
-        "planningAgents": [ "plan" ]
+        "planningAgents": [ "plan","build" ]
       }
     ]
   ],
@@ -167,14 +167,6 @@
   "model": "opencode/deepseek-v4-flash-free",
   "small_model": "opencode/deepseek-v4-flash-free",
   "agent": {
-    "brainstormer": {
-      "description": "Explores ideas, requirements, and design before implementation",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "deny",
-        "bash": { "*": "ask" }
-      }
-    },
     "planner": {
       "description": "Creates structured plans and deep reasoning for complex problems",
       "model": "opencode/deepseek-v4-flash-free",
@@ -186,46 +178,6 @@
     "build": {
       "description": "Executes implementation, runs verification, refactors, documents, and commits",
       "model": "opencode/deepseek-v4-flash-free"
-    },
-    "review": {
-      "description": "Reviews code changes for quality, correctness, and security issues",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "deny",
-        "bash": { "*": "ask" }
-      }
-    },
-    "code-reviewer": {
-      "description": "Reviews code for quality, correctness, and security",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "deny",
-        "bash": { "*": "ask" }
-      }
-    },
-    "jsdoc": {
-      "description": "Writes comprehensive JSDoc/TSDoc documentation",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "allow",
-        "bash": { "*": "ask" }
-      }
-    },
-    "refactor-cleaner": {
-      "description": "Dead code cleanup and consolidation specialist",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "allow",
-        "bash": { "*": "ask" }
-      }
-    },
-    "security-reviewer": {
-      "description": "Security audit specialist for OWASP compliance",
-      "model": "opencode/deepseek-v4-flash-free",
-      "permission": {
-        "edit": "deny",
-        "bash": { "*": "ask" }
-      }
     }
   },
   "provider": {
@@ -534,5 +486,6 @@
   },
   "experimental": {
     "mcp_timeout": 30000
-  }
+  },
+  "shell": "bash"
 }
