@@ -45,9 +45,13 @@ return {
       end,
       stream = "stdout",
       cwd = find_eslint_root,
-      env = {
-        ESLINT_USE_FLAT_CONFIG = "true",
-      },
+      env = function()
+        local root = find_eslint_root()
+        if root and vim.fn.filereadable(path.join(root, "eslint.config.js")) == 1 then
+          return { ESLINT_USE_FLAT_CONFIG = "true" }
+        end
+        return {}
+      end,
       ignore_exitcode = true,
       parser = require("lint.parser").from_errorformat("%f:%l:%c: %m", {
         source = "eslint_d",
@@ -58,10 +62,10 @@ return {
     -- React/Node.js focused linters (your stack)
     lint.linters_by_ft = {
       -- JavaScript/TypeScript/React/Next.js
-      -- javascript = { "eslint_d" },
-      -- typescript = { "eslint_d" },
-      -- javascriptreact = { "eslint_d" },
-      -- typescriptreact = { "eslint_d" },
+      javascript = { "eslint_d" },
+      typescript = { "eslint_d" },
+      javascriptreact = { "eslint_d" },
+      typescriptreact = { "eslint_d" },
       -- Config files
       json = { "eslint_d" },
       jsonc = { "eslint_d" },
@@ -92,7 +96,7 @@ return {
     vim.api.nvim_create_autocmd("InsertEnter", {
       group = lint_augroup,
       callback = function()
-        vim.diagnostic.setloclist({ open = false })
+        vim.diagnostic.hide()
       end,
     })
   end,
