@@ -167,7 +167,7 @@
   "model": "opencode/deepseek-v4-flash-free",
   "small_model": "opencode/deepseek-v4-flash-free",
   "agent": {
-    "planner": {
+    "plan": {
       "description": "Creates structured plans and deep reasoning for complex problems",
       "model": "opencode/deepseek-v4-flash-free",
       "permission": {
