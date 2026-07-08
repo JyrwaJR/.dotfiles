@@ -432,7 +432,6 @@
     },
     "review": {
       "description": "Request a code review of current changes",
-      "agent": "review",
       "template": "Review all uncommitted changes in the working tree for quality, correctness, and security issues."
     },
     "deploy": {
@@ -441,12 +440,11 @@
     },
     "plan": {
       "description": "Create an implementation plan",
-      "agent": "planner",
+      "agent": "plan",
       "template": "Create a detailed implementation plan for the requested feature or change."
     },
     "brainstorm": {
       "description": "Explore ideas, requirements, and design before implementation",
-      "agent": "brainstormer",
       "template": "Explore the idea or problem described. Ask clarifying questions, explore approaches, and produce a design direction."
     },
     "build": {
@@ -462,18 +460,17 @@
     },
     "debug": {
       "description": "Systematic root-cause debugging before proposing fixes",
-      "agent": "planner",
+      "agent": "plan",
       "template": "Load the systematic-debugging skill and follow its four-phase process: root cause investigation, pattern analysis, hypothesis testing, then implementation. No fixes without root cause."
     },
     "security": {
       "description": "Run a comprehensive security review",
-      "agent": "security-reviewer",
       "subtask": true,
       "template": "Conduct a comprehensive security review of the current codebase following OWASP guidelines and security best practices."
     },
     "think": {
       "description": "Deep reasoning for complex problems using sequential thinking",
-      "agent": "planner",
+      "agent": "plan",
       "subtask": true,
       "template": "Use the sequential-thinking MCP tool to reason through this problem step-by-step. Break it down, explore alternatives, and reach a conclusion."
     },
