@@ -1,0 +1,7 @@
+-- opencode-status.nvim
+--
+-- Neovim plugin that displays OpenCode agent status in lualine.
+-- See the `opencode-status` module for the public API.
+--
+-- This file is auto-sourced by Neovim so lazy.nvim can detect the plugin.
+-- Initialization is handled by the lazy.nvim `config` function.

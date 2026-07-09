@@ -73,9 +73,13 @@ return {
         },
 
         lualine_z = {
-          {
-            require("opencode").statusline,
-          },
+          function()
+            local ok, mod = pcall(require, "opencode-status")
+            if ok then
+              return mod.component()
+            end
+            return ""
+          end,
           { "location", separator = { left = "", right = "" } },
         },
       },
