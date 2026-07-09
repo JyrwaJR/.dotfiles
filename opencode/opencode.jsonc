@@ -79,8 +79,7 @@
     [
       "@plannotator/opencode@latest",
       {
-        "workflow": "plan-agent",
-        "planningAgents": [ "plan","build" ]
+        "workflow": "all-agents"
       }
     ]
   ],
