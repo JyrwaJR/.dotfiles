@@ -16,13 +16,18 @@ Personal dotfiles repository containing:
 ## Architecture
 
 ### Agents (`opencode/agents/`)
-- **brainstormer.md** — Design exploration, requirements gathering
-- **planner.md** — Creates structured plans with task breakdowns
-- **build.md** — Implementation, testing, refactoring, commits
-- **review.md** — Code quality and security review
+- **plan.md** — Creates structured plans with design exploration, deep reasoning, and subagent review gates
+- **build.md** — TDD-driven implementation, security review via OWASP Top 10, verification before completion
 
 ### Skills (`opencode/skills/`)
 42 skills covering: API design, Code review, Expo (module/dev/deploy/CI-CD), Express, Feature refactoring, Liquid glass design, OWASP security, Performance optimization, Plannotator, Prisma, TDD, TypeScript advanced types, Git worktrees, Debugging, Brainstorming, and more.
+
+### Skill Protocol
+
+Always check for applicable skills before acting (§12 AGENTS.md). Priority:
+1. Process skills first (brainstorming, debugging, writing-plans)
+2. Implementation skills second (code-reviewer, security-reviewer, tdd-guide)
+3. For skills not in the local directory, use `find-skills` skill or web search to discover them
 
 ### Rules (`opencode/rules/`)
 - **common/** — Language-agnostic: coding-style, git-workflow, testing, performance, patterns, security, agents

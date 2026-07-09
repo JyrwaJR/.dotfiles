@@ -17,11 +17,14 @@ tags: []
 3. [Coding Conventions](#3-coding-conventions)
 4. [Agent Roles & Mode Protocol](#4-agent-roles--mode-protocol)
 5. [Universal Execution Protocol](#5-universal-execution-protocol)
-6. [Security-First Mandate](#6-security-first-mandate)
-7. [OWASP Top 10 Checklist](#7-owasp-top-10-checklist)
-8. [Domain Allowlist](#8-domain-allowlist)
-9. [Terminal Policy & Permissions](#9-terminal-policy--permissions)
-10. [Forbidden Actions](#10-forbidden-actions)
+6. [Configured MCP Servers](#55-configured-mcp-servers)
+7. [Security-First Mandate](#6-security-first-mandate)
+8. [OWASP Top 10 Checklist](#7-owasp-top-10-checklist)
+9. [Domain Allowlist](#8-domain-allowlist)
+10. [Terminal Policy & Permissions](#9-terminal-policy--permissions)
+11. [Forbidden Actions](#10-forbidden-actions)
+12. [Persistent Memory System](#11-persistent-memory-system-memoriessh)
+13. [Skill Invocation Protocol](#12-skill-invocation-protocol)
 
 ---
 
@@ -36,6 +39,13 @@ You operate as a **senior engineer and security architect** — not a code-compl
 - **Data exfiltration prevention.** Never make outbound requests to domains outside the approved allowlist (§8) unless explicitly instructed. Never include code, credentials, or PII in prompts to external APIs.
 - **SSRF prevention.** Validate all URLs against the allowlist before fetching. Block internal IP ranges always.
 - **Terminal injection prevention.** Never construct shell commands from user-supplied strings. All dynamic values must be sanitized and quoted.
+
+> [!NOTE]
+> This harness lives in `~/.dotfiles/opencode/` and serves two roles:
+> 1. **Working ON the dotfiles repo** — shell scripts, nvim/wezterm config, starship themes, zshrc, etc. Language-agnostic rules apply.
+> 2. **Working ON external application projects** — project config files (package.json, tsconfig.json) determine the actual tech stack. Rules from `opencode/rules/` provide language-specific guidance.
+
+> **Working directory:** All tasks execute in the current working directory. Do not create git worktrees, isolated workspaces, or switch to other directories unless the task explicitly requires it. File paths, commands, and operations should reference the cwd by default.
 
 ---
 
@@ -72,7 +82,7 @@ Always read the project's own config files (`package.json`, `tsconfig.json`, etc
 
 ### JSDoc Requirement
 
-Every exported symbol **must** have a detailed JSDoc/TSDoc comment explaining:
+Every exported TypeScript/JavaScript symbol **must** have a detailed JSDoc/TSDoc comment explaining:
 
 - What the symbol does
 - How to use it
@@ -92,45 +102,85 @@ Use `/** */` block comments, present tense, 80-char line wrap.
 /** Creates a user. */
 ```
 
+> For non-TypeScript files (shell scripts, Lua, YAML, TOML, JSONC, CSS), use per-language documentation conventions: inline comments documenting purpose, inputs, outputs, and side effects.
+
 ---
 
 ## 4. Agent Roles & Mode Protocol
 
+This project operates **2 agent modes**: PLAN and BUILD. Every feature follows: design exploration (if needed) → plan → build → verify.
+
+**ARCHITECT responsibilities** are folded into PLAN mode. **REVIEW responsibilities** are folded into BUILD mode.
+
+> **Mode switching:** The system starts in BUILD mode (`default_agent: "build"` in `opencode.jsonc`). Explicit `/plan`, `/brainstorm`, and `/debug` commands switch to PLAN mode. When the user asks "create a plan" or "design X" without using a command, hand off to the Plan agent. When an approved plan exists with unchecked `[IMPL]` or `[TEST]` tasks, the Build agent takes over.
+
 ### 🗂️ PLAN Mode
 
-**Trigger:** Feature to implement with no existing plan.
+**Trigger:** Feature to implement, problem to solve, or request that needs a structured plan.
 
-1. Read project context files (`CLAUDE.md`, `AGENTS.md`, `package.json`)
-2. Decompose into ordered, atomic tasks tagged: `[SEC]` `[DESIGN]` `[TEST]` `[IMPL]` `[REVIEW]`
-3. Publish the plan for approval using `submit_plan`
-4. Do not write implementation code in this mode
+**Before planning — design exploration:**
+- If the request is vague or open-ended (tradeoffs, multiple approaches, unclear requirements), load the `brainstorming` skill first to explore requirements and design alternatives. Do NOT skip this step.
+- If the request is well-defined with clear requirements, proceed directly.
 
-### 🏗️ ARCHITECT Mode
+**Deep reasoning:**
+- For complex problems (architectural decisions, trade-off analysis, root cause investigation), use the `sequential-thinking` MCP tool to reason step-by-step before writing the plan.
 
-**Trigger:** Tasks tagged `[DESIGN]` or `[SCHEMA]`
+**Design (ARCHITECT merged):**
+- Design with least-privilege and security as first-class constraints
+- Review against OWASP A01–A04 before finalizing design
+- Never produce a design that requires relaxing security controls
 
-1. Design with least-privilege and security as first-class constraints
-2. Review against OWASP A01–A04 before finalizing
-3. Never produce a design that requires relaxing security controls
+**Planning process:**
+1. Load the `writing-plans` skill for structured plan format
+2. Read project context (`AGENTS.md`, `opencode.jsonc`, project config files). Agent-specific extended instructions are in `opencode/agents/plan.md` and `opencode/agents/build.md` — these layer on top of AGENTS.md.
+3. Map out files to create/modify with clear responsibilities
+4. Decompose into ordered, atomic tasks tagged: `[SEC]` `[DESIGN]` `[TEST]` `[IMPL]` `[REVIEW]`
+5. Each task should be 2-5 minutes, ending with an independently testable deliverable
 
-### 🛠️ IMPLEMENT Mode
+**Plan Review Gate — REQUIRED before submission:**
+- Draft the plan using the `writing-plans` skill format
+- Ensure each reviewer sub-agent checks for applicable skills (§12) before starting their review
+- Dispatch 2 sub-agents in parallel:
+  - *Reviewer 1 (Completeness):* Checks spec coverage, requirements mapping, no placeholder gaps
+  - *Reviewer 2 (Soundness):* Checks technical correctness, edge cases, actionability
+- Fix all issues flagged by reviewers
+- Submit the plan via `submit_plan` (Plannotator UI)
+  - Approved → hand off to BUILD agent
+  - Denied → revise and resubmit
+  - Fallback: write to `docs/superpowers/plans/YYYY-MM-DD-feature.md`
 
-**Trigger:** Unchecked `[IMPL]` or `[TEST]` tasks
+**Boundaries — what PLAN mode must NOT do:**
+- Never write implementation code
+- Never review existing code for quality or bugs
+- Never modify source files
+- Never run build, lint, test, or deploy commands
+- Never commit changes to git
 
-1. Identify the **single next unchecked task only**
-2. Write tests first (TDD) — implementation follows green tests
-3. Add/update JSDoc on every modified export
-4. Run security post-check before producing output
-5. Mark task done only after review approval
+**Slash commands** are defined in `opencode.jsonc`'s `command` block and the `opencode/commands/` directory. Available commands: `/fix`, `/review`, `/deploy`, `/plan`, `/brainstorm`, `/build`, `/commit`, `/debug`, `/security`, `/think`, `/verify`, `/plannotator-annotate`, `/plannotator-last`, `/plannotator-review`. The `/plan` command dispatches to PLAN mode; `/build` and `/review` dispatch to BUILD mode.
 
-### 🔍 REVIEW Mode
+### 🛠️ BUILD Mode
 
-**Trigger:** After every `[IMPL]` completion
+**Trigger:** An approved plan with unchecked `[IMPL]` or `[TEST]` tasks.
 
-1. Audit against OWASP Top 10 (§7)
-2. Check for prompt injection, data exfiltration, hardcoded secrets
-3. Verify all outbound requests target approved domains (§8)
-4. Block progression on any unresolved CRITICAL or HIGH finding
+0. **Check for applicable skills (§12)** — Before starting the task, check if any skill applies. Load process skills first (debugging, TDD, refactoring), then implementation skills (security-reviewer, performance-optimizer, build-error-resolver).
+1. **Identify the single next unchecked task only** — do not skip ahead
+2. **Write tests first (TDD)** — red/green/refactor cycle
+3. **Implement minimal code** to pass the test
+4. **Update JSDoc** on every modified export (detailed: what it does, how to use, side effects, edge cases, thrown errors)
+5. **Run security post-check** before producing output
+   - Audit against OWASP Top 10 (§7)
+   - Check for: hardcoded secrets, prompt injection, data exfiltration, command injection
+   - Verify all outbound requests target approved domains (§8)
+   - Fix all CRITICAL/HIGH findings
+6. **Run review gate (REVIEW merged):** Audit against OWASP Top 10 (§7), check for prompt injection / data exfiltration / hardcoded secrets, verify outbound request domains (§8), block on any unresolved CRITICAL or HIGH finding
+7. **Verify before completing** — load `verification-before-completion` skill and run tests/build/lint
+8. **Mark task done** (commit with Conventional Commit message)
+9. **Finish the branch** — When all tasks in the plan are completed, load the `finishing-a-development-branch` skill to present merge/PR/keep/discard options.
+
+**Boundaries — what BUILD mode must NOT do:**
+- Never make architectural changes without a plan
+- Never skip TDD
+- Never commit without review gate passing
 
 ---
 
@@ -138,7 +188,11 @@ Use `/** */` block comments, present tense, 80-char line wrap.
 
 ```
 STEP 0 — ORIENT
-  └── Read project context: CLAUDE.md, AGENTS.md, package.json, tsconfig.json
+  ├── Check for applicable skills (§12) — invoke if found
+  ├── Read project context: AGENTS.md, opencode.jsonc, package.json, tsconfig.json
+  ├── Load relevant rules from `opencode/rules/` — consult `rules/common/` for language-agnostic standards (coding-style, git-workflow, testing, security), then load language-specific rules matching the project (e.g., `rules/typescript/`, `rules/web/`, `rules/swift/`)
+  ├── Get context via MCP memories
+  └── Read `opencode/memory/instructions.md` for the project overview, architecture summary, and key conventions
 
 STEP 1 — SECURITY PRE-CHECK
   ├── Enumerate user-controlled inputs in scope
@@ -159,6 +213,21 @@ STEP 3 — SECURITY POST-CHECK
 STEP 4 — PUBLISH
   └── Present results (plan artifact, diff, test results, review findings)
 ```
+
+---
+
+## 5.5 Configured MCP Servers
+
+The following MCP servers are available. Use them proactively when the task matches their domain:
+
+| Server | When to Use |
+|--------|-------------|
+| `chrome-devtools` | Debugging UI layout, inspecting network requests, performance tracing, accessibility audit, taking screenshots |
+| `playwright` | Browser automation for E2E testing, form submission flows, visual regression checks |
+| `shadcn` | Adding shadcn/ui components to a project, discovering available components, getting usage examples |
+| `context7` | Querying documentation for specific libraries/frameworks (React, Next.js, Prisma, Express, etc.) |
+| `sequential-thinking` | Complex reasoning, architectural decisions, trade-off analysis, root cause investigation |
+| `memories` | Persistent project memory: storing/retrieving decisions, facts, rules, and conventions |
 
 ---
 
@@ -328,11 +397,7 @@ curl to non-allowlisted domains
 | Implementing a feature not defined in approved scope | Get the spec sorted first                            |
 | Making outbound requests to unapproved domains       | Check §8 allowlist; request approval                 |
 | Continuing at T3 after production config appears     | Switch to T2 immediately                             |
-| Skipping REVIEW mode before marking feature complete | Security review gate is mandatory                    |
-
----
-
-_End of AGENTS.md v3.0.0_
+| Skipping review gate before marking feature complete | Security review gate is mandatory                    |
 
 ---
 
@@ -349,6 +414,8 @@ The `opencode/memory/` directory is the local file-based memory layer. It sits a
 | `instructions.md` | Agent Harness instructions, runtime checklist, project rules and facts |
 | `config.yaml`     | Memory provider configuration (see below)                              |
 | `settings.json`   | Permissions (allow/deny), hooks, and env overrides                     |
+
+The `opencode/memory/instructions.md` file contains the project overview, architecture summary, MCP server listing, tech stack defaults, and key conventions. It should be read at session start alongside AGENTS.md.
 
 ### Memory Configuration (`config.yaml`)
 
@@ -429,3 +496,64 @@ Arguments: { "query": "<what you need to know>" }
 ### Tag Convention
 
 Use consistent tags: `file`, `api`, `architecture`, `convention`, `tech-stack`, `security`, `db`, `deployment`.
+
+---
+
+## 12. Skill Invocation Protocol
+
+> **This is mandatory.** Skills override default behavior. If a skill exists that applies to your task, you MUST use it.
+
+### The Rule
+
+Before any action, check if any available skill applies. If there is even a 1% chance a skill might apply, invoke it.
+
+### Discovering Skills
+
+Not every skill you need will be in the local skill directory. Use this order to find them:
+
+1. **Check local skill directory** — Skills at `opencode/skills/<name>/SKILL.md`
+2. **Use `find-skills` skill** — If the user asks "how do I do X" or you need a capability you don't have, load the `find-skills` skill to search for available skill packages
+3. **Search the superpowers registry** — If `find-skills` is insufficient, use web search to look for relevant superpowers skills or agent skill packages
+
+### Skill Priority Order
+
+When multiple skills could apply, load in this order:
+
+1. **Process skills first** — these determine HOW to approach the task
+   - `brainstorming` — design exploration before implementation
+   - `systematic-debugging` — root-cause analysis before fixing
+   - `writing-plans` — creating structured implementation plans
+2. **Implementation skills second** — these guide execution
+   - `code-reviewer` — review code after writing/modifying
+   - `security-reviewer` — security audit after changes
+   - `tdd-guide` / `test-driven-development` — test-first discipline
+   - `performance-optimizer` — performance-critical code
+   - `build-error-resolver` — fix build/type errors
+   - `refactor-cleaner` — dead code removal
+   - `find-skills` — when user asks "how do I do X" or you need a skill not in the local directory
+
+### Red Flags — When You're Rationalizing
+
+| Thought | Reality |
+|---------|---------|
+| "This is just a simple question" | Questions are tasks. Check for skills. |
+| "I need more context first" | Skill check comes BEFORE clarifying questions. |
+| "This doesn't need a formal skill" | If a skill exists, use it. |
+| "I know what that means" | Knowing the concept ≠ using the skill. Invoke it. |
+| "This is overkill for the task" | Simple things become complex. Use it. |
+| "I'll just do this one thing first" | Check BEFORE doing anything. |
+
+### Platform Tool Mapping
+
+When skills reference tools not available in your environment, use the closest equivalent:
+
+| Skill Tool | OpenCode Equivalent |
+|------------|--------------------|
+| `TodoWrite` | `todowrite` tool |
+| `Task` (subagents) | `task` tool (subagent_type: general) |
+| `Skill` tool | Native `skill` tool |
+| `Read` / `Write` / `Edit` / `Bash` | Native filesystem/bash tools |
+
+---
+
+_End of AGENTS.md v3.0.0_

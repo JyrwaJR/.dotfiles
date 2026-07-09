@@ -1,7 +1,22 @@
 {
   "permissions": {
-    "allow": [""],
-    "deny": []
+    "allow": [
+      "git add",
+      "git commit",
+      "git push",
+      "git status",
+      "git diff",
+      "npm install",
+      "npm test",
+      "npm run build",
+      "npx prisma"
+    ],
+    "deny": [
+      "rm -rf /",
+      "sudo",
+      "eval",
+      "exec"
+    ]
   },
   "hooks": {},
   "env": {}
