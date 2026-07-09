@@ -26,3 +26,5 @@ snyk/
 # opencode memory database
 opencode/memory/db/*.db
 context7/credentials.json
+node_modules/
+opencode/antigravity-accounts.json
