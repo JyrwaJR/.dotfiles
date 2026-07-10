@@ -27,6 +27,29 @@ return {
     })
 
     telescope.setup({
+      extensions = {
+        undo = {
+          -- When selecting an undo entry with <CR>, restore the buffer to that state
+          -- (default is yank_additions, which doesn't modify the buffer)
+          mappings = {
+            i = {
+              ["<cr>"] = require("telescope-undo.actions").restore,
+              ["<C-cr>"] = require("telescope-undo.actions").yank_additions,
+              ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+            },
+            n = {
+              ["<cr>"] = require("telescope-undo.actions").restore,
+              ["y"] = require("telescope-undo.actions").yank_additions,
+              ["Y"] = require("telescope-undo.actions").yank_deletions,
+            },
+          },
+          side_by_side = true,
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.8,
+          },
+        },
+      },
       defaults = {
         prompt_prefix = "  ",
         selection_caret = "  ",

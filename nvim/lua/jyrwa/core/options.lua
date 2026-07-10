@@ -40,10 +40,12 @@ opt.splitbelow = true -- split horizontal window to the bottom
 -- turn off swap file
 opt.swapfile = false -- turn off swap file
 
--- save undo history
+-- save undo history (persistent across restarts)
 opt.undofile = true
 opt.undolevels = 10000
 opt.undoreload = 10000
+-- Ensure the undo directory exists so persistence actually works
+vim.fn.mkdir(vim.fn.stdpath("data") .. "/undo", "p")
 
 -- Get 8 line below and above the cursor
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor
