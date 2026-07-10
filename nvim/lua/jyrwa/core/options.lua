@@ -45,7 +45,8 @@ opt.undofile = true
 opt.undolevels = 10000
 opt.undoreload = 10000
 -- Ensure the undo directory exists so persistence actually works
-vim.fn.mkdir(vim.fn.stdpath("data") .. "/undo", "p")
+-- Neovim defaults to stdpath("state")/undo on macOS
+vim.fn.mkdir(vim.fn.stdpath("state") .. "/undo", "p")
 
 -- Get 8 line below and above the cursor
 opt.scrolloff = 10 -- minimal number of screen lines to keep above and below the cursor

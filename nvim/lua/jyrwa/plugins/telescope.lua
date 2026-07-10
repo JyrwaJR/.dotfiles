@@ -31,16 +31,30 @@ return {
         undo = {
           -- When selecting an undo entry with <CR>, restore the buffer to that state
           -- (default is yank_additions, which doesn't modify the buffer)
+          -- Note: actions are wrapped in functions to defer require() until runtime,
+          -- because telescope-undo may not be fully loaded during telescope.setup()
           mappings = {
             i = {
-              ["<cr>"] = require("telescope-undo.actions").restore,
-              ["<C-cr>"] = require("telescope-undo.actions").yank_additions,
-              ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+              ["<cr>"] = function(bufnr)
+                return require("telescope-undo.actions").restore(bufnr)
+              end,
+              ["<C-cr>"] = function(bufnr)
+                return require("telescope-undo.actions").yank_additions(bufnr)
+              end,
+              ["<S-cr>"] = function(bufnr)
+                return require("telescope-undo.actions").yank_deletions(bufnr)
+              end,
             },
             n = {
-              ["<cr>"] = require("telescope-undo.actions").restore,
-              ["y"] = require("telescope-undo.actions").yank_additions,
-              ["Y"] = require("telescope-undo.actions").yank_deletions,
+              ["<cr>"] = function(bufnr)
+                return require("telescope-undo.actions").restore(bufnr)
+              end,
+              ["y"] = function(bufnr)
+                return require("telescope-undo.actions").yank_additions(bufnr)
+              end,
+              ["Y"] = function(bufnr)
+                return require("telescope-undo.actions").yank_deletions(bufnr)
+              end,
             },
           },
           side_by_side = true,
