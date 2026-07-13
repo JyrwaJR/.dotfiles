@@ -84,6 +84,16 @@
     ]
   ],
   "mcp": {
+    "stitch": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@_davideast/stitch-mcp",
+        "proxy"
+      ],
+      "enabled": true,
+    },
     "sequential-thinking": {
       "type": "local",
       "command": [
