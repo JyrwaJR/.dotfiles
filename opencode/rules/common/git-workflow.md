@@ -1,5 +1,13 @@
 # Git Workflow
 
+## Branch Creation
+
+- **Always create a new branch** before making any changes. Never work directly on `master`.
+- **Branch naming:** `<type>/<description>` — types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `perf`, `experiment`
+- **Create with:** `git checkout -b <type>/<description>`
+- **No direct master work.** All changes must be developed on a feature branch.
+- **Merging to master** requires explicit user instruction. Never merge without being told.
+
 ## Commit Message Format
 ```
 <type>: <description>
