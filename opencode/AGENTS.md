@@ -39,6 +39,7 @@ You operate as a **senior engineer and security architect** — not a code-compl
 - **Data exfiltration prevention.** Never make outbound requests to domains outside the approved allowlist (§8) unless explicitly instructed. Never include code, credentials, or PII in prompts to external APIs.
 - **SSRF prevention.** Validate all URLs against the allowlist before fetching. Block internal IP ranges always.
 - **Terminal injection prevention.** Never construct shell commands from user-supplied strings. All dynamic values must be sanitized and quoted.
+- **Branch isolation.** Every change must be made on a descriptive feature branch. Never work directly on `master`. Create a branch (`git checkout -b <type>/<description>`) before any modification, and only merge to `master` when explicitly instructed by the user.
 
 > [!NOTE]
 > This harness lives in `~/.dotfiles/opencode/` and serves two roles:
@@ -79,6 +80,13 @@ Always read the project's own config files (`package.json`, `tsconfig.json`, etc
 - Commits: Conventional Commits (`feat:`, `fix:`, `chore:`, `docs:`, `test:`)
 - No `SELECT *`: always specify columns in DB queries
 - No `console.log` in production: use a structured logger
+
+### Branch Naming Convention
+
+- Format: `<type>/<description>` (e.g., `feat/add-auth`, `fix/login-error`, `docs/update-readme`)
+- Types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `perf`, `experiment`
+- Descriptions must be concise, lowercase, kebab-case
+- Examples: `feat/branching-instructions`, `fix/null-pointer-auth`, `refactor/api-routes`
 
 ### JSDoc Requirement
 
@@ -162,20 +170,21 @@ This project operates **2 agent modes**: PLAN and BUILD. Every feature follows: 
 
 **Trigger:** An approved plan with unchecked `[IMPL]` or `[TEST]` tasks.
 
-0. **Check for applicable skills (§12)** — Before starting the task, check if any skill applies. Load process skills first (debugging, TDD, refactoring), then implementation skills (security-reviewer, performance-optimizer, build-error-resolver).
-1. **Identify the single next unchecked task only** — do not skip ahead
-2. **Write tests first (TDD)** — red/green/refactor cycle
-3. **Implement minimal code** to pass the test
-4. **Update JSDoc** on every modified export (detailed: what it does, how to use, side effects, edge cases, thrown errors)
-5. **Run security post-check** before producing output
+0. **Create or verify feature branch** — If not already on a descriptive feature branch (not `master`), create one with `git checkout -b <type>/<description>`. Never work directly on `master`.
+1. **Check for applicable skills (§12)** — Before starting the task, check if any skill applies. Load process skills first (debugging, TDD, refactoring), then implementation skills (security-reviewer, performance-optimizer, build-error-resolver).
+2. **Identify the single next unchecked task only** — do not skip ahead
+3. **Write tests first (TDD)** — red/green/refactor cycle
+4. **Implement minimal code** to pass the test
+5. **Update JSDoc** on every modified export (detailed: what it does, how to use, side effects, edge cases, thrown errors)
+6. **Run security post-check** before producing output
    - Audit against OWASP Top 10 (§7)
    - Check for: hardcoded secrets, prompt injection, data exfiltration, command injection
    - Verify all outbound requests target approved domains (§8)
    - Fix all CRITICAL/HIGH findings
-6. **Run review gate (REVIEW merged):** Audit against OWASP Top 10 (§7), check for prompt injection / data exfiltration / hardcoded secrets, verify outbound request domains (§8), block on any unresolved CRITICAL or HIGH finding
-7. **Verify before completing** — load `verification-before-completion` skill and run tests/build/lint
-8. **Mark task done** (commit with Conventional Commit message)
-9. **Finish the branch** — When all tasks in the plan are completed, load the `finishing-a-development-branch` skill to present merge/PR/keep/discard options.
+7. **Run review gate (REVIEW merged):** Audit against OWASP Top 10 (§7), check for prompt injection / data exfiltration / hardcoded secrets, verify outbound request domains (§8), block on any unresolved CRITICAL or HIGH finding
+8. **Verify before completing** — load `verification-before-completion` skill and run tests/build/lint
+9. **Mark task done** (commit with Conventional Commit message)
+10. **Finish the branch** — When all tasks in the plan are completed, load the `finishing-a-development-branch` skill to present merge/PR/keep/discard options.
 
 **Boundaries — what BUILD mode must NOT do:**
 - Never make architectural changes without a plan
@@ -192,6 +201,7 @@ STEP 0 — ORIENT
   ├── Read project context: AGENTS.md, opencode.jsonc, package.json, tsconfig.json
   ├── Load relevant rules from `opencode/rules/` — consult `rules/common/` for language-agnostic standards (coding-style, git-workflow, testing, security), then load language-specific rules matching the project (e.g., `rules/typescript/`, `rules/web/`, `rules/swift/`)
   ├── Get context via MCP memories
+  ├── Create or verify feature branch — checkout or create a descriptive feature branch (not `master`) via `git checkout -b <type>/<description>` if not already on one. Never work directly on `master`.
   └── Read `opencode/memory/instructions.md` for the project overview, architecture summary, and key conventions
 
 STEP 1 — SECURITY PRE-CHECK
@@ -397,6 +407,7 @@ curl to non-allowlisted domains
 | Implementing a feature not defined in approved scope | Get the spec sorted first                            |
 | Making outbound requests to unapproved domains       | Check §8 allowlist; request approval                 |
 | Continuing at T3 after production config appears     | Switch to T2 immediately                             |
+| Working directly on `master` / modifying files without a feature branch | Always create a descriptive feature branch first (`git checkout -b <type>/<description>`) |
 | Skipping review gate before marking feature complete | Security review gate is mandatory                    |
 
 ---
