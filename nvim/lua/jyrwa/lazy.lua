@@ -12,6 +12,10 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({ { import = "jyrwa.plugins" }, { import = "jyrwa.plugins.lsp" } }, {
+  rocks = {
+    hererocks = true,
+    enabled = true,
+  },
   checker = {
     enabled = true,
     notify = false,

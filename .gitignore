@@ -28,3 +28,4 @@ opencode/memory/db/*.db
 context7/credentials.json
 node_modules/
 opencode/antigravity-accounts.json
+homebrew/trust.json.lock
