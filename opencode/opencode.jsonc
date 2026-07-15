@@ -55,6 +55,7 @@
       "~/src/**": "allow",
       "~/Desktop/**": "allow",
       "~/Downloads/**": "allow",
+      "~/Library/Mobile Documents/iCloud~md~obsidian/Documents/plannotator":"allow",
       "~/.ssh/**": "deny",
       "~/.aws/**": "deny",
       "*": "ask"
