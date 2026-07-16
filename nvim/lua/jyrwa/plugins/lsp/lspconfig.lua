@@ -38,14 +38,41 @@ return {
         keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
+        opts.desc = "Refresh diagnostics"
+        keymap.set("n", "<leader>lR", "<cmd>LspRefresh<CR>", opts)
+        opts.desc = "Show LSP status"
+        keymap.set("n", "<leader>ls", "<cmd>LspInfo<CR>", opts)
       end,
     })
+
+    -- Diagnostic refresh: force LSP server to re-send diagnostics for current buffer.
+    -- Use when diagnostics go stale (a known ts_ls issue).
+    vim.api.nvim_create_user_command("LspRefresh", function()
+      local buf = vim.api.nvim_get_current_buf()
+      vim.diagnostic.reset(buf)
+
+      -- Request fresh diagnostics from all attached clients that support pull diagnostics
+      vim.lsp.buf_request(buf, "textDocument/diagnostic", {
+        textDocument = { uri = vim.uri_from_bufnr(buf) },
+        identifier = "default",
+      }, function(err, result, ctx)
+        if err or not result then
+          return
+        end
+        -- Feed the response back through the diagnostic handler
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if client then
+          client.pull_diagnostic_handler(err, result, ctx, nil)
+        end
+      end)
+    end, { desc = "Force-refresh LSP diagnostics for the current buffer" })
 
     local has_blink, blink = pcall(require, "blink.cmp")
     local capabilities = has_blink and blink.get_lsp_capabilities() or vim.lsp.protocol.make_client_capabilities()
 
     vim.diagnostic.config({
       virtual_text = false,
+      virtual_lines = false, -- explicit default; toggle with <leader>ll
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = " ",
@@ -163,9 +190,16 @@ return {
 
     for name, config in pairs(servers) do
       config.capabilities = vim.tbl_deep_extend("force", {}, capabilities, config.capabilities or {})
-      -- Use the new 2026/Neovim 0.11+ API
-      vim.lsp.config(name, config)
-      vim.lsp.enable(name)
+      -- Use the new Neovim 0.11+ API; wrap in pcall so one bad server doesn't break the rest
+      local ok_conf, err_conf = pcall(vim.lsp.config, name, config)
+      if not ok_conf then
+        vim.notify(string.format("LSP config failed for %s: %s", name, err_conf), vim.log.levels.WARN)
+      else
+        local ok_enable, err_enable = pcall(vim.lsp.enable, name)
+        if not ok_enable then
+          vim.notify(string.format("LSP enable failed for %s: %s", name, err_enable), vim.log.levels.WARN)
+        end
+      end
     end
   end,
 }

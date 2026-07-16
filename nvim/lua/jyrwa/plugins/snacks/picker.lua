@@ -4,16 +4,18 @@ return {
     explorer = {
       hidden = true,
       ignored = true,
-      exclude = {},
-      follow_file = true,
-      auto_close = false,
+      exclude = {
+        ".git",
+        ".DS_Store",
+      },
+      follow_file = false,
+      auto_close = true,
     },
   },
   actions = {
     opencode_send = function(picker)
       local items = vim.tbl_map(function(item)
-        return item.file
-          and require("opencode").format({ path = item.file, from = item.pos, to = item.end_pos })
+        return item.file and require("opencode").format({ path = item.file, from = item.pos, to = item.end_pos })
           or item.text
       end, picker:selected({ fallback = true }))
 
