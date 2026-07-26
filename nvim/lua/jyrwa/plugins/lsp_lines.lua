@@ -14,7 +14,7 @@ local function cycle_diagnostic_mode()
       virtual_text = {
         severity = { min = vim.diagnostic.severity.WARN },
         prefix = "●",
-        spacing = 2,
+        spacing = 3,
         source = "if_many",
       },
       virtual_lines = false,
