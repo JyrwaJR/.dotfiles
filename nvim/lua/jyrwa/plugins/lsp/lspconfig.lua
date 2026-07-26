@@ -71,8 +71,14 @@ return {
     local capabilities = has_blink and blink.get_lsp_capabilities() or vim.lsp.protocol.make_client_capabilities()
 
     vim.diagnostic.config({
-      virtual_text = false,
-      virtual_lines = false, -- explicit default; toggle with <leader>ll
+      virtual_text = {
+        severity = { min = vim.diagnostic.severity.WARN },
+        prefix = "●",
+        spacing = 2,
+        -- source = "if_many" requires Neovim 0.10+; removes it if on older version
+        source = "if_many",
+      },
+      virtual_lines = false, -- toggled via <leader>ll in lsp_lines.lua
       signs = {
         text = {
           [vim.diagnostic.severity.ERROR] = " ",
