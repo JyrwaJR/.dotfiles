@@ -1,0 +1,45 @@
+return {
+  "stevearc/aerial.nvim",
+  dependencies = {
+    "nvim-tree/nvim-web-devicons",
+    "nvim-treesitter/nvim-treesitter",
+  },
+  opts = {
+    sources = { "treesitter", "lsp" },
+    attach_mode = "global",
+    show_guides = true,
+    guides = { mid = "├╴", last = "└╴" },
+    filter_kind = {
+      "Class",
+      "Constructor",
+      "Enum",
+      "Function",
+      "Interface",
+      "Method",
+      "Module",
+      "Namespace",
+      "Struct",
+    },
+    layout = {
+      width = 0.3,
+      min_width = 40,
+      default_direction = "prefer_left",
+    },
+    keymaps = {
+      ["j"] = "actions.down",
+      ["k"] = "actions.up",
+      ["<CR>"] = "actions.jump",
+      ["o"] = "actions.jump",
+      ["}"] = "actions.next",
+      ["{"] = "actions.prev",
+      ["v"] = "actions.jump_vsplit",
+      ["s"] = "actions.jump_split",
+      ["t"] = "actions.tab",
+      ["q"] = "actions.close",
+    },
+  },
+  keys = {
+    { "<leader>ao", "<cmd>AerialToggle!<cr>", desc = "Aerial outline (toggle)" },
+    { "<leader>at", "<cmd>AerialTelescope<cr>", desc = "Aerial telescope symbols" },
+  },
+}
