@@ -9,7 +9,7 @@ return {
         ".DS_Store",
       },
       follow_file = false,
-      auto_close = true,
+      auto_close = false,
     },
   },
   actions = {
