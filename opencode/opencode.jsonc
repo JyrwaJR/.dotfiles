@@ -174,20 +174,16 @@
     "AGENTS.md"
   ],
   "default_agent": "build",
-  "model": "opencode/deepseek-v4-flash-free",
-  "small_model": "opencode/deepseek-v4-flash-free",
   "agent": {
     "plan": {
       "description": "Creates structured plans and deep reasoning for complex problems",
-      "model": "opencode/deepseek-v4-flash-free",
       "permission": {
         "edit": "deny",
         "bash": { "*": "ask" }
       }
     },
     "build": {
-      "description": "Executes implementation, runs verification, refactors, documents, and commits",
-      "model": "opencode/deepseek-v4-flash-free"
+      "description": "Executes implementation, runs verification, refactors, documents, and commits"
     }
   },
   "provider": {
