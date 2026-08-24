@@ -150,16 +150,6 @@ This project operates **2 agent modes**: PLAN and BUILD. Every feature follows: 
 4. Decompose into ordered, atomic tasks tagged: `[SEC]` `[DESIGN]` `[TEST]` `[IMPL]` `[REVIEW]`
 5. Each task should be 2-5 minutes, ending with an independently testable deliverable
 
-**Plan Review Gate — REQUIRED before submission:**
-
-- Draft the plan using the `writing-plans` skill format
-- Ensure each reviewer sub-agent checks for applicable skills (§12) before starting their review
-- Fix all issues flagged by reviewers
-- Submit the plan via `submit_plan` (Plannotator UI)
-  - Approved → hand off to BUILD agent
-  - Denied → revise and resubmit
-  - Fallback: write to `docs/superpowers/plans/YYYY-MM-DD-feature.md`
-
 **Boundaries — what PLAN mode must NOT do:**
 
 - Never write implementation code
