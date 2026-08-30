@@ -30,3 +30,4 @@ node_modules/
 opencode/antigravity-accounts.json
 homebrew/trust.json.lock
 opencode/skills/.DS_Store
+tanstack/cli.json
