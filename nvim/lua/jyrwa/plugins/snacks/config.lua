@@ -4,7 +4,7 @@ function M.get_opts()
   return {
     bigfile = { enabled = true, notify = false },
     dashboard = require("jyrwa.plugins.snacks.dashboard"),
-    indent = { enabled = true },
+    indent = { enabled = false },
     input = {
       enabled = true,
       win = {
