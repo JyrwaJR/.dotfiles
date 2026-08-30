@@ -8,8 +8,8 @@ return {
         ".git",
         ".DS_Store",
       },
-      follow_file = false,
-      auto_close = false,
+      follow_file = true,
+      auto_close = true,
     },
   },
   actions = {
