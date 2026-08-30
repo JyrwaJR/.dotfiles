@@ -19,6 +19,10 @@ export XDG_CONFIG_HOME="$HOME/.dotfiles"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export TERM="xterm-256color"
 
+# Aliases
+# Open ports
+alias op="opencode --port --continue --auto"
+
 ### 🚀 NVM (Homebrew) Setup ###
 export NVM_DIR="/opt/homebrew/opt/nvm"  # Homebrew path
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # load nvm
