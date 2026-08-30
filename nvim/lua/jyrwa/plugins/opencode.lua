@@ -4,7 +4,21 @@ return {
   config = function()
     ---@type opencode.Opts
     vim.g.opencode_opts = {
-      -- Your configuration, if any; goto definition on the type for details
+      server = {
+        -- Connect by URL instead of local process discovery.
+        -- Discovery relies on `pgrep -f "opencode.*--port"`, which on macOS
+        -- can't see servers started in a different terminal session (audit
+        -- session scoping), and it rejects servers whose cwd doesn't overlap
+        -- Neovim's cwd. A pinned URL bypasses both failure modes.
+        --
+        -- The server must be started with `opencode --port 4097`
+        -- (see the `<leader>ot` keymap below).
+        url = "http://localhost:4097",
+        -- Never auto-spawn a new server when discovery fails. The plugin's
+        -- default `server.start` runs `vsplit term://opencode --port`, which
+        -- is what spawned a fresh server on every `ob`/`oo`/`oa` miss.
+        start = false,
+      },
     }
 
     vim.o.autoread = true -- Required for `vim.g.opencode_opts.events.reload`
@@ -84,13 +98,16 @@ return {
       require("opencode").command("prompt.clear")
     end, { desc = "Clear OpenCode prompt" })
 
-    -- Server switching
+    -- Server switching: open the plugin menu (includes "Connect to a server")
+    -- `server.select` was renamed to `server.connect` in opencode.nvim v0.14.0
+    -- and is only reachable through the select menu, not the command API.
     vim.keymap.set("n", "<leader>o,", function()
-      require("opencode").command("server.select")
-    end, { desc = "Select OpenCode server" })
+      require("opencode").select()
+    end, { desc = "Select OpenCode…" })
 
-    -- Toggle opencode server in a terminal split
-    local opencode_cmd = "opencode --port"
+    -- Toggle opencode server in a terminal split.
+    -- Fixed port so discovery can connect via `server.url` above.
+    local opencode_cmd = "opencode --port 4097"
     vim.keymap.set({ "n", "t" }, "<leader>ot", function()
       require("snacks.terminal").toggle(opencode_cmd, {
         win = { position = "right", enter = false },
