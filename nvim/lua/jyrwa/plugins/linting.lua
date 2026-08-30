@@ -92,12 +92,11 @@ return {
       require("lint").try_lint()
     end, { desc = "Trigger linting" })
 
-    -- Clear diagnostics on InsertEnter (smooth UX)
-    vim.api.nvim_create_autocmd("InsertEnter", {
-      group = lint_augroup,
-      callback = function()
-        vim.diagnostic.hide()
-      end,
-    })
+    -- NOTE: deliberately no InsertEnter -> vim.diagnostic.hide() here.
+    -- update_in_insert = false (lsp/lspconfig.lua) already defers NEW
+    -- diagnostics to InsertLeave via the built-in schedule_display. hide()
+    -- without a matching show() masked ALL namespaces in ALL buffers and
+    -- permanently hid lint + LSP diagnostics until the next edit/save
+    -- (guarded by tests/insert_mode_diagnostics_regression.lua).
   end,
 }
