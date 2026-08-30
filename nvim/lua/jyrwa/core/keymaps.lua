@@ -17,7 +17,7 @@ keymap.set("x", "p", '"_dP', { noremap = true, desc = "Paste without copying rep
 -- Optional: Normal mode paste works as default
 keymap.set("n", "p", "p", { noremap = true, desc = "Paste" })
 -- write file
-keymap.set("n", "<leader>w", ":wa<CR>", { noremap = true, silent = false, desc = "Save file" })
+keymap.set("n", "<leader>w", "<CR>:wa<CR>", { noremap = true, silent = false, desc = "Save file" })
 --
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
@@ -76,11 +76,6 @@ end, { desc = "Toggle Snacks explorer" })
 keymap.set("n", "<leader>ef", function()
   Snacks.picker.explorer()
 end, { desc = "Snacks explorer (strict follow)" })
-
--- Auto Session
-keymap.set("n", "<leader>wr", "<cmd>AutoSession restore<CR>", { desc = "Restore session for cwd" })
-keymap.set("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session" })
-keymap.set("n", "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", { desc = "Toggle Auto Save" })
 
 -- Trouble
 keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>", { desc = "Toggle Trouble" })

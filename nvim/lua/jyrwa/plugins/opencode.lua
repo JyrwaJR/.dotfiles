@@ -11,9 +11,9 @@ return {
         -- session scoping), and it rejects servers whose cwd doesn't overlap
         -- Neovim's cwd. A pinned URL bypasses both failure modes.
         --
-        -- The server must be started with `opencode --port 4097`
+        -- The server must be started with `opencode --port 4096`
         -- (see the `<leader>ot` keymap below).
-        url = "http://localhost:4097",
+        url = "http://localhost:4096",
         -- Never auto-spawn a new server when discovery fails. The plugin's
         -- default `server.start` runs `vsplit term://opencode --port`, which
         -- is what spawned a fresh server on every `ob`/`oo`/`oa` miss.
@@ -104,15 +104,6 @@ return {
     vim.keymap.set("n", "<leader>o,", function()
       require("opencode").select()
     end, { desc = "Select OpenCode…" })
-
-    -- Toggle opencode server in a terminal split.
-    -- Fixed port so discovery can connect via `server.url` above.
-    local opencode_cmd = "opencode --port 4097"
-    vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-      require("snacks.terminal").toggle(opencode_cmd, {
-        win = { position = "right", enter = false },
-      })
-    end, { desc = "Toggle OpenCode terminal" })
 
     -- Terminal mode: Ctrl+h/j/k/l to navigate windows
     -- In terminal mode, keys go to the terminal by default, so we need to
