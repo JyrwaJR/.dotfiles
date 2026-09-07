@@ -86,14 +86,12 @@
   ],
   "mcp": {
     "stitch": {
-      "type": "local",
-      "command": [
-        "npx",
-        "-y",
-        "@_davideast/stitch-mcp",
-        "proxy"
-      ],
+      "type": "remote",
+      "url": "https://stitch.googleapis.com/mcp",
       "enabled": true,
+      "headers": {
+        "X-Goog-Api-Key": "REMOVED"
+      }
     },
     "sequential-thinking": {
       "type": "local",
@@ -434,11 +432,11 @@
   "command": {
     "fix": {
       "description": "Fix code issues found during review or build",
-      "template": "Fix the issues found in the current codebase. Read any review findings, lint errors, or test failures, then implement fixes."
+      "template": "Load build-error-resolver skill if the issue is a build/type error. Read review findings, lint errors, or test failures from the working tree. Implement minimal fixes — do not refactor beyond the fix. Re-verify after fixing."
     },
     "review": {
       "description": "Request a code review of current changes",
-      "template": "Review all uncommitted changes in the working tree for quality, correctness, and security issues."
+      "template": "Load requesting-code-review skill. Dispatch a code-reviewer subagent to review changes. Provide git diff context and plan context if available. Organize findings by severity: Critical, High, Medium, Low, Nit. Fix critical/high findings before proceeding."
     },
     "deploy": {
       "description": "Deploy the current branch",
@@ -451,7 +449,7 @@
     },
     "brainstorm": {
       "description": "Explore ideas, requirements, and design before implementation",
-      "template": "Explore the idea or problem described. Ask clarifying questions, explore approaches, and produce a design direction."
+      "template": "Load the brainstorming skill and explore the idea. Ask clarifying questions, propose 2-3 approaches with trade-offs, and converge on a design direction. Hand off to /plan when ready."
     },
     "build": {
       "description": "Execute implementation based on existing plan",
@@ -462,33 +460,33 @@
       "description": "Stage and commit related changes with Conventional Commit messages",
       "agent": "build",
       "subtask": true,
-      "template": "Analyze the working tree with git status and git diff. Group related files and commit with Conventional Commit types (feat:, fix:, chore:, refactor:, docs:, test:)."
+      "template": "Analyze working tree with git status and git diff. Group related files by path and diff content. Commit with Conventional Commit types (feat:, fix:, chore:, refactor:, docs:, test:). Verify tests pass before committing. Never commit secrets or .env files."
     },
     "debug": {
       "description": "Systematic root-cause debugging before proposing fixes",
       "agent": "plan",
-      "template": "Load the systematic-debugging skill and follow its four-phase process: root cause investigation, pattern analysis, hypothesis testing, then implementation. No fixes without root cause."
+      "template": "Load the systematic-debugging skill. Follow four phases: Reproduce (confirm bug), Investigate (read errors/logs), Hypothesize (form and test root-cause hypotheses), Fix (minimal fix with verification). Use sequential-thinking MCP for complex reasoning. No fixes without root cause."
     },
     "security": {
       "description": "Run a comprehensive security review",
       "subtask": true,
-      "template": "Conduct a comprehensive security review of the current codebase following OWASP guidelines and security best practices."
+      "template": "Load security-reviewer and owasp-security skills. Scan for OWASP Top 10 vulnerabilities (A01-A10), hardcoded secrets, SSRF, injection, auth failures, and misconfigurations. Report findings as Critical/High/Recommendations. Security issues are blockers."
     },
     "think": {
       "description": "Deep reasoning for complex problems using sequential thinking",
       "agent": "plan",
       "subtask": true,
-      "template": "Use the sequential-thinking MCP tool to reason through this problem step-by-step. Break it down, explore alternatives, and reach a conclusion."
+      "template": "Use sequential-thinking MCP tool to reason step-by-step: Understand, Inspect, Decompose, Explore alternatives, Evaluate trade-offs, Recommend approach, Create implementation plan, Check edge cases, Verify consistency. Output structured analysis. Do not write code."
     },
     "verify": {
       "description": "Run verification gate before claiming work is complete",
       "agent": "build",
       "subtask": true,
-      "template": "Run the verification-before-completion workflow. Check that all tests pass, build succeeds, and no lint errors exist before reporting completion."
+      "template": "Load verification-before-completion skill. Run fresh verification: tests (npm test), build (npm run build), lint (npm run lint), type check (tsc --noEmit). Read actual output — do not assume success. Fix failures before claiming completion."
     }
   },
   "experimental": {
     "mcp_timeout": 30000
   },
-  "shell": "bash"
+  "shell": "sh"
 }

@@ -2,7 +2,10 @@
 
 # Web Hooks
 
-## Recommended PostToolUse Hooks
+> OpenCode implements hooks via **plugins**, not JSON config.
+> Use the `tool.execute.after` hook for PostToolUse equivalents.
+
+## Recommended tool.execute.after Hooks
 
 Prefer project-local tooling. Do not wire hooks to remote one-off package execution.
 
@@ -10,103 +13,70 @@ Prefer project-local tooling. Do not wire hooks to remote one-off package execut
 
 Use the project's existing formatter entrypoint after edits:
 
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "pnpm prettier --write \"$FILE_PATH\"",
-        "description": "Format edited frontend files"
-      }
-    ]
+```typescript
+"tool.execute.after": async (input, output) => {
+  if ((input.tool === "edit" || input.tool === "write") && input.args?.filePath) {
+    await $`pnpm prettier --write ${input.args.filePath}`
   }
 }
 ```
 
-Equivalent local commands via `yarn prettier` or `npm exec prettier --` are fine when they use repo-owned dependencies.
-
 ### Lint Check
 
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "pnpm eslint --fix \"$FILE_PATH\"",
-        "description": "Run ESLint on edited frontend files"
-      }
-    ]
+```typescript
+"tool.execute.after": async (input, output) => {
+  if ((input.tool === "edit" || input.tool === "write") && input.args?.filePath) {
+    await $`pnpm eslint --fix ${input.args.filePath}`
   }
 }
 ```
 
 ### Type Check
 
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "pnpm tsc --noEmit --pretty false",
-        "description": "Type-check after frontend edits"
-      }
-    ]
+```typescript
+"tool.execute.after": async (input, output) => {
+  if (input.tool === "edit" || input.tool === "write") {
+    await $`pnpm tsc --noEmit --pretty false`
   }
 }
 ```
 
 ### CSS Lint
 
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "pnpm stylelint --fix \"$FILE_PATH\"",
-        "description": "Lint edited stylesheets"
-      }
-    ]
+```typescript
+"tool.execute.after": async (input, output) => {
+  if ((input.tool === "edit" || input.tool === "write") && input.args?.filePath) {
+    await $`pnpm stylelint --fix ${input.args.filePath}`
   }
 }
 ```
 
-## PreToolUse Hooks
+## tool.execute.before Hooks
 
 ### Guard File Size
 
-Block oversized writes from tool input content, not from a file that may not exist yet:
+Block oversized writes from tool input content:
 
-```json
-{
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write",
-        "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const i=JSON.parse(d);const c=i.tool_input?.content||'';const lines=c.split('\\n').length;if(lines>800){console.error('[Hook] BLOCKED: File exceeds 800 lines ('+lines+' lines)');console.error('[Hook] Split into smaller modules');process.exit(2)}console.log(d)})\"",
-        "description": "Block writes that exceed 800 lines"
-      }
-    ]
+```typescript
+"tool.execute.before": async (input, output) => {
+  if (input.tool === "write") {
+    const content = output.args?.content ?? ""
+    const lines = content.split("\n").length
+    if (lines > 800) {
+      throw new Error(`Blocked: File exceeds 800 lines (${lines} lines). Split into smaller modules.`)
+    }
   }
 }
 ```
 
-## Stop Hooks
+## Session Idle Verification
 
 ### Final Build Verification
 
-```json
-{
-  "hooks": {
-    "Stop": [
-      {
-        "command": "pnpm build",
-        "description": "Verify the production build at session end"
-      }
-    ]
+```typescript
+event: async ({ event }) => {
+  if (event.type === "session.idle") {
+    await $`pnpm build`
   }
 }
 ```
@@ -117,4 +87,4 @@ Recommended order:
 1. format
 2. lint
 3. type check
-4. build verification
+4. build verification (on session idle)

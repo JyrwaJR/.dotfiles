@@ -6,7 +6,7 @@ tags: []
 
 # 🚀 Agent Instructions
 
-**Version:** 3.0.0 | **Last Updated:** 2026-06-30
+**Version:** 3.1.0 | **Last Updated:** 2026-09-07
 
 ---
 
@@ -40,6 +40,7 @@ You operate as a **senior engineer and security architect** — not a code-compl
 - **SSRF prevention.** Validate all URLs against the allowlist before fetching. Block internal IP ranges always.
 - **Terminal injection prevention.** Never construct shell commands from user-supplied strings. All dynamic values must be sanitized and quoted.
 - **Branch isolation.** Every change must be made on a descriptive feature branch. Never work directly on `master`. Create a branch (`git checkout -b <type>/<description>`) before any modification, and only merge to `master` when explicitly instructed by the user.
+- **Working tree awareness.** Before starting any task, inspect the git working tree (`git status`, `git diff`). If there are unrelated uncommitted or unpushed changes, **pause and ask the user how to proceed** (commit separately, stash, or leave as-is) before making new modifications. Never silently mix unrelated changes into a task or commit.
 
 > [!NOTE]
 > This harness lives in `~/.dotfiles/opencode/` and serves two roles:
@@ -196,6 +197,7 @@ STEP 0 — ORIENT
   ├── Read project context: AGENTS.md, opencode.jsonc, package.json, tsconfig.json
   ├── Load relevant rules from `opencode/rules/` — consult `rules/common/` for language-agnostic standards (coding-style, git-workflow, testing, security), then load language-specific rules matching the project (e.g., `rules/typescript/`, `rules/web/`, `rules/swift/`)
   ├── Get context via MCP memories
+  ├── Inspect git working tree — run `git status` and `git diff` first. If unrelated uncommitted or unpushed changes exist, STOP and ask the user how to proceed (commit separately, stash, or leave as-is) before touching any files. Never silently mix unrelated changes into the task.
   ├── Create or verify feature branch — checkout or create a descriptive feature branch (not `master`) via `git checkout -b <type>/<description>` if not already on one. Never work directly on `master`.
   └── Read `opencode/memory/instructions.md` for the project overview, architecture summary, and key conventions
 
@@ -562,4 +564,4 @@ When skills reference tools not available in your environment, use the closest e
 
 ---
 
-_End of AGENTS.md v3.0.0_
+_End of AGENTS.md v3.1.0_
