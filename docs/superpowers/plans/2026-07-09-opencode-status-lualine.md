@@ -23,7 +23,7 @@
 
 ## Project Structure
 
-All paths relative to `/Users/harrison/.dotfiles/`:
+All paths relative to `/Users/harrison/.config/`:
 
 ```
 nvim/opencode-status/
@@ -59,14 +59,14 @@ nvim/opencode-status/
 - [ ] **Step 1: Create plugin directories**
 
 ```bash
-mkdir -p /Users/harrison/.dotfiles/nvim/opencode-status/lua/opencode-status
-mkdir -p /Users/harrison/.dotfiles/nvim/opencode-status/plugin
+mkdir -p /Users/harrison/.config/nvim/opencode-status/lua/opencode-status
+mkdir -p /Users/harrison/.config/nvim/opencode-status/plugin
 ```
 
 - [ ] **Step 2: Verify directory tree**
 
 ```bash
-ls -R /Users/harrison/.dotfiles/nvim/opencode-status/
+ls -R /Users/harrison/.config/nvim/opencode-status/
 ```
 Expected: two empty directories `lua/opencode-status/` and `plugin/`.
 
@@ -610,7 +610,7 @@ To:
 - [ ] **Step 2: Verify the change**
 
 ```bash
-cd /Users/harrison/.dotfiles && git diff
+cd /Users/harrison/.config && git diff
 ```
 Expected: Only the one-line change in `lualine.lua`.
 

@@ -18,18 +18,18 @@
 ### Task 1: Update opencode.jsonc
 
 **Files:**
-- Modify: `/Users/harrison/.dotfiles/opencode/opencode.jsonc`
+- Modify: `/Users/harrison/.config/opencode/opencode.jsonc`
 
 **Interfaces:**
 - Produces: Updated `provider` and `agent.planner` configuration.
 
 - [ ] **Step 1: Backup opencode.jsonc**
 
-Run: `cp /Users/harrison/.dotfiles/opencode/opencode.jsonc /Users/harrison/.dotfiles/opencode/opencode.jsonc.bak`
+Run: `cp /Users/harrison/.config/opencode/opencode.jsonc /Users/harrison/.config/opencode/opencode.jsonc.bak`
 
 - [ ] **Step 2: Update configuration**
 
-Edit `/Users/harrison/.dotfiles/opencode/opencode.jsonc` to merge the new `provider` configuration and update the `planner` agent model.
+Edit `/Users/harrison/.config/opencode/opencode.jsonc` to merge the new `provider` configuration and update the `planner` agent model.
 
 ```jsonc
 // ... add provider section ...
@@ -53,7 +53,7 @@ Edit `/Users/harrison/.dotfiles/opencode/opencode.jsonc` to merge the new `provi
 
 - [ ] **Step 3: Commit**
 
-Run: `git add /Users/harrison/.dotfiles/opencode/opencode.jsonc && git commit -m "chore: add models and configure planner agent"`
+Run: `git add /Users/harrison/.config/opencode/opencode.jsonc && git commit -m "chore: add models and configure planner agent"`
 
 ### Task 2: Verify Configuration
 

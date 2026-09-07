@@ -17,7 +17,7 @@
 
 - [ ] **Read the current config file**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc`
 Expected: 121 lines, the file ending with:
 ```
     "filesystem": {
@@ -64,7 +64,7 @@ Expected result — the file now ends with:
 
 - [ ] **Verify the edit**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc`
 Expected: valid JSONC, file now has 126 lines, `"username"` appears at line ~121.
 
 ---
@@ -106,7 +106,7 @@ Expected result — the file now ends with:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -10`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -10`
 Expected: the last 10 lines show `instructions`, `default_agent`, `model`, `small_model` fields before the closing `}`.
 
 ---
@@ -144,7 +144,7 @@ Expected result — the file now ends with:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -10`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -10`
 Expected: shows `formatter: true` and `lsp: true` as last two fields before `}`.
 
 ---
@@ -194,7 +194,7 @@ Expected result — the file now ends with:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -15`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -15`
 Expected: shows the `compaction` object and `tool_output` object before `}`.
 
 ---
@@ -258,7 +258,7 @@ Expected result — the file now ends with the `command` block before `}`:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -25`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -25`
 Expected: shows `command` block with `fix`, `review`, `deploy`, `plan` entries.
 
 ---
@@ -332,7 +332,7 @@ Expected result — the file now ends with the `experimental` block before `}`:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -10`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -10`
 Expected: shows `experimental` with `mcp_timeout: 30000`.
 
 ---
@@ -394,7 +394,7 @@ Expected result — the file now ends with:
 
 - [ ] **Verify**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc | tail -25`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc | tail -25`
 Expected: shows `agent` block with all four agent entries.
 
 ---
@@ -403,7 +403,7 @@ Expected: shows `agent` block with all four agent entries.
 
 - [ ] **Inspect the complete file**
 
-Run: `read file:///Users/harrison/.dotfiles/opencode/opencode.jsonc`
+Run: `read file:///Users/harrison/.config/opencode/opencode.jsonc`
 Expected: The file should show all fields in this order:
 
 ```
@@ -431,9 +431,9 @@ agent
 
 - [ ] **Verify JSONC validity**
 
-Run: `python3 -c "import json; json.loads(open('/Users/harrison/.dotfiles/opencode/opencode.jsonc').read())" 2>&1 || echo "JSONC may have trailing commas or comments - try with commentjson instead"`
+Run: `python3 -c "import json; json.loads(open('/Users/harrison/.config/opencode/opencode.jsonc').read())" 2>&1 || echo "JSONC may have trailing commas or comments - try with commentjson instead"`
 If that fails, try:
-Run: `pip3 install commentjson -q && python3 -c "import commentjson; commentjson.load(open('/Users/harrison/.dotfiles/opencode/opencode.jsonc')); print('VALID JSONC')"`
+Run: `pip3 install commentjson -q && python3 -c "import commentjson; commentjson.load(open('/Users/harrison/.config/opencode/opencode.jsonc')); print('VALID JSONC')"`
 Expected: `VALID JSONC`
 
 - [ ] **(Optional) Start opencode to test config loading**

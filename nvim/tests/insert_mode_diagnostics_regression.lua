@@ -11,7 +11,7 @@
 -- (see plan Task 6).
 --
 -- Run from anywhere:
---   nvim --headless -u NONE -l ~/.dotfiles/nvim/tests/insert_mode_diagnostics_regression.lua
+--   nvim --headless -u NONE -l ~/.config/nvim/tests/insert_mode_diagnostics_regression.lua
 --
 -- NOTE: load-bearing order -- `dofile` only RETURNS the plugin spec table and
 -- does NOT execute config(). The nvim-lint stubs below must be installed

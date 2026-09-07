@@ -1,13 +1,13 @@
 # Dotfiles Symlink Setup
 
-This document provides instructions for creating symbolic links for `wezterm.lua` and `.bashrc` on Windows. This setup centralizes configuration management by linking these files from a `~/.dotfiles` directory.
+This document provides instructions for creating symbolic links for `wezterm.lua` and `.bashrc` on Windows. This setup centralizes configuration management by linking these files from a `~/.config` directory.
 
 ### Directory Structure
 
 Ensure your dotfiles are organized as follows:
 
 ```bash
-~\.dotfiles\
+~\.config\
   ├── .wezterm.lua
   └── .bashrc
 ```
@@ -28,7 +28,7 @@ To create symbolic links, follow these steps:
 1. **Create the Symlink:**
 
    ```cmd
-   mklink "C:\Users\%USERNAME%\.wezterm.lua" "C:\Users\%USERNAME%\.dotfiles\.wezterm.lua"
+   mklink "C:\Users\%USERNAME%\.wezterm.lua" "C:\Users\%USERNAME%\.config\.wezterm.lua"
    ```
 
 **For `.bashrc`:**
@@ -36,7 +36,7 @@ To create symbolic links, follow these steps:
 1. **Create the Symlink:**
 
    ```cmd
-   mklink "C:\Users\%USERNAME%\.bashrc" "C:\Users\<YourUsername>\.dotfiles\.bashrc"
+   mklink "C:\Users\%USERNAME%\.bashrc" "C:\Users\<YourUsername>\.config\.bashrc"
    ```
 
 ### Verifying Symlinks
