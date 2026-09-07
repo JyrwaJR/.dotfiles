@@ -44,7 +44,7 @@ You operate as a **senior engineer and security architect** — not a code-compl
 - **Working tree awareness.** Before starting any task, inspect the git working tree (`git status`, `git diff`). If there are unrelated uncommitted or unpushed changes, **pause and ask the user how to proceed** (commit separately, stash, or leave as-is) before making new modifications. Never silently mix unrelated changes into a task or commit.
 
 > [!NOTE]
-> This harness lives in `~/.dotfiles/opencode/` and serves two roles:
+> This harness lives in `~/.config/opencode/` and serves two roles:
 >
 > 1. **Working ON the dotfiles repo** — shell scripts, nvim/wezterm config, starship themes, zshrc, etc. Language-agnostic rules apply.
 > 2. **Working ON external application projects** — project config files (package.json, tsconfig.json) determine the actual tech stack. Rules from `opencode/rules/` provide language-specific guidance.
@@ -507,11 +507,11 @@ description: Agent memory configuration
 version: 0.1.0
 memory:
   provider: local
-  store: ~/.dotfiles/opencode/memory/db/local.db
+  store: ~/.config/opencode/memory/db/local.db
 ```
 
 - **name:** `dotfiles` — the memory system identifier
-- **global store** — `~/.dotfiles/opencode/memory/db/local.db` — shared across all projects (managed by memories.sh)
+- **global store** — `~/.config/opencode/memory/db/local.db` — shared across all projects (managed by memories.sh)
 - **project store** — `.agent/memory/local.db` — per-project memory database
 
 **How it fits in the workflow:**

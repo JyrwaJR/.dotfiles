@@ -3,4 +3,4 @@ description: Agent memory configuration
 version: 0.1.0
 memory:
   provider: local
-  store: ~/.dotfiles/opencode/memory/db/local.db
+  store: ~/.config/opencode/memory/db/local.db

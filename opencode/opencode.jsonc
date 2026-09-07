@@ -52,7 +52,7 @@
     },
     "edit": "allow",
     "external_directory": {
-      "~/.dotfiles/**": "allow",
+      "~/.config/**": "allow",
       "~/.cache/opencode/**": "allow",
       "~/.config/opencode/**": "allow",
       "~/tmp/**": "allow",
@@ -117,7 +117,7 @@
         "serve"
       ],
       "environment": {
-        "MEMORIES_DATA_DIR": "/Users/harrison/.dotfiles/opencode/memory/db"
+        "MEMORIES_DATA_DIR": "/Users/harrison/.config/opencode/memory/db"
       }
     },
     "shadcn": {

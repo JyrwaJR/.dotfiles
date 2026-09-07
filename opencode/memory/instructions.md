@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-- **Repository:** `/Users/harrison/.dotfiles`
+- **Repository:** `/Users/harrison/.config`
 - **Config:** `opencode/opencode.jsonc`
 - **Package:** `@opencode-ai/plugin 1.16.0`
 
@@ -66,7 +66,7 @@ Always check for applicable skills before acting (§12 AGENTS.md). Priority:
 - **Commits:** Conventional Commits (feat:, fix:, chore:, docs:, test:, refactor:)
 - **JSDoc:** Required on every exported symbol
 - **Security:** OWASP Top 10 compliance, zero-knowledge principles
-- **Memory store:** `~/.dotfiles/opencode/memory/db/local.db`
+- **Memory store:** `~/.config/opencode/memory/db/local.db`
 
 ## Security Rules
 
