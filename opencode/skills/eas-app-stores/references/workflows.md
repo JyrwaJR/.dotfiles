@@ -1,50 +1,10 @@
 # EAS Workflows
 
-Automate builds, submissions, and deployments with EAS Workflows. The examples below are deployment-oriented starting points.
+Automate builds, submissions, and PR-preview updates with EAS Workflows. The examples below are store-release-oriented starting points.
 
-When you need to write, edit, or validate a workflow YAML file beyond these examples, use the `expo-cicd-workflows` skill.
+When you need to write, edit, or validate a workflow YAML file beyond these examples, use the `eas-workflows` skill. For website and API-route deploy workflows (`type: deploy`), see the `eas-hosting` skill.
 
-## Web Deployment
-
-Deploy web apps on push to main:
-
-`.eas/workflows/deploy.yml`
-
-```yaml
-name: Deploy
-
-on:
-  push:
-    branches:
-      - main
-
-# https://docs.expo.dev/eas/workflows/syntax/#deploy
-jobs:
-  deploy_web:
-    type: deploy
-    params:
-      prod: true
-```
-
-## PR Previews
-
-### Web PR Previews
-
-```yaml
-name: Web PR Preview
-
-on:
-  pull_request:
-    types: [opened, synchronize]
-
-jobs:
-  preview:
-    type: deploy
-    params:
-      prod: false
-```
-
-### Native PR Previews with EAS Updates
+## PR Previews with EAS Update
 
 Deploy OTA updates for pull requests:
 

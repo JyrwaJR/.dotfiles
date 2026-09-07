@@ -1,19 +1,21 @@
 ---
-name: expo-deployment
-description: Deploy Expo apps to production with EAS — build and submit to the iOS App Store, Google Play Store, and TestFlight, configure eas.json build and submit profiles, manage app versions and build numbers, publish App Store metadata and ASO, and deploy web bundles and API routes via EAS Hosting. Use whenever the user is preparing a production build, running eas build or eas submit, shipping to TestFlight, releasing or rolling out to the app stores, bumping version or build numbers, or setting up store listing metadata for an Expo app.
+name: eas-app-stores
+description: EAS service (paid). Deploy Expo apps to the app stores with EAS - build and submit to the iOS App Store, Google Play Store, and TestFlight, configure eas.json build and submit profiles, manage app versions and build numbers, and publish App Store metadata and ASO. Use whenever the user wants to deploy, release, or ship an app to production or the app stores, is preparing a production build, running eas build or eas submit, shipping to TestFlight, bumping version or build numbers, or setting up store listing metadata. For deploying an Expo website or API routes, use the eas-hosting skill.
 version: 1.0.0
 license: MIT
 ---
 
-# Deployment
+# App Store Deployment
 
-This skill covers deploying Expo applications across all platforms using EAS (Expo Application Services).
+> **EAS service - costs apply.** This skill uses Expo Application Services (EAS), a paid product with free-tier limits. `eas build` and `eas submit` consume your plan's build minutes, and store submission requires paid Apple Developer and Google Play accounts. Review https://expo.dev/pricing before running cloud commands.
+
+This skill covers building and releasing Expo apps to the iOS App Store, Google Play Store, and TestFlight using EAS (Expo Application Services). For deploying an Expo website or API routes to EAS Hosting, use the `eas-hosting` skill.
 
 ## References
 
 Consult these resources as needed:
 
-- ./references/workflows.md -- CI/CD workflows for automated deployments and PR previews
+- ./references/workflows.md -- CI/CD workflows for automated store releases and PR previews
 - ./references/testflight.md -- Submitting iOS builds to TestFlight for beta testing
 - ./references/app-store-metadata.md -- Managing App Store metadata and ASO optimization
 - ./references/play-store.md -- Submitting Android builds to Google Play Store
@@ -64,20 +66,9 @@ npx eas-cli@latest build -p android --profile production --submit
 npx testflight
 ```
 
-## Web Deployment
+## Web & API Route Hosting
 
-Deploy web apps using EAS Hosting:
-
-```bash
-# Deploy to production
-npx expo export -p web
-npx eas-cli@latest deploy --prod
-
-# Deploy PR preview
-npx eas-cli@latest deploy
-```
-
-Expo Router API routes deploy together with the web bundle on EAS Hosting — `eas deploy` ships both. To author or configure the API routes themselves, use the `expo-api-routes` skill.
+Deploying an Expo website or Expo Router API routes to EAS Hosting (`npx expo export -p web` then `eas deploy`) is covered by the `eas-hosting` skill. This skill focuses on native app store releases.
 
 ## EAS Configuration
 
@@ -131,15 +122,9 @@ Standard `eas.json` for production deployments:
 - Configure tracks: internal → closed → open → production
 - See ./references/play-store.md for detailed setup
 
-### Web
+## Automated Releases
 
-- EAS Hosting provides preview URLs for PRs
-- Production deploys to your custom domain
-- See ./references/workflows.md for CI/CD automation
-
-## Automated Deployments
-
-EAS Workflows automate the build → submit → update → deploy pipeline for CI/CD. See ./references/workflows.md for deployment-oriented examples. To author or validate workflow YAML, use the `expo-cicd-workflows` skill — it works from the live workflow schema.
+EAS Workflows automate the build → submit → update pipeline for CI/CD. See ./references/workflows.md for store-release examples. To author or validate workflow YAML, use the `eas-workflows` skill - it works from the live workflow schema.
 
 ## Version Management
 
@@ -165,3 +150,11 @@ eas build:view
 # View submission status
 eas submit:list
 ```
+
+## Submitting Feedback
+If you encounter errors, misleading or outdated information in this skill, report it so Expo can improve:
+```bash
+npx --yes submit-expo-feedback@latest --category skills --subject "eas-app-stores" "<actionable feedback>"
+```
+Only submit when you have something specific and actionable to report. Include as much relevant context as possible.
+If an AI agent repeatedly failed or the user had to take over an Expo task, load the expo-skill-feedback skill and follow its eval-candidate flow instead of reusing the command above.
