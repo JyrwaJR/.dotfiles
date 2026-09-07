@@ -31,3 +31,6 @@ opencode/antigravity-accounts.json
 homebrew/trust.json.lock
 opencode/skills/.DS_Store
 tanstack/cli.json
+
+# Local secrets — never commit
+.env.local
