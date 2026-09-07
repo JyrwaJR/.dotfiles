@@ -4,10 +4,34 @@
  * Runs verification checks when a session becomes idle (agent finishes a turn).
  * Uses the event hook to listen for session.idle events.
  *
+ * Behavior:
+ * - Only runs in projects with package.json (skips non-Node projects silently)
+ * - Only runs tsc --noEmit when typescript is a dependency
+ * - Only runs npm test when a test script exists
+ * - Never fails loudly for missing tooling — logs a quiet skip
+ *
  * @module verify-on-idle
  */
 
 import type { Plugin } from "@opencode-ai/plugin"
+
+/**
+ * Reads a file from the workspace, returning null if it does not exist.
+ *
+ * @param $ - The shell API from plugin context
+ * @param directory - The workspace directory
+ * @param relativePath - Path relative to the workspace root
+ * @returns File contents as parsed JSON, or null on error
+ */
+async function readJson($: any, directory: string, relativePath: string): Promise<any | null> {
+  try {
+    const result = await $`cat ${directory}/${relativePath}`
+    const text = await result.text()
+    return JSON.parse(text)
+  } catch {
+    return null
+  }
+}
 
 /**
  * Verify-On-Idle plugin that triggers verification when the agent finishes.
@@ -15,16 +39,12 @@ import type { Plugin } from "@opencode-ai/plugin"
  * Triggers on:
  * - `session.idle` event (agent turn completed)
  *
- * Actions:
- * - Runs type checking (tsc --noEmit)
- * - Runs tests (npm test)
- * - Logs verification results
- *
- * Note: This plugin uses the event hook, not tool hooks.
- * It fires after the agent completes a turn, providing a safety net
- * for catching issues before the user reviews the output.
+ * Actions (project-aware):
+ * - Runs `tsc --noEmit` only if typescript is a dependency
+ * - Runs `npm test` only if a test script exists
+ * - Logs results; silent skips for non-Node/non-TS projects
  */
-export const VerifyOnIdle: Plugin = async ({ $, client, directory }) => {
+export const VerifyOnIdle: Plugin = async ({ $, directory }) => {
   return {
     event: async ({ event }) => {
       // Only trigger on session idle (agent finished a turn)
@@ -32,34 +52,47 @@ export const VerifyOnIdle: Plugin = async ({ $, client, directory }) => {
         return
       }
 
+      // Only run in Node projects with a package.json
+      const pkg = await readJson($, directory, "package.json")
+      if (!pkg) {
+        return // not a Node project — skip silently
+      }
+
       const results: string[] = []
       const errors: string[] = []
 
-      // Run type checking
-      try {
-        await $`cd ${directory} && npx tsc --noEmit 2>&1`
-        results.push("tsc: passed")
-      } catch (err) {
-        const output = err instanceof Error ? err.message : String(err)
-        errors.push(`tsc: ${output.slice(0, 200)}`)
+      // Run type checking only if TypeScript is a dependency
+      const hasTypeScript =
+        (pkg.dependencies?.typescript || pkg.devDependencies?.typescript) != null
+      if (hasTypeScript) {
+        try {
+          await $`cd ${directory} && npx tsc --noEmit`
+          results.push("tsc: passed")
+        } catch {
+          errors.push("tsc: type errors found")
+        }
       }
 
-      // Run tests (if test script exists)
-      try {
-        await $`cd ${directory} && npm test 2>&1`
-        results.push("test: passed")
-      } catch (err) {
-        const output = err instanceof Error ? err.message : String(err)
-        errors.push(`test: ${output.slice(0, 200)}`)
+      // Run tests only if a test script is defined
+      const hasTestScript = typeof pkg.scripts?.test === "string"
+      if (hasTestScript) {
+        try {
+          await $`cd ${directory} && npm test --silent`
+          results.push("test: passed")
+        } catch {
+          errors.push("test: failures detected")
+        }
       }
 
-      // Log results if there are failures
+      // Only log when something meaningful happened
+      if (results.length === 0 && errors.length === 0) {
+        return // nothing to verify — stay silent
+      }
+
       if (errors.length > 0) {
         console.warn("[verify-on-idle] Verification issues found:")
         errors.forEach((e) => console.warn(`  - ${e}`))
       }
-
-      // Log success if all passed
       if (results.length > 0 && errors.length === 0) {
         console.log("[verify-on-idle] All checks passed")
       }

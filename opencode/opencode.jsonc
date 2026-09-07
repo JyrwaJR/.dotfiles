@@ -14,15 +14,21 @@
       "npx *": "allow",
       "pnpm *": "allow",
       "yarn *": "allow",
-      "git *": "allow",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "git add*": "allow",
+      "git commit*": "allow",
+      "git push*": "allow",
+      "git checkout -b*": "allow",
+      "git branch*": "allow",
+      "git push --force*": "ask",
       "grep *": "allow",
       "find *": "allow",
       "head *": "allow",
       "tail *": "allow",
       "wc *": "allow",
       "sort *": "allow",
-      "sed *": "allow",
-      "awk *": "allow",
       "curl *": "ask",
       "sudo *": "deny",
       "rm -rf *": "deny",
@@ -90,7 +96,7 @@
       "url": "https://stitch.googleapis.com/mcp",
       "enabled": true,
       "headers": {
-        "X-Goog-Api-Key": "REMOVED"
+        "X-Goog-Api-Key": "{env:STITCH_API_KEY}"
       }
     },
     "sequential-thinking": {

@@ -27,6 +27,24 @@ function matchesExtension(filePath: string, extensions: string[]): boolean {
 }
 
 /**
+ * Runs a shell command and reports whether it succeeded.
+ * Missing binaries or non-zero exits are swallowed (returns false),
+ * so absent tooling does not spam the session.
+ *
+ * @param $ - The shell API from plugin context
+ * @param command - The command to run (single string, no shell metacharacters)
+ * @returns True if the command exited successfully
+ */
+async function runSilently($: any, command: string): Promise<boolean> {
+  try {
+    await $`${command}`
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
  * Auto-Lint plugin that runs linting and formatting after file edits.
  *
  * Triggers on:
@@ -34,9 +52,9 @@ function matchesExtension(filePath: string, extensions: string[]): boolean {
  * - `write` tool calls
  *
  * Actions:
- * - Runs Prettier formatting on supported files
- * - Runs ESLint fix on TypeScript/JavaScript files
- * - Logs results to output metadata
+ * - Runs Prettier formatting on supported files (missing formatter = silent skip)
+ * - Runs ESLint fix on TypeScript/JavaScript files (missing linter = silent skip)
+ * - Attaches results to output metadata
  */
 export const AutoLint: Plugin = async ({ $, directory }) => {
   return {
@@ -60,22 +78,14 @@ export const AutoLint: Plugin = async ({ $, directory }) => {
 
       // Run Prettier formatting
       if (matchesExtension(fullPath, FORMAT_EXTENSIONS)) {
-        try {
-          await $`npx prettier --write ${fullPath}`
-          results.push("prettier: formatted")
-        } catch {
-          // Prettier not available or failed — skip silently
-        }
+        const ok = await runSilently($, `npx prettier --write ${fullPath}`)
+        if (ok) results.push("prettier: formatted")
       }
 
       // Run ESLint fix
       if (matchesExtension(fullPath, LINT_EXTENSIONS)) {
-        try {
-          await $`npx eslint --fix ${fullPath} 2>/dev/null || true`
-          results.push("eslint: checked")
-        } catch {
-          // ESLint not available or failed — skip silently
-        }
+        const ok = await runSilently($, `npx eslint --fix ${fullPath}`)
+        if (ok) results.push("eslint: checked")
       }
 
       // Attach results to output metadata

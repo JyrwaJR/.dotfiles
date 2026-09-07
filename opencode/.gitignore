@@ -1,0 +1,19 @@
+# Dependencies
+node_modules
+
+# Package manager lockfiles (tracked in this repo deliberately)
+# package.json
+# package-lock.json
+# bun.lock
+
+# Environment files — never commit real secrets
+.env
+.env.*
+!.env.example
+
+# Auth artifacts
+antigravity-accounts.json
+antigravity-accounts.json.*.tmp
+antigravity-signature-cache.json
+antigravity-logs/
+.gitignore

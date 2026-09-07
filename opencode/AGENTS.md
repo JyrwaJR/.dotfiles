@@ -17,14 +17,14 @@ tags: []
 3. [Coding Conventions](#3-coding-conventions)
 4. [Agent Roles & Mode Protocol](#4-agent-roles--mode-protocol)
 5. [Universal Execution Protocol](#5-universal-execution-protocol)
-6. [Configured MCP Servers](#55-configured-mcp-servers)
-7. [Security-First Mandate](#6-security-first-mandate)
-8. [OWASP Top 10 Checklist](#7-owasp-top-10-checklist)
-9. [Domain Allowlist](#8-domain-allowlist)
-10. [Terminal Policy & Permissions](#9-terminal-policy--permissions)
-11. [Forbidden Actions](#10-forbidden-actions)
-12. [Persistent Memory System](#11-persistent-memory-system-memoriessh)
-13. [Skill Invocation Protocol](#12-skill-invocation-protocol)
+5.5. [Configured MCP Servers](#55-configured-mcp-servers)
+6. [Security-First Mandate](#6-security-first-mandate)
+7. [OWASP Top 10 Checklist](#7-owasp-top-10-checklist)
+8. [Domain Allowlist](#8-domain-allowlist)
+9. [Terminal Policy & Permissions](#9-terminal-policy--permissions)
+10. [Forbidden Actions](#10-forbidden-actions)
+11. [Persistent Memory System](#11-persistent-memory-system-memoriessh)
+12. [Skill Invocation Protocol](#12-skill-invocation-protocol)
 
 ---
 
@@ -57,7 +57,7 @@ You operate as a **senior engineer and security architect** — not a code-compl
 Always read the project's own config files (`package.json`, `tsconfig.json`, etc.) for the actual stack. These are fallback defaults:
 
 | Layer | Default Choice |
-| ------------- | ------------------------------ | -------------------- |
+| ------------- | ------------------------------ |
 | Framework | Next.js 14+ (App Router) |
 | Server | Node.js (18+) |
 | Expo | Node.js (18+) |
@@ -66,7 +66,7 @@ Always read the project's own config files (`package.json`, `tsconfig.json`, etc
 | UI Components | shadcn/ui |
 | Database | PostgreSQL |
 | ORM | Prisma |
-| API Style | REST | RPC (Route Handlers) |
+| API Style | REST / RPC (Route Handlers) |
 | Validation | Zod |
 | Testing | Vitest + React Testing Library |
 | E2E Testing | Playwright |
