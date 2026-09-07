@@ -82,7 +82,7 @@
   },
   "plugin": [
     "opencode-antigravity-auth@latest",
-    "superpowers@git+https://github.com/obra/superpowers.git#v5.1.0",
+    "superpowers@git+https://github.com/obra/superpowers.git#v6.3.0",
     [
       "@plannotator/opencode@latest",
       {
