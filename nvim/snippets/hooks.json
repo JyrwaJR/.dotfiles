@@ -1,0 +1,119 @@
+{
+  "useHook": {
+    "prefix": "useHook",
+    "body": [
+      "import { useState, useEffect } from 'react';",
+      "",
+      "export function ${1:useHook}() {",
+      "\tconst [${2:loading}, set${2/(.*)/${1:/capitalize}/}] = useState(${3:true});",
+      "",
+      "\tuseEffect(() => {",
+      "\t\t$0",
+      "",
+      "\t\treturn () => {",
+      "\t\t\t${4:// cleanup}",
+      "\t};",
+      "\t}, []);",
+      "",
+      "\treturn { ${2:loading} };",
+      "}"
+    ],
+    "description": "Custom hook boilerplate"
+  },
+  "useState": {
+    "prefix": "useState",
+    "body": [
+      "const [$1, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialValue});"
+    ],
+    "description": "useState hook with auto-derived setter"
+  },
+  "useEffect": {
+    "prefix": "useEffect",
+    "body": [
+      "useEffect(() => {",
+      "\t$1",
+      "",
+      "\treturn () => {",
+      "\t\t$0",
+      "\t};",
+      "}, [$2]);"
+    ],
+    "description": "useEffect with cleanup"
+  },
+  "useCallback": {
+    "prefix": "useCallback",
+    "body": [
+      "const ${1:handler} = useCallback(() => {",
+      "\t$0",
+      "}, [$2]);"
+    ],
+    "description": "useCallback hook"
+  },
+  "useMemo": {
+    "prefix": "useMemo",
+    "body": [
+      "const ${1:computed} = useMemo(() => {",
+      "\t$0",
+      "}, [$2]);"
+    ],
+    "description": "useMemo hook"
+  },
+  "useRef": {
+    "prefix": "useRef",
+    "body": [
+      "const ${1:ref} = useRef<${2:HTMLDivElement}>(${3:null});"
+    ],
+    "description": "useRef hook"
+  },
+  "useContext": {
+    "prefix": "useContext",
+    "body": [
+      "const ${1:value} = useContext(${2:Context});"
+    ],
+    "description": "useContext hook"
+  },
+  "useReducer": {
+    "prefix": "useReducer",
+    "body": [
+      "type ${1:State} = {",
+      "\t${2:// state fields}",
+      "};",
+      "",
+      "type ${3:Action} =",
+      "\t| { type: '${4:ACTION_1}' }",
+      "\t| { type: '${5:ACTION_2}' };",
+      "",
+      "const initialState: ${1:State} = {",
+      "\t$6",
+      "};",
+      "",
+      "function reducer(state: ${1:State}, action: ${3:Action}): ${1:State} {",
+      "\tswitch (action.type) {",
+      "\t\tcase '${4:ACTION_1}':",
+      "\t\t\treturn state;",
+      "\t\tcase '${5:ACTION_2}':",
+      "\t\t\treturn state;",
+      "\t\tdefault:",
+      "\t\t\treturn state;",
+      "\t}",
+      "}",
+      "",
+      "const [state, dispatch] = useReducer(reducer, initialState);",
+      "$0"
+    ],
+    "description": "useReducer with typed actions"
+  },
+  "useImperativeHandle": {
+    "prefix": "useImperative",
+    "body": [
+      "type ${1:ImperativeHandle} = {",
+      "\t${2:// exposed methods}",
+      "};",
+      "",
+      "useImperativeHandle(ref, (): ${1:ImperativeHandle} => ({",
+      "\t$0",
+      "}));"
+    ],
+    "description": "useImperativeHandle hook"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "custom-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": ["typescriptreact", "javascriptreact"],
+        "path": "./react.json"
+      },
+      {
+        "language": ["typescriptreact", "javascriptreact"],
+        "path": "./react-native.json"
+      },
+      {
+        "language": ["typescriptreact", "javascriptreact"],
+        "path": "./hooks.json"
+      }
+    ]
+  }
+}

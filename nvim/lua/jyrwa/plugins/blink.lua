@@ -1,6 +1,8 @@
 return {
   "saghen/blink.cmp",
-  dependencies = "rafamadriz/friendly-snippets",
+  dependencies = {
+    { "rafamadriz/friendly-snippets", enabled = false },
+  },
   version = "*",
   opts = {
     keymap = {
@@ -59,6 +61,15 @@ return {
         plsql = { "lsp", "snippets", "dadbod", "buffer" },
       },
       providers = {
+        snippets = {
+          opts = {
+            friendly_snippets = false,
+            search_paths = {
+              vim.fn.stdpath("config") .. "/snippets",
+              vim.fn.fnamemodify("~/.dotfiles/nvim", ":p") .. "snippets",
+            },
+          },
+        },
         dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
       },
     },
