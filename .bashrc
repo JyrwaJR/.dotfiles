@@ -1,5 +1,5 @@
 # Set Starship configuration file
-export STARSHIP_CONFIG="$HOME/.dotfiles/starship/starship.toml"
+export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
 
 # Initialize Starship prompt (if using Starship)
 eval "$(starship init bash)"
@@ -13,7 +13,7 @@ alias cd="z"
 # Add tab completion for 'z'
 bind 'TAB:menu-complete'
 # Ensure Neovim uses the correct configuration
-export XDG_CONFIG_HOME="$HOME/.dotfiles"
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Set up fzf key bindings and fuzzy completion
 eval "$(fzf --bash)"

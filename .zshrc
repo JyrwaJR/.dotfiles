@@ -11,11 +11,11 @@ if [ -d "/usr/local/bin" ]; then
 fi
 
 # Custom binaries
-export PATH="$HOME/.dotfiles/lazygit:$PATH"
+export PATH="$HOME/.config/lazygit:$PATH"
 export PATH="$HOME/.console-ninja/.bin:$PATH"
 
 ### 🧠 Environment Setup ###
-export XDG_CONFIG_HOME="$HOME/.dotfiles"
+export XDG_CONFIG_HOME="$HOME/.config"
 export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/starship.toml"
 export TERM="xterm-256color"
 
