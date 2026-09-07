@@ -5,13 +5,13 @@
       "import { useState, useEffect } from 'react';",
       "",
       "export function ${1:useHook}() {",
-      "\tconst [${2:loading}, set${2/(.*)/${1:/capitalize}/}] = useState(${3:true});",
+      "\tconst [${2:loading}, set${3:Loading}] = useState(${4:false});",
       "",
       "\tuseEffect(() => {",
       "\t\t$0",
       "",
       "\t\treturn () => {",
-      "\t\t\t${4:// cleanup}",
+      "\t\t\t${5:// cleanup}",
       "\t};",
       "\t}, []);",
       "",
@@ -23,9 +23,9 @@
   "useState": {
     "prefix": "useState",
     "body": [
-      "const [$1, set${1/(.*)/${1:/capitalize}/}] = useState(${2:initialValue});"
+      "const [${1:state}, set${2:State}] = useState(${3:initialValue});"
     ],
-    "description": "useState hook with auto-derived setter"
+    "description": "useState hook"
   },
   "useEffect": {
     "prefix": "useEffect",

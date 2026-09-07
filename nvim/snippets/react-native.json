@@ -5,7 +5,7 @@
       "import React from 'react';",
       "import { View, Text } from 'react-native';",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "const ${1:ComponentName} = () => {",
       "\treturn (",
       "\t\t<View>",
       "\t\t\t<Text>$0</Text>",
@@ -13,7 +13,7 @@
       "\t);",
       "};",
       "",
-      "export default ${1:${TM_FILENAME_BASE}};"
+      "export default ${1:ComponentName};"
     ],
     "description": "React Native Functional Component"
   },
@@ -23,8 +23,8 @@
       "import React, { useState } from 'react';",
       "import { View, Text, StyleSheet } from 'react-native';",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
-      "\tconst [$2, set${2/(.*)/${1:/capitalize}/}] = useState(${3:initialValue});",
+      "const ${1:ComponentName} = () => {",
+      "\tconst [${2:state}, set${3:State}] = useState(${4:initialValue});",
       "",
       "\treturn (",
       "\t\t<View style={styles.container}>",
@@ -41,7 +41,7 @@
       "\t},",
       "});",
       "",
-      "export default ${1:${TM_FILENAME_BASE}};"
+      "export default ${1:ComponentName};"
     ],
     "description": "React Native FC with useState and StyleSheet"
   },
@@ -51,22 +51,23 @@
       "import React from 'react';",
       "import { View, Text, FlatList, StyleSheet } from 'react-native';",
       "",
-      "interface ${1:${TM_FILENAME_BASE}}Props {",
-      "\t${2:// props}",
+      "interface ${1:Item} {",
+      "\t${2:id}: string;",
+      "\t${3:name}: string;",
       "}",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = (${3:props}: ${1:${TM_FILENAME_BASE}}Props) => {",
-      "\tconst renderItem = ({ item }: { item: ${4:any} }) => (",
+      "const ${4:ComponentName} = () => {",
+      "\tconst renderItem = ({ item }: { item: ${1:Item} }) => (",
       "\t\t<View>",
-      "\t\t\t<Text>{${5:item.name}}</Text>",
+      "\t\t\t<Text>{item.${3:name}}</Text>",
       "\t\t</View>",
       "\t);",
       "",
       "\treturn (",
       "\t\t<FlatList",
-      "\t\t\tdata={${6:data}}",
+      "\t\t\tdata={${5:data}}",
       "\t\t\trenderItem={renderItem}",
-      "\t\t\tkeyExtractor={(item) => item.${7:id}}",
+      "\t\t\tkeyExtractor={(item) => item.${2:id}}",
       "\t\t/>",
       "\t);",
       "};",
@@ -77,7 +78,7 @@
       "\t},",
       "});",
       "",
-      "export default ${1:${TM_FILENAME_BASE}};"
+      "export default ${4:ComponentName};"
     ],
     "description": "React Native FlatList component"
   },
@@ -87,7 +88,7 @@
       "import React from 'react';",
       "import { View, Text, StyleSheet } from 'react-native';",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "const ${1:ComponentName} = () => {",
       "\treturn (",
       "\t\t<View style={styles.container}>",
       "\t\t\t<Text style={styles.text}>$0</Text>",
@@ -106,7 +107,7 @@
       "\t},",
       "});",
       "",
-      "export default ${1:${TM_FILENAME_BASE}};"
+      "export default ${1:ComponentName};"
     ],
     "description": "React Native component with StyleSheet"
   },
@@ -118,12 +119,12 @@
       "import type { NativeStackScreenProps } from '@react-navigation/native-stack';",
       "",
       "type RootStackParamList = {",
-      "\t${1:${TM_FILENAME_BASE}}: undefined;",
+      "\t${1:ScreenName}: undefined;",
       "};",
       "",
-      "type Props = NativeStackScreenProps<RootStackParamList, '${1:${TM_FILENAME_BASE}}'>;",
+      "type Props = NativeStackScreenProps<RootStackParamList, '${1:ScreenName}'>;",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = ({ navigation }: Props) => {",
+      "const ${2:ComponentName} = ({ navigation }: Props) => {",
       "\treturn (",
       "\t\t<View style={styles.container}>",
       "\t\t\t<Text>$0</Text>",
@@ -139,7 +140,7 @@
       "\t},",
       "});",
       "",
-      "export default ${1:${TM_FILENAME_BASE}};"
+      "export default ${2:ComponentName};"
     ],
     "description": "React Native Stack Navigator screen"
   }
