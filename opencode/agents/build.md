@@ -101,12 +101,112 @@ When documenting code, write comprehensive JSDoc/TSDoc comments for all exports.
 
 ## Subagent Dispatch
 
-For complex multi-file tasks or independent parallel work, use the `subagent-driven-development` skill workflow:
+For large tasks or independent parallel work, dispatch subagents using the `subagent-driven-development` skill workflow.
 
-- Dispatch a fresh subagent per task with full task text and context.
-- Follow the two-stage review process (spec compliance, then code quality).
-- Wait for the subagent to report back.
-- Verify the result before committing.
+### Core Rule: One Goal Per Subagent
+
+Every subagent receives exactly one goal from the main agent. No two subagents should work on the same task or file. The main agent is responsible for:
+
+1. **Assigning unique goals** — Each subagent gets a distinct, non-overlapping objective
+2. **Providing full context** — The subagent must understand the task without reading external files
+3. **Preventing overlap** — Verify no two subagents touch the same file before dispatching
+4. **Coordinating output** — Collect results from all subagents before proceeding
+
+### When to Split a Task into Subagents
+
+**Split criteria — if ANY of these apply, dispatch subagents:**
+
+| Signal | Example | Action |
+|--------|---------|--------|
+| **3+ files to modify** | Auth system touching routes, middleware, DB, tests | Split into parallel subagents |
+| **Independent workstreams** | API endpoint + UI component + DB migration | Dispatch one subagent per workstream |
+| **Task > 15 minutes estimated** | Full CRUD feature with tests | Break into smaller subagent tasks |
+| **Multiple test suites** | Unit tests + E2E tests + integration tests | Dispatch per test domain |
+| **Parallel-safe work** | Refactoring unrelated modules simultaneously | Dispatch in parallel |
+
+**Keep in main session — do NOT split:**
+
+| Signal | Why |
+|--------|-----|
+| Files have tight coupling | Changes depend on each other |
+| Task < 5 minutes | Overhead of dispatch exceeds benefit |
+| Requires full system context | Subagent can't operate in isolation |
+| Sequential dependencies | Task B needs Task A's output |
+
+### Agent Type Selection
+
+Choose the right subagent type based on the job:
+
+| Job Type | Subagent Type | When |
+|----------|--------------|------|
+| **Implementation** | `general` | Writing code, creating files, modifying existing code |
+| **Research** | `research` | Investigating APIs, libraries, documentation |
+| **Exploration** | `explore` | Codebase navigation, finding files, understanding patterns |
+| **Review** | `general` | Code review, security audit, spec compliance |
+
+### Task Sizing Guide
+
+| Size | Description | Subagent Count | Review |
+|------|-------------|---------------|--------|
+| **Small** (1-2 files, <5 min) | Single focused change | 0 (do in main) | Self-review |
+| **Medium** (2-4 files, 5-15 min) | Feature component or focused refactor | 1 subagent | Spec reviewer |
+| **Large** (4-8 files, 15-30 min) | Full feature or major refactor | 2-3 subagents | Spec + code quality reviewer |
+| **XL** (8+ files, 30+ min) | Cross-cutting feature or system change | 3-5 subagents in parallel | Full review pipeline |
+
+### Dispatch Process
+
+1. **Analyze the plan** — Identify which tasks are independent vs. coupled
+2. **Assign unique goals** — Each subagent gets ONE clear goal with no overlap
+3. **Group coupled tasks** — Sequential tasks become one subagent assignment
+4. **Dispatch independent tasks in parallel** — Use `task` tool with `subagent_type: general` for implementation, `research` for investigation, `explore` for codebase queries
+5. **Provide full context** — Each subagent gets: exact file paths, task description, acceptance criteria, relevant code snippets
+6. **Verify no overlap** — Before dispatching, confirm no two subagents will touch the same file
+7. **Review results** — After subagents return:
+   - Verify no file conflicts between parallel subagents
+   - Run full build/lint/test to confirm integration
+   - Address any spec gaps or quality issues
+
+### Goal Assignment Template
+
+Every subagent dispatch must include a clear, unique goal:
+
+```
+Goal: [ONE specific thing this subagent must achieve — be precise]
+Context: [What this task is part of]
+Files: [Exact paths to create/modify — ONLY this subagent touches these]
+Constraints: [What NOT to change, security requirements]
+Acceptance: [How to verify success]
+Output: [What to report back]
+```
+
+> [!IMPORTANT]
+> No two subagents should receive the same goal or file paths. If goals overlap, merge them into one subagent assignment.
+
+### Example: Large Feature Dispatch
+
+```markdown
+Feature: User Authentication System
+Plan tasks: 8 tasks across 6 files
+
+Analysis:
+- Tasks 1-3 (DB schema, types, validation): sequential → Subagent A
+  Goal: "Create user DB schema, TypeScript types, and Zod validators"
+  Files: schema.prisma, types/user.ts, validators/user.ts
+- Tasks 4-5 (API routes, middleware): depend on A → Subagent B (after A completes)
+  Goal: "Implement user API routes and auth middleware"
+  Files: routes/user.ts, middleware/auth.ts
+- Tasks 6-7 (UI components): independent of API → Subagent C (parallel with A)
+  Goal: "Build user registration and login UI components"
+  Files: components/RegistrationForm.tsx, components/LoginForm.tsx
+- Task 8 (E2E tests): depends on all → main session (after B+C complete)
+
+Dispatch:
+1. Subagent A + Subagent C in parallel (no file overlap)
+2. Wait for both
+3. Subagent B (sequential, needs A's output)
+4. Wait for B
+5. Main session: Task 8 (tests)
+```
 
 ## Entry Protocol — Recognize Your Task
 

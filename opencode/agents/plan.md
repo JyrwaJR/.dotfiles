@@ -32,7 +32,7 @@ Follow its mandate: if there is even a 1% chance a relevant skill applies, invok
 - Load the `brainstorming` skill (via the skill tool) when the user has an open-ended idea that needs design exploration before planning.
 - Use sequential-thinking for deep reasoning when needed.
 - Tag every task with its type: `[SEC]`, `[DESIGN]`, `[TEST]`, `[IMPL]`, `[REVIEW]`.
-- Spawn at least 2 sub-agents to review the plan draft before presenting it for user approval.
+- Decompose tasks for subagent dispatch (one goal per subagent, no file overlap).
 - Present the plan for user approval.
 - Hand off to the build agent once approved.
 
@@ -47,6 +47,76 @@ When a problem requires careful analysis before a plan can be made:
 5. Use this for: architectural decisions, trade-off analysis, root cause investigation, or any problem where the right approach isn't obvious.
 
 This is built into the plan agent — you do not need to hand off to a separate "think" agent.
+
+## Subagent Task Dispatch
+
+When decomposing tasks, plan for subagent execution from the start.
+
+### Core Rule: One Goal Per Subagent
+
+Every subagent receives exactly one goal from the main agent. No two subagents should work on the same task or file. The plan must:
+
+1. **Assign unique goals** — Each task gets a distinct, non-overlapping objective
+2. **Declare file ownership** — Explicitly state which files each subagent touches
+3. **Prevent overlap** — No two tasks should modify the same file
+4. **Specify dependencies** — Clearly state which tasks block others
+
+### Task Decomposition for Subagents
+
+Each plan task should be designed to be assignable to a subagent. Apply these rules:
+
+**Task granularity:**
+
+| Criteria | Target |
+|----------|--------|
+| Estimated time | 2-10 minutes per subagent assignment |
+| Files touched | 1-4 files per subagent |
+| Dependencies | Explicitly declared ("depends on Task N") |
+| Testability | Independently verifiable deliverable |
+
+**Grouping rules:**
+
+| Pattern | Action |
+|---------|--------|
+| Tasks touching the same file | Combine into one subagent assignment |
+| Tasks with no dependencies | Can be dispatched in parallel |
+| Tasks with shared state | Must be sequential (same subagent or ordered dispatch) |
+| Cross-cutting concerns (types, utils) | Dispatch first as prerequisite |
+
+### Subagent Assignment Labels
+
+Add labels to plan tasks to indicate subagent dispatch:
+
+| Label | Meaning |
+|-------|--------|
+| `[SUBAGENT]` | Designed for subagent dispatch |
+| `[PARALLEL]` | Can run alongside other `[PARALLEL]` tasks |
+| `[SEQUENTIAL:N]` | Must run after Task N completes |
+| `[MAIN]` | Must be done in main session (needs full context) |
+| `[PREREQ]` | Must complete before dependent tasks start |
+
+### Example Plan Task with Subagent Labels
+
+```markdown
+### Task 3: Create User API Route [SUBAGENT] [PARALLEL]
+
+**Goal:** Implement the user CRUD API endpoint with proper validation
+**Depends on:** Task 1 (types), Task 2 (DB schema)
+**Files:** (only this task touches these)
+- Create: `src/app/api/users/route.ts`
+- Modify: `src/lib/validators.ts`
+
+...
+```
+
+### Review Process (Replaces Old Reviewer Gate)
+
+The old 2-reviewer gate is replaced with subagent-native review:
+
+1. **Self-review** — Each subagent self-reviews before reporting done
+2. **Spec compliance** — Main agent verifies subagent output matches the goal
+3. **Integration check** — Run build/lint/test after all subagents complete
+4. **Conflict resolution** — If subagents touched overlapping files, resolve before committing
 
 ## Boundaries — What You Must NOT Do
 
@@ -69,41 +139,6 @@ Before writing a plan, determine if the user's request needs design exploration:
 
 - **Well-defined request** (clear requirements, known approach) → proceed directly to `writing-plans`.
 - **Vague or open-ended request** (tradeoffs, multiple approaches, unclear requirements) → load the `brainstorming` skill first to explore requirements and design alternatives before writing the plan.
-
-## Plan Review Gate
-
-Before submitting any plan to the user, you **must** have it reviewed by at least 2 sub-agents. This catches gaps, contradictions, and unforced errors before the user sees it.
-
-### Reviewers
-
-Dispatch 2 sub-agents in parallel, each with a distinct focus:
-
-| Reviewer | Focus Area | What They Check |
-|---|---|---|
-| **Reviewer 1 — Completeness** | Spec coverage, task decomposition, requirements mapping | Does every requirement from the spec/request map to a task? Are tasks bite-sized (2-5 min)? Are there placeholder gaps (TBD, TODO)? Are file paths exact? |
-| **Reviewer 2 — Soundness** | Technical correctness, edge cases, actionability | Do the code snippets compile conceptually? Are the types/method signatures consistent across tasks? Are edge cases and error paths considered? Is the plan actually executable? |
-
-### Process
-
-1. **Draft the plan** — Use `writing-plans` skill to produce the full plan draft.
-2. **Dispatch reviewers** — Use the `Task` tool to spawn both reviewers simultaneously, providing them with:
-   - The full plan draft
-   - Their specific focus area (from the table above)
-   - The original request/requirements context
-3. **Collect feedback** — Wait for both reviewers to return.
-4. **Address issues** — Fix all issues flagged by reviewers before proceeding. If reviewers disagree, use your judgment.
-5. **Submit** — Only after both reviews are clear, submit the plan via `submit_plan`.
-
-### What Reviewers Do NOT Do
-
-- They do not write code.
-- They do not modify the plan themselves.
-- They only return a list of findings (blockers, warnings, suggestions).
-
-### Skipping the Gate
-
-> [!CAUTION]
-> Never skip the review gate. "Simple" plans are where the most assumptions go unexamined. If the plan is truly trivial (a single file rename, a config change), a single reviewer may suffice — but a review must still happen.
 
 ## Plan Presentation Protocol
 

@@ -16,6 +16,7 @@ tags: []
 2. [Tech Stack Defaults](#2-tech-stack-defaults)
 3. [Coding Conventions](#3-coding-conventions)
 4. [Agent Roles & Mode Protocol](#4-agent-roles--mode-protocol)
+4.5. [Subagent Task Dispatch Protocol](#45-subagent-task-dispatch-protocol)
 5. [Universal Execution Protocol](#5-universal-execution-protocol)
 5.5. [Configured MCP Servers](#55-configured-mcp-servers)
 6. [Security-First Mandate](#6-security-first-mandate)
@@ -186,6 +187,79 @@ This project operates **2 agent modes**: PLAN and BUILD. Every feature follows: 
 - Never make architectural changes without a plan
 - Never skip TDD
 - Never commit without review gate passing
+
+### 🤖 Subagent Task Dispatch Protocol
+
+Large tasks should be automatically split across multiple subagents. This section defines when and how to dispatch.
+
+#### Core Rule: One Goal Per Subagent
+
+Every subagent receives exactly ONE clear goal from the main agent. No two subagents should work on the same task or file. The main agent is responsible for:
+
+1. **Assigning unique goals** — Each subagent gets a distinct, non-overlapping objective
+2. **Declaring file ownership** — Explicitly state which files each subagent touches
+3. **Preventing overlap** — Verify no two subagents touch the same file before dispatching
+4. **Coordinating output** — Collect results from all subagents before proceeding
+
+#### Task Size Classification
+
+| Size | Criteria | Estimated Time | Agent Approach |
+|------|----------|---------------|----------------|
+| **XS** | 1 file, 1 change | <2 min | Inline (no subagent) |
+| **S** | 1-2 files, focused change | 2-5 min | Inline (no subagent) |
+| **M** | 2-4 files, feature component | 5-15 min | 1 subagent |
+| **L** | 4-8 files, full feature | 15-30 min | 2-3 subagents |
+| **XL** | 8+ files, cross-cutting | 30+ min | 3-5 subagents in parallel |
+
+#### When to Dispatch Subagents
+
+**MUST dispatch if:**
+- 3+ independent tasks exist that don't share state
+- Multiple subsystems need parallel changes
+- Task involves both API + UI + DB (different workstreams)
+- Research questions are independent and parallelizable
+
+**Should NOT dispatch if:**
+- Tasks are tightly coupled (B depends on A's output)
+- Task is XS or S size
+- Requires full system context that can't be passed to subagent
+- Only 1-2 tasks remain in the plan
+
+#### Agent Type Selection
+
+| Job | Subagent Type | Tools |
+|-----|--------------|-------|
+| Code implementation | `general` | All tools |
+| API/library research | `research` | Read, search, web |
+| Codebase exploration | `explore` | Read, glob, grep |
+| Code review | `general` | Read, grep, glob |
+| Documentation | `general` | Read, write, edit |
+
+#### Parallel Dispatch Rules
+
+1. **Identify independence** — Group tasks by shared state/dependencies
+2. **Assign unique goals** — Each subagent gets ONE clear, non-overlapping objective
+3. **Dispatch independent groups in parallel** — Use `task` tool
+4. **Wait for all parallel subagents** — Do not proceed until all return
+5. **Check for conflicts** — Verify no file overlaps between subagent results
+6. **Run integration verification** — Build, lint, test after all subagents complete
+7. **Handle sequential dependencies** — Dispatch next batch only after prerequisites finish
+
+#### Goal Assignment Template
+
+Every subagent dispatch must include:
+
+```
+Goal: [ONE specific thing this subagent must achieve — be precise]
+Context: [What this task is part of]
+Files: [Exact paths to create/modify — ONLY this subagent touches these]
+Constraints: [What NOT to change, security rules]
+Acceptance: [How to verify success]
+Output: [What to report back — summary of changes]
+```
+
+> [!IMPORTANT]
+> Never make subagents read plan files or AGENTS.md — provide all needed context directly in the prompt. No two subagents should receive the same goal or file paths.
 
 ---
 

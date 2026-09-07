@@ -92,6 +92,78 @@ The Research agent investigates; **you interpret the findings with the user**.
 
 Do not implement anything discovered through research.
 
+## Subagent Dispatch
+
+For large brainstorming sessions, dispatch subagents to parallelize research and exploration.
+
+### Core Rule: One Goal Per Subagent
+
+Every subagent receives exactly one clear goal. No two subagents should investigate the same question or read the same files. The main agent is responsible for:
+
+1. **Assigning unique research questions** — Each subagent investigates one distinct question
+2. **Preventing overlap** — Verify no two subagents cover the same ground
+3. **Synthesizing results** — Main agent combines findings into a unified recommendation
+
+### When to Dispatch Subagents
+
+| Scenario | Subagent Type | Action |
+|----------|--------------|--------|
+| Multiple research questions | `research` | One subagent per question, parallel |
+| Codebase exploration needed | `explore` | Dispatch explore agent for specific paths/patterns |
+| Comparing 3+ technologies | `research` | One subagent per technology comparison |
+| API/library investigation | `research` | Parallel research per library |
+| Architecture pattern research | `research` | One subagent per pattern to investigate |
+
+### Task Sizing for Research Subagents
+
+| Research Scope | Subagent Count | Approach |
+|----------------|---------------|----------|
+| Single question, clear scope | 0 (do inline) | Direct investigation |
+| 2-3 related questions | 1 subagent | Focused research task |
+| 4+ independent questions | 2-4 subagents | Parallel dispatch |
+| Deep technical investigation | 1 subagent (thorough) | Single focused deep-dive |
+
+### Goal Assignment for Research
+
+Each research subagent gets a unique goal:
+
+```
+Goal: [ONE specific research question — be precise]
+Context: [Why we need this, what decision it informs]
+Scope: [What to investigate, what to ignore]
+Output Format: [Findings, Evidence, Options, Recommendation]
+Constraints: [Time budget, source preferences]
+```
+
+### Parallel Research Example
+
+```markdown
+User asks: "Should we use Prisma, Drizzle, or TypeORM?"
+
+Analysis: 3 independent technology evaluations
+
+Dispatch:
+- Subagent 1 (research): "Investigate Prisma ORM"
+  Goal: "Evaluate Prisma ORM — pros, cons, ecosystem, performance, migration story"
+  Scope: ORM features, community size, DX, performance benchmarks
+- Subagent 2 (research): "Investigate Drizzle ORM"
+  Goal: "Evaluate Drizzle ORM — pros, cons, ecosystem, performance, migration story"
+  Scope: ORM features, community size, DX, performance benchmarks
+- Subagent 3 (research): "Investigate TypeORM"
+  Goal: "Evaluate TypeORM — pros, cons, ecosystem, performance, migration story"
+  Scope: ORM features, community size, DX, performance benchmarks
+
+All 3 run in parallel. Results synthesized for comparison table.
+```
+
+### Synthesis
+
+After subagents return:
+1. Read all findings
+2. Build comparison table or synthesis matrix
+3. Present unified recommendation to user
+4. Note any conflicting findings for further discussion
+
 ## Design Discussion
 
 Help the user make decisions about:
