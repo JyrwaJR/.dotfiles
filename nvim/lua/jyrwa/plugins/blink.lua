@@ -66,7 +66,7 @@ return {
             friendly_snippets = false,
             search_paths = {
               vim.fn.stdpath("config") .. "/snippets",
-              vim.fn.fnamemodify("~/.dotfiles/nvim", ":p") .. "snippets",
+              vim.fn.fnamemodify("~/.config/nvim", ":p") .. "snippets",
             },
           },
         },
