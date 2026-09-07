@@ -49,14 +49,13 @@ return {
     end,
     desc = "Dismiss All Notifications",
   },
-
-  Git({
+  {
     "<leader>GG",
     function()
       Snacks.lazygit()
     end,
     desc = "Lazygit",
-  }),
+  },
   {
     "<leader>gl",
     function()
