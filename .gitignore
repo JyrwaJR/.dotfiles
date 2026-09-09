@@ -34,3 +34,4 @@ tanstack/cli.json
 
 # Local secrets — never commit
 .env.local
+opencode
