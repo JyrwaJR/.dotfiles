@@ -1,6 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
+${custom.ssh_info}\
 $directory\
 $git_branch\
 $git_status\
@@ -114,6 +115,34 @@ min_time = 500
 style = 'fg:custom_foreground'
 format = '[$duration]($style)'
 
+# SSH / Local identity
+[custom.ssh_info]
+command = '''
+OS="$(uname -s)"
+
+case "$OS" in
+    Darwin)
+        ICON=""
+        ;;
+    Linux)
+        ICON="󰌽"
+        ;;
+    *)
+        ICON="󰀻"
+        ;;
+esac
+
+if [ -n "$SSH_CONNECTION" ]; then
+    printf "%s SSH  %s@%s" "$ICON" "$USER" "$(hostname)"
+else
+    printf "%s LOCAL  %s@%s" "$ICON" "$USER" "$(hostname)"
+fi
+''' 
+when = "true"
+shell = ["bash", "--noprofile", "--norc"]
+format = "[$output]($style)\n"
+style = "bold cyan"
+
 # Custom Palette
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
@@ -147,12 +176,12 @@ crust = "#11111b"
 # custom_dark_blue = '#214969'      # Matches the first color from the ansi array
 # custom_blue = '#0FC5ED'           # From the ansi array
 # custom_red = '#E52E2E'            # From the ansi array
-# custom_green = '#44FFB1'          # From the ansi array
-# custom_teal = '#24EAF7'           # Custom teal color
+# custom_green = '#44FFB1'           # From the ansi array
+# custom_teal = '#24EAF7'            # Custom teal color
 # custom_orange = '#BE5046'         # You can map the cursor color or adjust
 # custom_yellow = '#FFE073'         # From the ansi array
 # custom_purple = '#A277FF'         # From the brights array
 # custom_gray = '#828997'           # Custom gray
 # custom_foreground = '#CBE0F0'     # Foreground color from config
 # custom_background = '#011423'     # Background color from config
-# custom_cursor = '#47FF9C'         # Cursor color
+# custom_cursor = '#47FF9C'         # Custom cursor color
