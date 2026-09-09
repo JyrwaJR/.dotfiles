@@ -1,7 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-${custom.ssh_info}\
 $directory\
 $git_branch\
 $git_status\
@@ -18,6 +17,7 @@ $docker_context\
 $jobs\
 $cmd_duration\
 $line_break\
+${custom.ssh_info}\
 $character"""
 
 add_newline = true
@@ -140,7 +140,7 @@ fi
 ''' 
 when = "true"
 shell = ["bash", "--noprofile", "--norc"]
-format = "[$output]($style)\n"
+format = "[$output]($style) "
 style = "bold cyan"
 
 # Custom Palette
