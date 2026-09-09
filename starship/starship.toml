@@ -133,14 +133,12 @@ case "$OS" in
 esac
 
 if [ -n "$SSH_CONNECTION" ]; then
-    printf "%s SSH  %s@%s" "$ICON" "$USER" "$(hostname)"
-else
-    printf "%s LOCAL  %s@%s" "$ICON" "$USER" "$(hostname)"
+    printf "%s SSH  %s@%s " "$ICON" "$USER" "$(hostname)"
 fi
 ''' 
 when = "true"
 shell = ["bash", "--noprofile", "--norc"]
-format = "[$output]($style) "
+format = "[$output]($style)"
 style = "bold cyan"
 
 # Custom Palette
