@@ -19,6 +19,8 @@ $docker_context\
 $jobs\
 $cmd_duration\
 $line_break\
+[│](lavender)\
+$line_break\
 [└─](lavender)\
 $character"""
 
