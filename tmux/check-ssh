@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# check-ssh — detect whether a tmux client is connected over SSH.
+#
+# The tmux status bar cannot see the client's environment (status commands
+# run with the tmux server's environment), so instead of checking
+# $SSH_CONNECTION this walks up the parent-process chain from the client PID
+# (passed as an argument via #{client_pid}) looking for an sshd or
+# mosh-server process. This works even when the tmux server was started
+# before the SSH connection existed.
+#
+# Usage:
+#   check-ssh u <client-pid>   prints " ssh "    (for a red ssh segment)
+#   check-ssh n <client-pid>   prints the username (for a green segment)
+#
+# Prints nothing when the client is not connected over SSH, so tmux renders
+# an empty segment and the indicator stays hidden. No side effects.
+
+mode=$1
+pid=$2
+
+is_ssh=
+
+for _ in 1 2 3 4 5 6 7 8; do
+    [ -n "$pid" ] || break
+    comm=$(ps -o comm= -p "$pid" 2>/dev/null) || break
+    case "$comm" in
+        *sshd* | *mosh-server*)
+            is_ssh=1
+            break
+            ;;
+    esac
+    pid=$(ps -o ppid= -p "$pid" 2>/dev/null | tr -d ' ')
+done
+
+if [ "$is_ssh" = 1 ]; then
+    case "$mode" in
+        u) printf ' ssh ' ;;
+        n) whoami ;;
+    esac
+fi
