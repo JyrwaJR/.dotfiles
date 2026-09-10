@@ -6,10 +6,11 @@ gh
 ngrok
 .android
 swiftpm
+pnpm
+configstore
 .env.*
 .env
 /nvim/.env
-gh
 
 .gemini/
 gha-creds-*.json
@@ -25,12 +26,12 @@ snyk/
 
 # opencode memory database
 opencode/memory/db/*.db
-context7/credentials.json
+context7
 node_modules/
 opencode/antigravity-accounts.json
-homebrew/trust.json.lock
+homebrew
 opencode/skills/.DS_Store
-tanstack/cli.json
+tanstack
 
 # Local secrets — never commit
 .env.local
