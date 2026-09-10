@@ -17,7 +17,6 @@ $docker_context\
 $jobs\
 $cmd_duration\
 $line_break\
-${custom.ssh_info}\
 $character"""
 
 add_newline = true
@@ -114,32 +113,6 @@ format = '[$symbol]($style)'
 min_time = 500
 style = 'fg:custom_foreground'
 format = '[$duration]($style)'
-
-# SSH / Local identity
-[custom.ssh_info]
-command = '''
-OS="$(uname -s)"
-
-case "$OS" in
-    Darwin)
-        ICON=""
-        ;;
-    Linux)
-        ICON="󰌽"
-        ;;
-    *)
-        ICON="󰀻"
-        ;;
-esac
-
-if [ -n "$SSH_CONNECTION" ]; then
-    printf "%s SSH  %s@%s " "$ICON" "$USER" "$(hostname)"
-fi
-''' 
-when = "true"
-shell = ["bash", "--noprofile", "--norc"]
-format = "[$output]($style)"
-style = "bold cyan"
 
 # Custom Palette
 [palettes.catppuccin_macchiato]
