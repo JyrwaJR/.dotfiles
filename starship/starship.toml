@@ -1,7 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[┏━ ](lavender)\
+[┌─ ](lavender)\
 ${custom.ssh_info}\
 $directory\
 $git_branch\
@@ -19,7 +19,7 @@ $docker_context\
 $jobs\
 $cmd_duration\
 $line_break\
-[┗━](lavender)\
+[└─](lavender)\
 $character"""
 
 add_newline = true
@@ -119,9 +119,9 @@ format = '[$duration]($style)'
 
 # SSH indicator — shows only when connected over SSH
 [custom.ssh_info]
-command = 'whoami'
+command = "whoami | awk '{print toupper(substr($1,1,1)) substr($1,2)}'"
 when = '[ -n "$SSH_CONNECTION" ]'
-format = '[󰊄 $output ]($style)'
+format = '[  $output ]($style)'
 style = 'bold cyan'
 
 # Custom Palette
